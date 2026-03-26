@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>封面</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+
+  .cover {
+    width: 1200px;
+    height: 1700px;
+    background: linear-gradient(175deg, #6b1520 0%, #8b1a2a 30%, #7a1525 60%, #5a1018 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 160px 100px;
+    position: relative;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 1400px 1000px at 50% 45%, rgba(255,255,255,0.03) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .big-title {
+    font-family: "Noto Serif SC", "STSong", "Songti SC", serif;
+    font-weight: 900;
+    color: rgba(255,240,230,0.95);
+    text-align: center;
+    line-height: 1.15;
+    position: relative;
+    z-index: 1;
+  }
+
+  .big-title .line1,
+  .big-title .line2,
+  .big-title .line3 {
+    font-size: 200px;
+    letter-spacing: 40px;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+    font-size: 22px;
+    color: rgba(255,200,180,0.35);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-top: 80px;
+    position: relative;
+    z-index: 1;
+    font-weight: 300;
+  }
+
+  .top-line {
+    position: absolute;
+    top: 120px;
+    width: 80px;
+    height: 3px;
+    background: rgba(255,200,170,0.2);
+  }
+
+  .author {
+    position: absolute;
+    bottom: 130px;
+    font-family: "Noto Sans SC", "STHeiti", "Heiti SC", sans-serif;
+    font-size: 28px;
+    color: rgba(255,220,200,0.35);
+    letter-spacing: 16px;
+    font-weight: 300;
+    z-index: 1;
+  }
+
+  .bottom-accent {
+    position: absolute;
+    bottom: 200px;
+    width: 60px;
+    height: 2px;
+    background: rgba(255,200,170,0.15);
+  }
+</style>
+</head>
+<body>
+  <div class="cover" id="cover">
+    <div class="top-line"></div>
+    <div class="big-title">
+      <span class="line1">正本</span>
+      <span class="line2">清源</span>
+      <span class="line3">比特币</span>
+    </div>
+    <div class="subtitle">Bitcoin: The Path to Satoshi's Vision</div>
+    <div class="bottom-accent"></div>
+    <div class="author">佟 晓 峰</div>
+  </div>
+</body>
+</html>

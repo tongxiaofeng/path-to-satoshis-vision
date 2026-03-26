@@ -57,6 +57,9 @@
   subsection/format = \large\bfseries,
 }
 
+% ── Graphics (for cover image) ───────────────────────────────────
+\usepackage{graphicx}
+
 % ── Misc ──────────────────────────────────────────────────────────
 \usepackage{indentfirst}
 \setlength{\parindent}{2em}
@@ -67,17 +70,12 @@
 
 \begin{document}
 
-% ── Title page ────────────────────────────────────────────────────
+% ── Cover page (full-bleed image) ─────────────────────────────────
+\newgeometry{margin=0pt}
 \begin{titlepage}
-\centering
-\vspace*{5cm}
-{\Huge\bfseries 正本清源比特币\par}
-\vspace{1.5cm}
-{\Large\itshape Bitcoin: The Path to Satoshi's Vision\par}
-\vspace{3cm}
-{\Large 佟晓峰\par}
-\vfill
+\noindent\includegraphics[width=\paperwidth,height=\paperheight]{../covers/cover@2x.png}
 \end{titlepage}
+\restoregeometry
 
 % ── Table of contents ─────────────────────────────────────────────
 \frontmatter

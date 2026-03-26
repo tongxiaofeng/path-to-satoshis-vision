@@ -15,6 +15,9 @@ for f in "$CHAPTERS_DIR"/*.md; do
 done
 echo "    Copied $(ls "$CHAPTERS_DIR"/*.md | wc -l | tr -d ' ') chapter files"
 
+echo "==> Syncing cover image"
+cp "$PROJECT_ROOT/covers/cover.png" "$BOOK_SRC/cover.png"
+
 echo "==> Building mdBook site"
 cd "$PROJECT_ROOT/book"
 mdbook build
