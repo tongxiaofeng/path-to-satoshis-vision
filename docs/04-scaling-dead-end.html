@@ -1,0 +1,362 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>第四章：扩容的死胡同 - 正本清源比特币</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="Bitcoin: The Path to Satoshi&#x27;s Vision">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="custom-cbdc12bd.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-e84ab39c.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-d8d8ae9b.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">正本清源比特币</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/tongxiaofeng/path-to-satoshis-vision" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/tongxiaofeng/path-to-satoshis-vision/edit/main/chapters/src/04-scaling-dead-end.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                            <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="第四章扩容的死胡同"><a class="header" href="#第四章扩容的死胡同">第四章：扩容的死胡同</a></h1>
+<p>上一章我们追溯了以太坊的诞生逻辑：因为误以为比特币“不能做“智能合约，所以另起炉灶建了一个“世界计算机“。这个新系统的核心架构选择——账户模型和全局共享状态——在当时看来是对比特币“局限性“的合理改进。但架构选择不是免费的。每一个设计决策都有代价，有些代价在系统规模小的时候看不出来，只有在系统需要扩展到全球规模时，才会暴露出真面目。</p>
+<p>这一章要回答一个问题：以太坊为什么扩不了容？不是“还没有扩好“，不是“正在努力“，而是——从架构层面，它根本不可能扩到足以承载全球交易的规模。而更糟糕的是，围绕这个不可能的目标，行业发明了一系列“解决方案“——分片、Rollup、L2、EVM 兼容链——每一个都许诺了美好的未来，每一个最终都通向同一条死胡同。</p>
+<h2 id="全局状态焊死的天花板"><a class="header" href="#全局状态焊死的天花板">全局状态：焊死的天花板</a></h2>
+<p>要理解以太坊的扩容困境，必须先理解它的数据架构与比特币有什么根本不同。</p>
+<p>比特币采用 UTXO 模型。每一笔比特币就像一枚独立的硬币——它有明确的来源（上一笔交易的输出），有明确的金额，有明确的所有权条件（锁定脚本）。你花一枚硬币，不需要查询任何“全局余额表“，只需要证明这枚硬币属于你、你有权花它。两个人同时花各自手里的硬币，互不干扰——因为两枚硬币之间没有任何数据依赖。</p>
+<p>以太坊选了一条完全不同的路：账户模型。</p>
+<p>在以太坊中，每个地址对应一个“账户“，账户里存着余额、nonce（交易序号）、合约代码和存储数据。所有这些信息构成一棵巨大的状态树——以太坊把它叫做“世界状态“（World State）。每一笔交易的执行，本质上都是对这棵状态树的一次读写操作：读取发送方的余额和 nonce，验证合法性，扣除余额，增加接收方余额，更新 nonce。如果涉及智能合约，还要读取合约的存储槽、执行合约逻辑、写回修改后的状态。</p>
+<p>问题出在哪里？</p>
+<p>出在“全局“二字。以太坊的世界状态是一个所有账户、所有合约共享的单一数据结构。对同一个账户的多笔交易，必须严格按顺序处理——先扣第一笔，再扣第二笔，不能并行。nonce 的严格递增进一步锁死了串行性：你的第 100 笔交易必须在第 99 笔之后才能被处理。</p>
+<p>智能合约让这个问题更加严重。一个典型的 DeFi 交易——比如在 Uniswap 上兑换代币——可能涉及多个合约的状态：代币 A 的合约、代币 B 的合约、流动性池合约、路由合约……每个合约都有自己的存储状态，一笔交易可能需要同时读写多个合约的状态。当另一笔交易也涉及其中某个合约时，两笔交易就产生了状态冲突，必须串行执行。</p>
+<p>以太坊虚拟机（EVM）正是因此被设计成严格顺序执行的：一笔接一笔，绝不并行。这不是偶然的实现选择，而是账户模型的结构性必然。当你的整个系统共享一棵状态树，任何两笔涉及同一片状态的交易都必须排队等候，并行化在逻辑上就不可能。</p>
+<p>这就像一家银行只有一个柜台。不管外面排了多少人，每次只能办理一笔业务。你可以把柜台的办事速度提高——从十秒一笔变成五秒一笔——但你永远不可能通过加柜台来提速，因为所有业务都要操作同一本总账，而这本总账一次只能被一个柜员翻开。</p>
+<p>这就是以太坊的扩容天花板。它不在带宽上，不在存储上，不在计算速度上——而是焊死在数据结构本身。全局共享状态的串行访问，是一道无法通过加处理器核心突破的硬墙。</p>
+<p>截至 2025 年底，以太坊的全局状态已经膨胀到超过 1TB。以太坊基金会的研究者自己发出了警告：不断增长的状态存储负担正在让运行全节点变得越来越昂贵和脆弱。他们提出了三种缓解策略——状态过期（删除不活跃的数据）、状态归档（冷热数据分离）、部分无状态（让节点只存储部分状态）。注意用词：这些是“缓解“策略，不是解决方案。因为根本问题——全局状态的串行瓶颈——是账户模型的基因缺陷，不是可以通过工程优化来消除的。</p>
+<p>而比特币的 UTXO 模型天然不存在这个问题。每个 UTXO 是独立的状态单元，不引用任何全局状态。处理不同 UTXO 的交易之间数据依赖为零，可以被分配到不同的处理器核心上同时处理。冲突检测极其简单：只需检查两笔交易是否试图花费同一个 UTXO。这是计算机科学中最理想的并行化场景——零共享状态，零通信开销。</p>
+<p>中本聪选择 UTXO 模型不是偶然的。UTXO 模型把扩容的瓶颈推到了带宽和存储上——而这两者随硬件技术进步持续改善，是纯粹的工程问题。账户模型则把瓶颈焊死在数据结构本身——无论硬件多快，全局共享状态的串行访问始终是那道硬墙。</p>
+<h2 id="分片一个被放弃的承诺"><a class="header" href="#分片一个被放弃的承诺">分片：一个被放弃的承诺</a></h2>
+<p>以太坊社区很早就意识到了扩容问题。他们最初的答案是分片（sharding）。</p>
+<p>分片的思路直觉上很诱人：既然一条链处理不了那么多交易，那就把链切成 64 片，每片独立处理一部分交易，总吞吐量不就提高 64 倍了吗？这个思路在传统数据库领域是成立的——大型互联网公司的数据库经常被分片以提高并行处理能力。以太坊在 2018 年前后制定了雄心勃勃的分片路线图，计划将网络拆分为 64 个分片，每个分片独立执行交易和维护状态。</p>
+<p>但以太坊不是传统数据库。它有一个传统数据库没有的麻烦：DeFi 的可组合性。</p>
+<p>以太坊上的 DeFi 协议之所以强大，很大程度上是因为它们可以像乐高积木一样互相调用。一笔交易可以在同一个区块中先从 Aave 借款，然后在 Uniswap 上交易，再到 Compound 上存入——所有操作在同一个原子交易中完成，要么全部成功，要么全部失败。这就是所谓的“同步可组合性“（synchronous composability），它是以太坊 DeFi 生态的基石。</p>
+<p>一旦引入执行分片，这个基石就碎了。</p>
+<p>如果 Aave 在分片 A 上，Uniswap 在分片 B 上，Compound 在分片 C 上——上面那笔原子交易要怎么执行？它需要同时读写三个分片上的状态，而分片之间的通信是异步的。你不能像在同一条链上那样保证“要么全部成功，要么全部失败“。你需要复杂的跨分片通信协议、锁机制、回滚机制……而这些机制本身的复杂性和开销，很可能把分片带来的性能提升全部吃掉。</p>
+<p>更要命的是，在账户模型下，跨分片交易极难处理。两笔涉及同一个热门合约的交易——比如两个用户同时在 Uniswap 上交易——必须被路由到同一个分片上串行处理。结果是：最热门的合约所在的分片成了新的瓶颈，而冷清的分片闲置着。你用分片解决了一个瓶颈，却在另一个地方制造了同样的瓶颈。</p>
+<p>以太坊社区花了将近五年时间试图解决这些问题。最终，在 2022 年前后，以太坊悄悄放弃了执行分片，转向了所谓的“以 Rollup 为中心的路线图“（rollup-centric roadmap）。</p>
+<p>这个转向的意义比大多数人理解的更加深刻。它不是一次“策略调整“，不是“我们找到了更好的方案“。它是以太坊核心开发者对账户模型固有局限性的隐性承认。如果账户模型真的适合分片——像 UTXO 模型那样，每个状态单元自包含、互不依赖——执行分片早就实现了。正是因为全局共享状态在分片环境下无法维持一致性和原子性，执行分片才不得不被放弃。</p>
+<p>取而代之的是什么？是“数据分片“——不再尝试让多个分片独立执行交易，而只是让多个分片为 Rollup 提供更多的数据存储空间。L1 本身放弃了扩容执行的尝试，老老实实承认自己只能做一个“结算层“和“数据可用层“。</p>
+<p>换句话说：以太坊花了五年时间，得出了一个结论——它自己扩不了容，所以把扩容的希望全部押在了 Rollup 上。</p>
+<p>那么 Rollup 靠谱吗？</p>
+<h2 id="optimistic-rollup先信任再打官司"><a class="header" href="#optimistic-rollup先信任再打官司">Optimistic Rollup：先信任，再打官司</a></h2>
+<p>Rollup 的核心思路是这样的：既然以太坊 L1 处理交易太慢太贵，那就在链下处理交易，然后把结果提交回 L1 进行验证和记录。链下处理快且便宜，链上验证提供安全保障。听起来两全其美。</p>
+<p>但魔鬼藏在细节里。</p>
+<p>Optimistic Rollup——“乐观卷叠”——是目前使用最广泛的 Rollup 方案，Arbitrum、Optimism、Base 都采用这种技术。它的运作逻辑是这样的：</p>
+<p>一个叫做“排序器“（sequencer）的角色负责收集用户提交的交易，将它们排序、打包、执行，然后把执行结果（状态根）和交易数据一起提交到以太坊 L1。这里的关键假设是“乐观“的——系统默认排序器提交的结果是正确的，除非有人提出挑战。</p>
+<p>如果某个观察者发现排序器提交的结果有误，可以在“挑战期“内提交欺诈证明（fraud proof）。L1 上的合约会验证这个证明，如果确实有误，则回滚错误的状态，并惩罚排序器。</p>
+<p>挑战期是多久？七天。</p>
+<p>你没看错。从 L2 提取资产回 L1，你需要等七天。在这七天里，你的资产处于一种薛定谔的状态——理论上是你的，但你取不出来。如果排序器在这七天之内作恶呢？你必须等着有人发现并提交欺诈证明。如果没人发现呢？如果所有的挑战者都被审查了呢？如果网络拥堵导致欺诈证明无法在截止时间前提交呢？</p>
+<p>让我们把这个机制翻译成日常语言：你把钱交给一个中间人处理。这个中间人说“相信我，我做的都是对的“。如果他做错了，你有七天时间去告他。如果你在七天内没有告成功，他做的就自动变成“对的“了。</p>
+<p>这像什么？这不就是“先信任银行，银行出错了再去法院起诉“吗？</p>
+<p>白皮书第一节就指出了这种信任模型的致命缺陷：系统运作得“足够好“，但它仍然受到基于信任模式固有弱点的困扰。Optimistic Rollup 没有消除对可信第三方的依赖，它只是换了一种方式来依赖——从“信任银行不作恶“变成了“信任排序器不作恶，如果作恶了信任挑战者能及时发现并成功挑战“。信任链条更长了，但信任的本质没有变。</p>
+<p>更值得关注的是，目前几乎所有主流 Optimistic Rollup 的排序器都是中心化运行的。Arbitrum 的排序器由 Offchain Labs 运营。Optimism 的排序器由 OP Labs 运营。Base 的排序器由 Coinbase 运营。这些排序器决定了哪些交易被包含、以什么顺序执行。用户把交易发给排序器，排序器自行决定排序——这和用户把转账请求发给银行，银行自行处理，有什么本质区别？</p>
+<p>“去中心化排序器“一直在各个 L2 项目的路线图上，但截至 2026 年初，没有任何一个主流 Optimistic Rollup 真正实现了排序器的去中心化。一个在路线图上待了三年以上的核心功能，始终没有落地——这本身就说明问题。去中心化排序器之所以难以实现，正是因为它重新引入了以太坊 L1 已经在解决的同一个难题：如何在不信任任何人的条件下达成交易排序共识。如果 L2 为了去中心化必须重建一套共识机制，那 L2 的存在意义是什么？</p>
+<p>研究者在压力测试中还发现了一个更令人不安的事实：当并发交易量超过一定阈值时，中心化排序器会出现不稳定甚至宕机的情况——区块生产失败，交易停滞。这是一个单点故障（single point of failure），和传统中心化系统的脆弱性一模一样。</p>
+<p>Optimistic Rollup 许诺的是“以太坊级别的安全性，更低的成本“。实际交付的是：一个由中心化实体运营的交易处理系统，安全性依赖于一个七天挑战期的博弈机制，排序器可以审查交易、提取 MEV（最大可提取价值），用户提款需要等一周。这不是去中心化的扩容方案，这是把去中心化系统的交易外包给了中心化系统。</p>
+<h2 id="zk-rollup更精妙的中心化"><a class="header" href="#zk-rollup更精妙的中心化">ZK Rollup：更精妙的中心化</a></h2>
+<p>ZK Rollup——零知识证明卷叠——是另一条 Rollup 路线。它的理论基础比 Optimistic Rollup 更优雅：不需要七天挑战期，因为每一批交易都附带一个数学证明（零知识证明或有效性证明），L1 合约可以直接验证这个证明的正确性。如果证明验证通过，状态更新立即生效。不需要“先信任再追诉“，而是“数学证明不会撒谎“。</p>
+<p>这听起来确实更好。但“理论上更优雅“和“实际上能用“之间，隔着一条巨大的鸿沟。</p>
+<p>首先是证明生成的中心化问题。生成零知识证明是一个计算密集型任务，需要大量的算力和内存。目前所有主流 ZK Rollup——zkSync、StarkNet、Scroll、Linea——的证明生成都由项目方运营的中心化证明器（prover）完成。这意味着证明器拥有对交易批次的完全控制权：它决定哪些交易被包含在证明中，以什么顺序排列，何时提交证明。</p>
+<p>其次是 EVM 兼容性的困难。以太坊虚拟机不是为零知识证明设计的。将 EVM 的操作码一个个翻译成零知识证明电路（zkEVM），是一项极其复杂的工程。不同的 ZK Rollup 项目在 EVM 兼容性上做出了不同程度的妥协——有的完全兼容但证明生成极慢，有的牺牲兼容性换取更快的证明速度。截至目前，没有任何一个 zkEVM 能在不做任何妥协的情况下同时实现完全 EVM 兼容和高效证明生成。</p>
+<p>再次是成本问题。即使证明生成变得更快，它仍然需要大量的计算资源。这些成本最终会转嫁给用户。虽然 ZK Rollup 在理论上可以通过批量化来分摊成本——一个证明覆盖成千上万笔交易——但如果交易量不足以填满一个批次，单笔交易的成本反而可能更高。</p>
+<p>最后，也是最根本的问题：ZK Rollup 解决了什么？</p>
+<p>它解决了“如何在不信任排序器的情况下验证交易正确性“的问题。但它没有解决排序器本身的中心化问题——交易仍然由一个中心化的排序器收集和排序。它没有解决数据可用性问题——交易数据仍然需要被发布到 L1 以供任何人验证。它没有解决互操作性问题——不同 ZK Rollup 之间的资产转移仍然需要桥接。它没有解决碎片化问题——每一个 ZK Rollup 都是一个独立的执行环境，拥有自己的状态和用户。</p>
+<p>零知识证明是一项强大的密码学技术。但把它用在 Rollup 上，不过是给一个中心化的交易处理系统贴上了一层数学安全外衣。底层的架构问题——全局状态的串行瓶颈、L1 的有限容量、碎片化的生态——一个都没有解决。</p>
+<h2 id="dencun-升级修补而非突破"><a class="header" href="#dencun-升级修补而非突破">Dencun 升级：修补，而非突破</a></h2>
+<p>2024 年 3 月，以太坊完成了 Dencun 升级，核心内容是 EIP-4844，也叫 Proto-Danksharding。</p>
+<p>这个名字本身就值得玩味。“Proto“意思是“原型”，“Danksharding“是一种数据分片方案。所以这个升级是“数据分片的原型”——连正式版都不是。</p>
+<p>EIP-4844 引入了一种新的数据类型叫做“blob“（数据块）。Rollup 可以把交易数据打包成 blob 附在区块上，而不是写入以太坊的正式交易数据中。blob 有几个特点：对 EVM 不可见（合约无法读取 blob 中的数据），并且会在大约 18 天后自动删除。</p>
+<p>这个升级确实降低了 Rollup 向 L1 发布数据的成本——据报道降低了约 10 倍。这意味着 L2 上的交易费用也相应降低。</p>
+<p>但让我们看看这个升级的本质：以太坊 L1 为 Rollup 提供了更多、更便宜的临时数据存储空间。就是这样。L1 本身的执行能力没有任何提升。全局状态的串行瓶颈没有任何改变。升级的全部意义在于让 L1 更好地服务于 L2——这恰恰确认了以太坊已经彻底放弃了 L1 扩容的可能性。</p>
+<p>以太坊的路线图现在很明确：L1 不打算处理普通用户的交易。L1 的角色被重新定义为“结算层“和“数据可用层“。所有实际的交易执行都将发生在 L2 上。</p>
+<p>这意味着以太坊主动选择了这样一种架构：一个高成本、低吞吐的结算层，加上一堆各自为政的 L2 执行层。用户的交易在 L2 上被一个中心化排序器处理，处理结果和数据被提交到 L1 进行最终确认。</p>
+<p>让我们把这个架构和传统金融做个对比。银行的日常交易在各个分行处理（L2），最终结算在央行（L1）。你在分行办业务不需要等央行，但分行的可信度依赖于银行这个机构。以太坊的 L2 架构和这个模式有什么本质区别？</p>
+<p>区别在于：传统银行至少不会假装自己是“去中心化“的。</p>
+<h2 id="evm-兼容链复制缺陷的狂欢"><a class="header" href="#evm-兼容链复制缺陷的狂欢">EVM 兼容链：复制缺陷的狂欢</a></h2>
+<p>当以太坊自己都扩不了容的时候，行业的另一个反应是：复制以太坊。</p>
+<p>BNB Chain（原 BSC）、Polygon、Avalanche、Fantom、Cronos……数不清的公链选择了“EVM 兼容“这条路——直接复制以太坊的虚拟机，让以太坊上的智能合约可以几乎不做修改地部署到新链上。这在商业上是精明的策略：蹭以太坊的开发者生态和工具链，降低迁移成本，快速建立自己的 DeFi 生态。</p>
+<p>但在技术上，这是什么？是把一个有根本性缺陷的架构复制了 N 份。</p>
+<p>以太坊的账户模型导致全局状态串行瓶颈。BSC 复制了这个模型。Polygon 复制了这个模型。Avalanche 复制了这个模型。每一条 EVM 兼容链都继承了以太坊的基因缺陷——全局共享状态、顺序执行交易、状态膨胀。它们之所以“更快“，不是因为解决了架构问题，而是通过降低去中心化程度来换取速度：更少的验证者、更高的硬件门槛、更中心化的出块机制。</p>
+<p>BSC 最初只有 21 个验证者，全部由币安选定。Polygon 的验证者集合也远小于以太坊。这些链的“高性能“建立在“更少的人参与验证“这个基础上——用去中心化换速度。但如果可以牺牲去中心化，为什么不直接用一个中心化的数据库？AWS 的吞吐量比任何区块链都高几个数量级。</p>
+<p>更重要的是，多条 EVM 兼容链的存在不但没有解决扩容问题，反而制造了一个新问题：碎片化。</p>
+<p>第一章已经描述过这个场景：一种 USDT，十几条链，八十多个网络。用户转一笔稳定币，要先搞清楚发送方在哪条链上、接收方在哪条链上、两条链之间有没有桥、桥的手续费是多少、过桥需要多长时间。一个声称要“让金融回归普通人“的行业，建造了一个比传统银行系统更复杂、更容易出错、更不友好的转账流程。</p>
+<p>每增加一条 EVM 兼容链，碎片化就加剧一分。流动性被进一步分割，用户的认知负担进一步增加，跨链桥的攻击面进一步扩大。2022 年，仅 Ronin（6.25 亿美元）、Wormhole（3.26 亿美元）、Nomad（1.9 亿美元）三起跨链桥被盗事件的损失就超过 11 亿美元。整个 2022 年，跨链桥攻击造成的损失超过 20 亿美元。这不是偶然的安全事故，这是碎片化架构的系统性风险——当你需要在几十条链之间搬运资产，每一座桥都是一个需要信任的中间人，每一个中间人都是一个潜在的攻击目标。</p>
+<p>反观互联网的历史。1980 年代也有一堆互不兼容的封闭网络——CompuServe、AOL、Prodigy、BITNET、FidoNet。每一个都声称自己服务不同的用户群体，每一个都有自己的协议和客户端。网络之间的“互通“需要通过邮件网关——1980 年代的“跨链桥“。这些邮件网关同样不可靠、速度慢、经常丢失消息。</p>
+<p>后来发生了什么？TCP/IP 作为统一的通信协议被采纳。所有封闭网络在不到十年内从主导地位变成了历史注脚。Metcalfe 定律不关心你的网络有多快或多便宜——它只关心有多少人在同一个网络里。一个拥有百万用户的统一网络，其价值远超十个各有十万用户的碎片网络之和。</p>
+<p>今天的 EVM 兼容链生态，不是“互联网统一之后的应用层多样化“。它是“互联网统一之前的封闭网络时代“。</p>
+<h2 id="l2-不是扩展是外包"><a class="header" href="#l2-不是扩展是外包">L2 不是“扩展“，是“外包“</a></h2>
+<p>让我们从更高的视角来看 L2 和 Rollup 的本质。</p>
+<p>以太坊社区把 L2 描述为“扩展方案“——L2 在扩展以太坊的能力。但这个描述是误导性的。扩展（scaling）的本义是：同一个系统，处理更多的负载。一台服务器从处理 100 个请求/秒扩展到 10,000 个请求/秒，这是扩展。一个数据库从存储 1TB 扩展到 100TB，这是扩展。关键词是“同一个系统“。</p>
+<p>L2 做的不是扩展。L2 做的是把交易从以太坊 L1 搬到另一个地方去处理。这个“另一个地方“有自己的排序器、自己的执行环境、自己的状态。交易在 L2 上被执行后，只有一个压缩的结果被提交回 L1。</p>
+<p>这不是扩展，这是外包。</p>
+<p>就像一家餐厅因为厨房太小做不过来，不是扩大厨房（那太难了），而是把一部分订单外包给隔壁的外卖作坊。外卖作坊做好了端过来，餐厅在菜单上盖个章说“本店出品“。</p>
+<p>问题在于：外卖作坊的卫生标准由谁保证？餐厅说“我们有检查机制“——乐观 Rollup 的检查机制是“如果七天内没人投诉就算合格“，ZK Rollup 的检查机制是“每批菜都附一张质检报告“。但不管哪种检查机制，外卖作坊本身的运营是不受餐厅控制的。它可以选择不接某些订单（审查交易），可以调整出餐顺序（提取 MEV），甚至可以暂停营业（排序器宕机）。</p>
+<p>更根本的问题是：如果外包出去的部分需要和留在厨房的部分保持一致——调料、火候、口味——外包的成本和复杂性会急剧上升。这就是为什么跨 Rollup 操作如此困难：不同 L2 之间的资产转移需要通过桥，不同 L2 上的 DeFi 协议不能原子性地互相调用，用户在不同 L2 上需要分别持有 ETH 来支付 Gas 费。</p>
+<p>以太坊的 L2 生态实际上创造了一个“链内碎片化“的奇观：同一条 L1 上的 L2 之间，资产不能直接互通。你在 Arbitrum 上有 1 ETH，想在 Base 上使用，需要先桥接回以太坊主网（等七天，如果用 Optimistic Rollup 的官方桥），再从主网桥接到 Base（又等一段时间）。或者用第三方快速桥——本质是一个做市商帮你垫资，收取手续费，并承担桥接风险。</p>
+<p>L2 支持者常用互联网做类比：“以太坊是 TCP/IP，L2 是建在上面的应用。“这个类比在四个层面上都是错的。</p>
+<p>第一，区块链不是传输层。TCP/IP 只搬运数据包，不关心数据包里是什么、数据包之间的顺序是什么。区块链做的是排序、验证和永久记录。区块链对应的不是 TCP/IP，而是整个互联网的功能集。</p>
+<p>第二，L2 打破了端到端信任。在以太坊 L1 上，你的交易由全网矿工/验证者处理，安全性由以太坊的全部经济质押来保障。在 L2 上，你的交易由一个中心化排序器处理。这不是“在可信网络上构建应用“，而是“离开可信网络，进入一个需要额外信任假设的环境“。</p>
+<p>第三，L2 不是 L1 之上的“应用层创新“，而是 L1 缺陷的产物。如果 L1 本身能扩容，L2 完全没有存在的必要。就像互联网骨干网从 56kbps 升级到了光纤——每一次带宽升级都消灭了一批曾经“不得不存在“的专有网络方案。如果以太坊 L1 能处理百万笔交易每秒，谁还需要 Arbitrum 和 Optimism？</p>
+<p>第四，精确的对应关系不是“L1 = TCP/IP，L2 = 应用“，而是“L1 太慢 = 骨干网太慢，建 L2 = 建专有局域网“。各个 L2 对应的不是互联网上的多样化应用，而是互联网统一之前的 CompuServe、AOL 等封闭网络。L2 之间的跨链桥，对应的不是互联网上的 HTTP 链接，而是封闭网络之间的邮件网关。</p>
+<p>以太坊的 L2 生态不是互联网的未来。它是互联网的过去。</p>
+<h2 id="奥卡姆剃刀如无必要勿增实体"><a class="header" href="#奥卡姆剃刀如无必要勿增实体">奥卡姆剃刀：如无必要，勿增实体</a></h2>
+<p>让我们退后一步，用最朴素的逻辑来审视这一切。</p>
+<p>以太坊生态现在的架构是什么？一条 L1 主链，几十条 L2 Rollup，数百条 EVM 兼容链，连接它们的几十座跨链桥。用户需要在这些链、层、桥之间做选择，需要理解每条链的特性、每座桥的风险、每个 L2 的取舍。开发者需要决定部署在哪条链上，可能还需要在多条链上同时部署和维护同一个应用。</p>
+<p>14 世纪的逻辑学家奥卡姆的威廉有一条原则：如无必要，勿增实体（Entities should not be multiplied beyond necessity）。这条原则在科学和工程中被反复验证：最简单的解释通常是最好的解释，最简单的架构通常是最可靠的架构。</p>
+<p>现在问一个简单的问题：<strong>如果一条链就能处理全球所有交易，我们还需要几百条链加几十座桥加几十个 L2 吗？</strong></p>
+<p>这不是一个修辞性的反问。这是一个严肃的工程问题。</p>
+<p>互联网的历史已经给出了答案。1980 年代有几十个互不兼容的网络。每一个都声称服务不同的场景。反对统一的人说：“不同网络服务不同目的”，“单一网络无法处理所有流量”，“专用网络效率更高”。这些论点在当时都有合理性。然后 TCP/IP 来了。然后所有封闭网络在十年内消失了。</p>
+<p>TCP/IP 在每一个单项指标上都不是最好的——有比它更快的协议，有比它更安全的协议，有比它更节能的协议。但它做到了一件事：让所有人在同一个网络里。Metcalfe 定律比任何技术优势都强大。</p>
+<p>区块链行业正处于 1990 年代初的计算机网络阶段——封闭网络林立，互通困难，用户被困在各自的围墙花园里。行业主流的回应不是统一网络，而是建更多的桥来连接更多的封闭网络。这就像 1993 年，面对 CompuServe 和 AOL 之间不能通信的问题，解决方案不是推广 TCP/IP，而是在两者之间多建几条邮件网关。</p>
+<p>这些邮件网关和今天的跨链桥有着惊人的相似——都不可靠，都容易丢失信息（资产），都增加延迟和成本，都是碎片化架构的补丁而非解决方案。</p>
+<p>正确的问题不是“如何让几百条链更好地互通“，而是“为什么需要几百条链“。</p>
+<p>答案回到了架构选择：因为以太坊的账户模型导致了 L1 无法扩容，所以需要 L2。因为 L2 之间不互通，所以需要桥。因为以太坊太贵，所以需要更便宜的 EVM 兼容链。因为 EVM 兼容链之间也不互通，所以需要更多的桥。每一个“解决方案“都在制造新的问题，每一个新的问题都催生新的“解决方案“。复杂性不断叠加，但根源性的问题——账户模型的串行瓶颈——始终没有被解决。</p>
+<p>这就是在错误的地基上建楼的结果。地基歪了，你可以在一楼加支撑柱（分片），发现不行；可以在旁边盖附楼（L2），发现附楼和主楼之间走廊（桥）总是塌；可以多盖几栋类似的楼（EVM 兼容链），发现每栋楼都有同样的地基问题。所有这些操作加在一起，不等于修好了地基。</p>
+<p>如果从一开始就选对了地基呢？</p>
+<p>UTXO 模型的状态是自包含的——每个 UTXO 独立存在，不引用全局状态。这意味着天然的并行化——不同的交易可以被不同的处理器核心同时处理。扩容的瓶颈不在数据结构上，而在带宽和存储上——这两者随硬件技术持续改善，是纯粹的工程变量。一条链，一个共识机制，一份账本，处理全球所有交易。不需要 L2，不需要桥，不需要几百条互不兼容的链。</p>
+<p>这不是幻想。BSV 的 Teranode 节点实现已经在测试中验证了百万级 TPS 的链上处理能力——超过全球所有传统支付网络的处理能力总和。不是通过 L2，不是通过分片，而是在同一条链上、同一个共识机制下、同一份不可篡改的账本中。</p>
+<p>奥卡姆剃刀在这里的应用再清晰不过：一条能扩容的链，比几百条不能扩容的链加几十座桥加几十个 L2，简单几个数量级。</p>
+<h2 id="碎片化的根源"><a class="header" href="#碎片化的根源">碎片化的根源</a></h2>
+<p>让我们回到第一章。</p>
+<p>第一章描述了一个荒谬的现实：一个用户要转一笔 USDT，需要在十几条链之间做选择。选错了，钱就没了。一个声称要“让金融回归普通人“的行业，建造了一个比传统银行更复杂的系统。</p>
+<p>现在我们知道了这个荒谬现实的技术根源。</p>
+<p>碎片化不是因为“技术还不够成熟“。碎片化不是因为“行业还在早期“。碎片化是因为以太坊选择了账户模型，账户模型导致了全局状态的串行瓶颈，串行瓶颈使得 L1 无法扩容，L1 无法扩容催生了 L2 和 EVM 兼容链，L2 和 EVM 兼容链之间互不兼容催生了跨链桥，跨链桥本身脆弱且昂贵催生了更多的复杂性。</p>
+<p>这是一条完整的因果链。起点是一个架构选择，终点是第一章描述的用户噩梦。</p>
+<p>更深层地看，以太坊的诞生本身就源于一个误解——上一章论证的“比特币不能做智能合约“。因为这个误解，Vitalik Buterin 决定另建一个平台。为了让这个平台“更友好“，他选择了账户模型而非 UTXO 模型。账户模型带来了全局状态，全局状态带来了串行瓶颈，串行瓶颈带来了扩容不可能，扩容不可能带来了碎片化。</p>
+<p>一个误解，导致了一个错误的架构选择，导致了一个无法扩容的系统，导致了整个行业长达十年的弯路。</p>
+<p>围绕这个无法扩容的系统，聪明人发明了分片——失败了。发明了 Optimistic Rollup——引入了可信第三方。发明了 ZK Rollup——引入了中心化证明器。发明了 EVM 兼容链——复制了同样的缺陷。发明了跨链桥——造成了数十亿美元的损失。发明了 Proto-Danksharding——承认 L1 放弃扩容。</p>
+<p>每一个方案都足够巧妙。每一个方案背后都有才华横溢的工程师。但巧妙的方案无法弥补错误的基础。正如你无法通过在歪斜的地基上建造越来越精妙的支撑结构来解决地基的问题——你唯一能做的，是承认地基选错了，然后重新开始。</p>
+<p>以太坊的扩容之路是一条死胡同。不是因为技术不够好，不是因为工程师不够聪明，而是因为——你走进了一条胡同，无论你走得多快、多优雅，前面都是墙。</p>
+<p>真正的问题从来不是“如何扩容以太坊“，而是“为什么需要扩容以太坊“。如果比特币的原始设计从一开始就能承载智能合约、天然支持并行扩容，那么以太坊——以及围绕它的整个扩容工业——根本就不需要存在。</p>
+<p>下一章，我们将把目光转向另一个方向：那些不复制以太坊、而是从零开始设计的高性能链——以 Solana 为代表。它们选择了完全不同的技术路线，但最终是否走出了死胡同？</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="03-ethereum-misconception.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="05-distributed-db.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="03-ethereum-misconception.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="05-distributed-db.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

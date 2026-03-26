@@ -1,0 +1,392 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>第七章：交易——产权转移的数字表达 - 正本清源比特币</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="Bitcoin: The Path to Satoshi&#x27;s Vision">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="custom-cbdc12bd.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-e84ab39c.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-d8d8ae9b.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">正本清源比特币</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/tongxiaofeng/path-to-satoshis-vision" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/tongxiaofeng/path-to-satoshis-vision/edit/main/chapters/src/07-transactions.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                            <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="第七章交易产权转移的数字表达"><a class="header" href="#第七章交易产权转移的数字表达">第七章：交易——产权转移的数字表达</a></h1>
+<h2 id="引子"><a class="header" href="#引子">引子</a></h2>
+<p>在中国农村的一些地方，至今还保留着一种古老的土地交易方式。</p>
+<p>买卖双方坐在桌前，卖方拿出一张旧契约——上面写着这块地是谁卖给他的、什么时候、多少钱。然后他在这张契约的末尾写下新的内容：某年某月某日，本人将此地转让给某某，价格若干。写完之后，双方签字，中间人签字，按上指印。从此，这张纸就归买方持有。</p>
+<p>下一次这块地再被转让时，新的买家不需要去查什么“土地登记数据库“。他只需要展开这张纸，从头到尾读一遍——每一次转手都写在上面，每一次都有签字和指印。这条从最初到最新的转让链条，就是产权的全部证明。纸可能会发黄，字迹可能会褪色，但只要签字和指印还能辨认，产权就不可否认。</p>
+<p>这种契约方式在现代人看来原始而笨拙。但它有一个今天的电子支付系统不具备的优点：产权的证明不依赖任何第三方机构。不需要房管局的数据库，不需要银行的确认，不需要任何中间人的背书。那张纸本身就是证据，签名链本身就是产权链。</p>
+<p>2008年，中本聪在设计比特币的交易机制时，选择了一种在本质上与这张土地契约惊人相似的结构。他没有选择银行的做法——维护一个中心化的账本，交易就是修改账本上的数字。他选择了一种更古老、更根本的方式：让“钱“本身成为一个可以被传递的对象，让产权的证明刻写在对象自身之上。</p>
+<p>上一章我们明确了比特币的定义——点对点的电子现金。这一章，我们打开这台机器的引擎盖，看看“钱“在比特币中到底是如何从一个人的手里转移到另一个人手里的。</p>
+<h2 id="硬币铸造术utxo-模型的精妙设计"><a class="header" href="#硬币铸造术utxo-模型的精妙设计">硬币铸造术：UTXO 模型的精妙设计</a></h2>
+<h3 id="一枚电子硬币的真实面貌"><a class="header" href="#一枚电子硬币的真实面貌">一枚电子硬币的真实面貌</a></h3>
+<p>白皮书第二节开宗明义：</p>
+<blockquote>
+<p>“We define an electronic coin as a chain of digital signatures. Each owner transfers the coin to the next by digitally signing a hash of the previous transaction and the public key of the next owner and adding these to the end of the coin.”</p>
+<p>“我们将电子货币定义为一条数字签名链。每一位所有者通过对前一笔交易的哈希和下一位所有者的公钥进行数字签名，并将签名附加到这枚货币的末尾，来将货币转让给下一位所有者。”</p>
+</blockquote>
+<p>这段定义是理解比特币交易机制的钥匙。让我们一个词一个词地拆解。</p>
+<p>“A chain of digital signatures”——一条数字签名链。一枚比特币不是一个余额数字，不是数据库中的一行记录。它是一个有历史的对象。从它被创造的那一刻起，每经手一个人，就在这枚硬币上留下一个签名。这些签名首尾相连，构成一条不可断裂的链条——谁创造了它，谁传递给谁，什么时候传递的，全部记录在案。</p>
+<p>这和你钱包里的纸币有一个根本性的相似之处：它是一个可以被传递的独立对象。你把一枚硬币从左手放到右手，硬币还是那枚硬币。你把它递给面前的人，硬币从你的手里消失了——不是因为某个数据库修改了你的“余额“，而是因为物理对象离开了你的控制。更重要的是，这枚硬币自身就携带着所有必要的信息：它的面值写在上面，它的真伪可以通过物理特征来鉴定。它不需要“联网查询“才能证明自己是真钱。</p>
+<p>比特币的交易机制模拟的正是这种物理传递的逻辑。在比特币的术语中，这些“电子硬币“有一个技术名称：<strong>UTXO</strong>，即 Unspent Transaction Output——未花费的交易输出。在比特币的源代码中，这个数据结构的名字更加直白：<strong>Coin</strong>，硬币。</p>
+<h3 id="消费旧硬币铸造新硬币"><a class="header" href="#消费旧硬币铸造新硬币">消费旧硬币，铸造新硬币</a></h3>
+<p>理解UTXO模型的关键在于理解一句话：<strong>比特币中不存在“转账“这个操作。</strong></p>
+<p>这听起来不可思议——比特币不就是用来转账的吗？准确地说，比特币中的每一笔交易不是“从A的余额中扣除一笔钱，加到B的余额上“。它做的事情完全不同：<strong>销毁一组旧的硬币，同时铸造一组新的硬币。</strong></p>
+<p>用一个具体的例子来说明。</p>
+<p>假设张三有一枚面值为50的UTXO（一枚50元的电子硬币）。他要付给李四30元。交易过程如下：</p>
+<ol>
+<li>张三拿出那枚面值50的硬币作为<strong>输入</strong>（input）——这枚硬币将被销毁。</li>
+<li>交易产生两个<strong>输出</strong>（output）：一枚面值30的新硬币归李四，一枚面值20的新硬币归张三自己（找零）。</li>
+<li>两个输出之和（30+20=50）等于输入（50）。输入和输出之间的差额，如果有的话，就是支付给矿工的交易手续费。</li>
+</ol>
+<p>交易完成后，那枚原始的面值50的UTXO不再存在——它已经被“花费“了，从此在比特币网络的记录中被标记为已消费。取而代之的是两枚全新的UTXO：一枚30归李四，一枚20归张三。</p>
+<p>注意这个过程的对称性：没有任何“余额“被修改。没有任何“账户“被读取或更新。发生的只是一件事——旧硬币被销毁，新硬币被创造。每一枚新硬币都是一个全新的、独立的对象，它携带着自己的面值和使用条件，与网络中其他所有硬币完全无关。</p>
+<p>白皮书第九节对此做了进一步说明：</p>
+<blockquote>
+<p>“Although it would be possible to handle coins individually, it would be unwieldy to make a separate transaction for every cent in a transfer. To allow value to be split and combined, transactions contain multiple inputs and outputs.”</p>
+<p>“虽然可以逐一处理每枚货币，但为每一分钱的转账都创建一笔单独的交易将非常笨拙。为了允许价值的分割和合并，交易包含多个输入和输出。”</p>
+</blockquote>
+<p>一笔交易可以有多个输入（消费多枚旧硬币），也可以有多个输出（铸造多枚新硬币）。这就像你用一张50元纸币和两张20元纸币（三个输入，总额90元）去买一件80元的商品，收银员给你一件商品和一张10元纸币（两个输出——80元归商家，10元找零归你）。旧纸币被收走，新纸币被发出，但总金额保持平衡。</p>
+<p>这种“消费+铸造“的机制，使得比特币中的价值可以被任意分割和合并。一枚面值100的UTXO可以被拆成十枚面值10的；反过来，十枚面值10的也可以被合并成一枚面值100的。灵活性完全不逊于实体货币——甚至更强，因为比特币的UTXO没有固定面额的限制，你可以铸造面值为3.14159的硬币，只要总账平衡。</p>
+<h3 id="交易即法律行为"><a class="header" href="#交易即法律行为">交易即法律行为</a></h3>
+<p>理解了UTXO的机制之后，我们需要上升一个层次来审视它的含义。</p>
+<p>一笔比特币交易不仅仅是一个技术操作。它是一个<strong>法律行为</strong>——一个不可撤销的产权转移事件。</p>
+<p>想想现实世界中的产权转移是如何发生的。你卖一辆车，需要签一份转让协议。协议上写着：甲方将某某牌照的车辆转让给乙方，转让价格为若干。双方签字，协议生效。从此，这辆车在法律上属于乙方。甲方不能事后反悔说“我没签过“——因为签名在那里，白纸黑字。</p>
+<p>比特币交易的结构与此完全同构。每一笔交易就是一份数字化的产权转让协议。它声明：持有人将某些UTXO的控制权转让给新的所有者。这份“协议“由持有人的数字签名来授权，一旦被网络确认，就不可撤销。</p>
+<p>更准确地说，一笔比特币交易包含了法律行为的全部要素：主体明确（通过公钥标识的交易双方）、意思表示真实（通过数字签名证明交易确实由私钥持有者授权）、标的确定（具体哪些UTXO被花费、新的UTXO面值多少、归谁所有）、不违反强制性规定（交易必须满足协议规则——输入总额不小于输出总额、签名有效、UTXO未被重复花费）。传统法律体系中的合同需要繁琐的签署流程和第三方见证才能确保这些要素的完备；而一笔比特币交易在密码学层面自动满足了所有这些条件。</p>
+<p>白皮书第一节明确指出了这种不可逆性的重要性：</p>
+<blockquote>
+<p>“Transactions that are computationally impractical to reverse would protect sellers from fraud, and routine escrow mechanisms could easily be implemented to protect buyers.”</p>
+<p>“计算上不可行的逆转交易将保护卖家免受欺诈，而常规的托管机制也可以轻松实现以保护买家。”</p>
+</blockquote>
+<p>在传统金融体系中，交易的可逆性——信用卡的退款机制、银行转账的撤销流程——被视为消费者保护的手段。但中本聪看到了硬币的另一面：可逆性对卖家来说是一种系统性风险。任何交易都可能在事后被撤销，意味着商家永远无法确定一笔交易是否真正完成。这种不确定性不仅增加了信任成本，还让小额交易在经济上变得不划算——因为每一笔交易都必须为潜在的纠纷调解预留成本。</p>
+<p>比特币交易的不可逆性，本质上是在模拟物理世界中现金交易的终结性（finality）。你把一枚硬币递给别人，交易就完成了——没有“退款“按钮，没有30天的争议期，没有第三方仲裁。这种终结性不是缺陷，而是特性。它是商业活动中最古老、最可靠的交易形式的数字化重现。</p>
+<h3 id="数字签名不是密码而是签署"><a class="header" href="#数字签名不是密码而是签署">数字签名：不是密码，而是签署</a></h3>
+<p>在UTXO模型中，数字签名扮演着至关重要的角色。但很多人对“数字签名“的理解是错误的——他们把它等同于“密码“或“口令“。</p>
+<p>密码是什么？密码是一个只有你知道的秘密。你输入密码来证明“我是我“。但密码有一个致命缺陷：它是对称的。你知道密码，验证方也知道密码（或者至少知道密码的哈希值）。如果验证方的数据库被泄露，你的密码就暴露了。更重要的是，密码只能证明身份，不能证明意图——你输入密码可能是要登录，可能是要转账，可能是误操作，密码本身不携带任何关于“你想做什么“的信息。</p>
+<p>数字签名完全不同。</p>
+<p>数字签名是一种非对称加密操作。你有一把私钥（只有你知道）和一把公钥（所有人都可以知道）。当你要授权一笔交易时，你用私钥对交易的内容——具体是哪些UTXO被花费、新的UTXO归谁——进行签名。这个签名有三个特性：</p>
+<p>第一，它证明了你的身份。只有持有对应私钥的人才能产生与公钥匹配的签名。</p>
+<p>第二，它绑定了你的意图。签名不是对一个空白文档的签署，而是对<strong>这笔具体交易</strong>的签署。改动交易内容的任何一个比特，签名就会失效。这意味着签名者不能说“我签了字但我不是要授权这笔转账“——你的签名与你同意的交易内容是密码学绑定的。</p>
+<p>第三，它可以被任何人验证，但不能被任何人伪造。公钥是公开的，任何人都可以用公钥来验证签名的有效性，但没有私钥，任何人都无法伪造一个有效的签名。</p>
+<p>这三个特性组合在一起，使得数字签名在法律意义上等同于——甚至优于——传统的手写签名。一个手写签名可以被伪造、可以被否认。但一个数字签名是密码学可验证的：要么私钥持有者确实签署了这笔交易，要么签名无效。没有中间地带。</p>
+<p>在比特币的语境中，数字签名就是产权转移的授权机制。你不是输入一个“密码“来“解锁“你的比特币——你是<strong>签署</strong>一份产权转让声明，声明你同意将特定的UTXO转移给特定的接收者。这种“签署“行为的法律含义与在一份合同上亲笔签名完全一致：一旦签署，就代表了签署者的真实意思表示。</p>
+<h3 id="锁与钥匙脚本的优雅"><a class="header" href="#锁与钥匙脚本的优雅">锁与钥匙：脚本的优雅</a></h3>
+<p>UTXO模型中还有一个精妙的设计：每一枚UTXO都携带着自己的使用条件。</p>
+<p>在比特币中，这些条件被编码在两段脚本中：<strong>锁定脚本</strong>（也叫输出脚本或scriptPubKey）和<strong>解锁脚本</strong>（也叫输入脚本或scriptSig）。</p>
+<p>锁定脚本附着在UTXO上，规定了“谁有权花费这枚硬币“。最常见的锁定条件是：提供与某个公钥对应的有效签名。但锁定条件远不限于此——理论上，锁定脚本可以编码任意复杂的条件。</p>
+<p>解锁脚本则在花费UTXO时提供，它必须满足锁定脚本中设定的条件。如果解锁脚本能让锁定脚本的验证通过，这枚UTXO就可以被花费。如果不能，交易无效。</p>
+<p>用物理世界的类比来理解：每枚UTXO就像一个保险箱，锁定脚本是保险箱上的锁，解锁脚本是打开锁的钥匙。制造保险箱的人（即创造这枚UTXO的上一笔交易的发起者）决定了装什么样的锁——是一把简单的钥匙锁（最常见的“支付到公钥哈希“模式：只需提供对应的公钥和签名），还是一个需要两把钥匙才能打开的双重锁（多重签名：比如三个合伙人中至少两个签字才能动用公司的资金），或者一个需要在特定时间之后才能打开的定时锁（时间锁：资金在某个区块高度之前不能被花费，可以用来实现遗嘱、分期付款等逻辑）。只有拿着正确钥匙的人，才能打开保险箱，取走里面的价值，然后铸造新的硬币。</p>
+<p>这种设计的威力在于：锁的条件是由创造UTXO的人定义的，而不是由协议全局规定的。发送方在创造一枚UTXO时，实际上是在为这枚硬币定制一套专属的使用规则。这意味着比特币的交易条件不是千篇一律的“输入密码即可转账“，而是可以为每一枚硬币量身定制的程序化合约。每枚硬币都携带着自己的“法律条文“——什么条件下可以被花费，由锁定脚本一锤定音。</p>
+<p>这个设计的优雅之处在于：<strong>每枚UTXO是自包含的。</strong> 它的使用条件刻写在自身之上，不引用任何外部状态。验证一枚UTXO是否可以被花费，只需要检查两件事：这枚UTXO是否存在（未被花费过），以及提供的解锁脚本是否满足锁定条件。不需要查询任何“账户余额“，不需要读取任何“全局状态树“，不需要与网络中其他任何UTXO发生交互。</p>
+<p>这种自包含性是UTXO模型最深刻的架构优势之一。我们将在本章的最后一节回到这一点。</p>
+<h3 id="产权链不可断裂的历史"><a class="header" href="#产权链不可断裂的历史">产权链：不可断裂的历史</a></h3>
+<p>现在，让我们把前面所有的组件组合在一起，看看一个更宏大的图景。</p>
+<p>每一枚比特币都有一条完整的历史——从它被创造的那一刻起，直到它当前的持有者。</p>
+<p>这条历史始于一笔特殊的交易：<strong>创币交易</strong>（coinbase transaction）。白皮书第六节描述了它：</p>
+<blockquote>
+<p>“By convention, the first transaction in a block is a special transaction that starts a new coin owned by the creator of the block.”</p>
+<p>“按照惯例，区块中的第一笔交易是一笔特殊交易，它创造一枚新的货币归区块创建者所有。”</p>
+</blockquote>
+<p>每一个区块的第一笔交易，就是一笔创币交易。它没有输入——或者更准确地说，它的输入不是任何已有的UTXO，而是“无中生有“。它的输出是一枚全新的UTXO，归矿工所有。这是比特币唯一的“发行“方式。每一枚在网络中流通的比特币，最终都可以追溯到某个区块中的某笔创币交易。</p>
+<p>从创币交易开始，这枚硬币每被转手一次，就经历一次“销毁+铸造“的过程。旧的UTXO被消费，新的UTXO被创造。但新UTXO的交易记录中保留着一个指向旧交易的引用——就像那张土地契约上每一次转手都写在前一次的下面。</p>
+<p>如此一来，从创币交易到最新的持有者，每一步转移都被数字签名所记录、所证明。这就是白皮书所说的“a chain of digital signatures“——数字签名链。任何人都可以沿着这条链向回追溯：这枚硬币是谁创造的？什么时候创造的？经过了谁的手？每一次转移是否有合法的签名授权？每一步都公开透明、密码学可验证。</p>
+<p>值得注意的是，白皮书第九节还指出了一个容易被忽略的要点：</p>
+<blockquote>
+<p>“It should be noted that fan-out, where a transaction depends on several transactions, and those transactions depend on many more, is not a problem here. There is never the need to extract a complete standalone copy of a transaction’s history.”</p>
+<p>“值得注意的是，扇出问题——即一笔交易依赖于多笔交易，而那些交易又依赖于更多交易——在这里不是问题。永远不需要提取一笔交易的完整独立历史副本。”</p>
+</blockquote>
+<p>这句话的含义是：虽然每枚硬币都有一条完整的产权链，但验证当前交易不需要回溯整条链的全部历史。因为每一步转移都已经在发生时被网络验证过了——如果它当初不合法，就不会被收录进区块。所以验证当前交易只需要确认：这枚UTXO确实存在且未被花费，提供的解锁脚本满足锁定条件。历史的验证工作已经被网络在过去完成了，不需要每次交易都重做一遍。这是一种优雅的效率设计——历史只需要被验证一次，而不是每次都被重复验证。</p>
+<p>这就是一条完整的<strong>产权链</strong>（chain of ownership）。它的可靠性不依赖任何第三方机构——不需要央行来确认你的比特币是“真的“，不需要银行来证明你是合法持有者。数字签名链本身就是产权的全部证明，正如那张从村口传到村尾的土地契约一样。</p>
+<p>白皮书第二节对此做出了精确表述：</p>
+<blockquote>
+<p>“A payee can verify the signatures to verify the chain of ownership.”</p>
+<p>“收款方可以通过验证签名来验证所有权链。”</p>
+</blockquote>
+<p>收款方——也就是交易的对手方——不需要信任付款人的自我声明，不需要查询某个中心数据库，只需要验证签名链。签名链完整且有效，产权就是合法的。这是一种纯粹基于密码学证明的产权验证机制。</p>
+<p>把这个概念放在更宏观的视角下审视：传统金融体系中，产权的确认依赖于一个层层嵌套的信任结构。你相信银行的账本是对的，银行相信央行的清算系统是对的，央行相信会计审计是可靠的。链条中的任何一环出问题，产权的确认就会动摇。而在比特币中，产权链是自证的——不依赖于任何外部机构的信誉，只依赖于数学。密码学不会倒闭，不会被收买，不会在周末休息。</p>
+<h3 id="为什么不存在比特币余额"><a class="header" href="#为什么不存在比特币余额">为什么不存在“比特币余额“</a></h3>
+<p>理解了UTXO模型之后，一个常见的困惑可以被解开：为什么比特币钱包里显示的“余额“不是你实际拥有的比特币？</p>
+<p>严格来说，比特币协议层面不存在“余额“这个概念。</p>
+<p>你的“余额“只是你的钱包软件为了方便显示，把所有属于你的（即你持有私钥的）未花费UTXO的面值加在一起得出的一个数字。就像你把口袋里所有的硬币和纸币加在一起，说“我身上有247元“——这个“247元“不是存在于任何地方的一个数字，它只是你手里那些纸币和硬币面值的总和。</p>
+<p>如果你有三枚UTXO，面值分别是0.5、0.3和0.2，你的钱包会显示“余额1.0“。但在协议层面，不存在一个叫做“1.0“的东西。存在的是三枚独立的硬币，散落在区块链的不同位置上，唯一的共同点是它们的锁定条件都指向你控制的私钥。当你要发起一笔0.7的支付时，钱包会自动选择用哪些硬币来凑够这个数——也许用0.5和0.3（总计0.8），然后找零0.1归你自己。这个选择过程叫做“币的选择“（coin selection），完全由钱包软件在本地完成，与比特币网络无关。</p>
+<p>这不是一个无关紧要的技术细节。它揭示了UTXO模型和账户模型在最底层的哲学差异：<strong>UTXO模型中，“钱“是具体的对象；账户模型中，“钱“是抽象的数字。</strong> 前者你是持有者，后者你是债权人。前者你的财富证明在你自己手里，后者你的财富证明在别人的数据库里。这个差异的后果，远比表面看起来要深刻得多。</p>
+<h2 id="伪直觉的陷阱utxo模型常见误解"><a class="header" href="#伪直觉的陷阱utxo模型常见误解">伪直觉的陷阱：UTXO模型常见误解</a></h2>
+<h3 id="账户模型更自然"><a class="header" href="#账户模型更自然">“账户模型更自然”</a></h3>
+<p>这可能是关于UTXO最流行的误解：账户模型更直觉、更简单，UTXO模型是一种不必要的复杂化。</p>
+<p>持这种观点的人通常会说：我每天用银行账户，很好理解——账户里有多少钱就是多少钱，转账就是从一个账户扣、另一个账户加。为什么比特币要搞出UTXO这么复杂的东西？</p>
+<p>这种“直觉“是被现代金融体系塑造出来的，而不是天然的。</p>
+<p>事实上，在人类几千年的货币史中，“账户“是一个相对晚近的发明。在纸币和硬币的时代——占据了人类货币史的绝大部分——人们使用的就是UTXO模型。你口袋里有三张十元、两张五元和五个一元硬币，总共45元。你买一杯15元的咖啡，掏出两张十元，收回一张五元。旧纸币被“花费”，新纸币（找零）被“铸造“。没有任何“账户“被修改，没有任何“余额“被更新。</p>
+<p>银行账户的出现——一个中心化机构为你记录一个余额数字——是近代金融基础设施发展的产物。它确实很方便，但它带来了一个隐含的前提：你必须信任那个记账的人。你的“余额“不是你持有的东西，而是银行欠你的债。如果银行说你的余额是0，你手里没有任何“东西“可以证明它错了。</p>
+<p>UTXO模型把“钱“还原为一种可以被持有的对象，而不是依赖于某个机构的账面记录。在这个意义上，UTXO不是比账户模型更复杂，而是更原始、更根本——它回到了货币的本来面目。</p>
+<p>所谓“账户模型更自然“，其实是“银行更自然“的另一种说法。如果你认为货币的天然存在形式就是银行数据库中的一行记录，那账户模型确实很自然。但如果你回到货币的第一性原理——一种可以在人与人之间直接传递的价值载体——UTXO才是忠实于这个原理的设计。中本聪创造的是“电子现金“，不是“电子银行账户“。选择UTXO模型，正是这个定义在技术层面的自然延伸。</p>
+<h3 id="utxo就是比特币的技术实现细节"><a class="header" href="#utxo就是比特币的技术实现细节">“UTXO就是比特币的技术实现细节”</a></h3>
+<p>另一种常见的说法是：UTXO只是一种底层的技术实现方式，对普通用户来说无关紧要。反正钱包软件会把一切处理好，用户看到的还是一个“余额“数字。</p>
+<p>这种说法忽略了一个关键事实：数据结构的选择决定了系统的根本属性。</p>
+<p>在第三章中，我们详细分析了UTXO模型与账户模型的对比。这里我们从交易的角度做一个简要的回顾，因为这些属性直接关系到比特币作为支付系统的能力。</p>
+<p><strong>自包含性。</strong> 每枚UTXO是一个独立的状态单元。它知道自己的面值，知道自己的使用条件，不引用任何全局状态。验证一笔交易只需要检查它涉及的UTXO——不需要遍历整个网络的状态。这意味着什么？意味着交易验证可以高度并行化。你验证你的交易，我验证我的交易，我们互不干扰——因为我们花费的是不同的UTXO，它们之间没有任何依赖关系。</p>
+<p><strong>无全局状态。</strong> 比特币网络不需要维护一棵巨大的“全局状态树“来记录每个“账户“的余额。它只需要维护一个UTXO集合——当前所有未被花费的硬币的集合。一枚UTXO被花费后就从集合中移除，新产生的UTXO加入集合。状态的增长是可控的：旧的UTXO不断被消费、移除；新的UTXO不断被创建、加入。系统天然地进行着“状态回收“。</p>
+<p><strong>天然并行。</strong> 因为每枚UTXO是独立的，消费不同UTXO的交易之间数据依赖为零。这使得比特币的交易处理可以大规模并行——理论上，只要两笔交易不试图消费同一枚UTXO，它们就可以同时被验证和处理。这不是一个需要复杂工程优化才能实现的特性，而是数据结构本身赋予的天然能力。</p>
+<p><strong>冲突检测的简洁性。</strong> 在UTXO模型中，判断两笔交易是否冲突极其简单：它们是否试图花费同一枚UTXO？是，则冲突；否，则不冲突。这是一个O(1)的操作——查一下这枚UTXO是否还在未花费集合中就够了。而在账户模型中，冲突检测需要考虑复杂的状态依赖——两笔交易是否访问同一个合约？是否读写同一个存储槽？是否依赖同一个账户的nonce？复杂度完全不在同一个量级。</p>
+<p>这些不是抽象的理论优势。它们的直接后果是：<strong>UTXO模型的系统可以随硬件的进步而线性扩展</strong>——更多的CPU核心意味着更多的交易可以被并行处理，更大的带宽意味着更多的交易可以被传播。瓶颈在硬件，而硬件在持续进步。</p>
+<p>反观账户模型：无论你加多少CPU核心，只要两笔交易可能访问同一个全局状态，它们就必须串行执行。瓶颈不在硬件，而在数据结构——而数据结构是不会随着摩尔定律自动改进的。</p>
+<p>中本聪选择UTXO模型，不是因为它对开发者更友好（事实上账户模型对开发者更直觉），而是因为它为系统的长期扩展保留了正确的架构空间。把性能瓶颈放在可以持续改善的地方（硬件），而不是焊死在不可改变的地方（数据结构）——这是一个面向未来几十年的架构决策。</p>
+<h3 id="比特币交易太透明没有隐私"><a class="header" href="#比特币交易太透明没有隐私">“比特币交易太透明，没有隐私”</a></h3>
+<p>这个说法需要被纠正。</p>
+<p>比特币的所有交易确实记录在公开的账本上，任何人都可以查看。但“公开“不等于“没有隐私“。</p>
+<p>白皮书第十节专门讨论了这个问题：</p>
+<blockquote>
+<p>“The traditional banking model achieves a level of privacy by limiting access to information to the parties involved and the trusted third party. The necessity to announce all transactions publicly precludes this method, but privacy can still be maintained by breaking the flow of information in another place: by keeping public keys anonymous.”</p>
+<p>“传统银行模式通过限制相关各方和可信第三方对信息的访问来实现一定程度的隐私。公开宣布所有交易的必要性排除了这种方法，但仍然可以通过在另一个环节切断信息流来维护隐私：保持公钥的匿名性。”</p>
+</blockquote>
+<p>传统银行的隐私模型是：交易信息只有银行和交易双方知道，对公众隐藏。但代价是银行知道你的一切——你买了什么、在哪里买的、花了多少钱。你对公众有隐私，但对银行没有。</p>
+<p>比特币的隐私模型完全不同：交易信息对所有人公开，但交易者的身份与公钥之间的关联被切断。公众可以看到“某个地址向另一个地址转了多少比特币“，但不知道这些地址背后是谁。白皮书将此类比为证券交易所——交易的时间和金额是公开的，但交易者的身份是匿名的。</p>
+<p>更关键的是，UTXO模型在隐私方面有一个账户模型不具备的优势：每笔交易可以使用全新的地址。白皮书建议“a new key pair should be used for each transaction“——每笔交易使用一个新的密钥对。在UTXO模型中，这很容易做到，因为每枚新创建的UTXO可以指向一个全新的公钥。而在账户模型中，所有交易都关联到同一个账户地址，链上行为的关联分析要容易得多。</p>
+<h3 id="交易不可逆是缺陷"><a class="header" href="#交易不可逆是缺陷">“交易不可逆是缺陷”</a></h3>
+<p>这是从传统金融思维出发的一个典型误判。</p>
+<p>在信用卡的世界里，交易可逆性被视为消费者保护的基石——你买了一件有缺陷的商品，可以发起退款。这个机制确实保护了消费者。但中本聪看到了它的另一面：可逆性本身就是一种系统性风险来源。</p>
+<p>因为交易可以被撤销，商家永远无法确定一笔交易是否真的完成了。一个恶意的买家可以先收到商品，然后发起退款，声称交易未经授权。商家为了防范这种风险，不得不增加身份验证、收集额外的个人信息、提高价格来覆盖欺诈损失。这些成本最终转嫁给所有消费者——包括那些诚实的消费者。</p>
+<p>比特币的不可逆交易消除了这种信任不对称。一旦交易被网络确认，它就是最终的。买家不能在收到商品后撤销付款，正如你在路边摊用现金买了一个煎饼后不能“撤销“付款一样。卖家得到了确定性——这笔钱就是我的了——从而可以降低风险溢价，最终惠及所有市场参与者。</p>
+<p>当然，这不意味着消费者保护不存在。白皮书提到了“routine escrow mechanisms“（常规托管机制）——如果交易双方不信任彼此，可以使用第三方托管来保护双方利益。而比特币的脚本系统天然支持这种机制：通过多重签名，可以轻松实现“2-of-3“的托管模式——买方、卖方和一个中立的仲裁方各持一把密钥，任意两方同意即可释放资金。如果交易顺利，买卖双方签字即可完成；如果出现争议，仲裁方介入，与受损一方共同签字来裁决资金的去向。</p>
+<p>关键区别在于：在比特币中，托管是<strong>可选的</strong>，只在需要时引入；而在传统金融中，可逆性是<strong>强制的</strong>，所有交易都承担了这个机制的成本，无论你需不需要。买一杯5元的咖啡需要信用卡公司在背后做争议调解的准备吗？显然不需要。但在信用卡体系中，你为这杯咖啡支付的价格里已经包含了这个成本。</p>
+<p>这正是比特币作为电子现金的精髓所在：把选择权还给交易双方，而不是强制所有人接受一种一刀切的信任模型。</p>
+<h3 id="回到本质中本聪为什么选择utxo"><a class="header" href="#回到本质中本聪为什么选择utxo">回到本质：中本聪为什么选择UTXO</a></h3>
+<p>把所有这些线索串起来，我们可以回答一个更根本的问题：中本聪为什么选择UTXO模型而不是账户模型？</p>
+<p>答案不是“因为UTXO更容易编程“——恰恰相反，账户模型对开发者更友好。答案也不是“因为UTXO在当时更流行“——当时根本没有先例可以参考。</p>
+<p>答案是：<strong>UTXO模型是“电子现金“这个定义的唯一忠实实现。</strong></p>
+<p>现金是什么？现金是独立的、可传递的价值载体。一枚硬币不依赖任何数据库来证明自己的存在。它不需要联网，不需要查询余额，不需要得到任何机构的确认。它就在你手里——你可以看到它、触摸它、直接把它递给另一个人。</p>
+<p>UTXO就是这种属性的数字化对应。每枚UTXO是一个独立的、自包含的价值单元。它的产权证明（数字签名链）刻写在自身之上。验证它不需要查询任何全局状态。花费它只需要提供一个有效的签名——就像用物理硬币付款只需要把硬币递出去。</p>
+<p>账户模型无法实现这种属性。在账户模型中，你的“钱“是数据库中的一个数字。你不“持有“你的钱——你持有的是一个查询数据库的权限。如果数据库不可访问，你的钱就不存在。这与“电子现金“的定义是矛盾的：现金必须是你可以直接持有和传递的东西，而不是某个共享数据库中的一行记录。</p>
+<p>中本聪在白皮书标题中写下“Electronic Cash“的那一刻，UTXO模型就是必然的选择。因为只有UTXO模型，才能在数字世界中忠实地再现现金的核心属性——独立性、可传递性、自证性。这不是一个技术偏好，而是一个逻辑必然。</p>
+<h2 id="小结"><a class="header" href="#小结">小结</a></h2>
+<p>比特币中的交易不是余额的增减，而是硬币的销毁与铸造——每一笔交易消费旧的UTXO，创造新的UTXO，用数字签名完成产权的不可逆转移，构成一条从创币到当下的完整产权链。UTXO模型不是一个技术实现细节，而是“电子现金“这一定义在数据结构层面的忠实表达——它赋予了比特币自包含性、无全局状态、天然并行的架构基因，为系统的长期扩展奠定了正确的基础。这个设计选择的影响如此深远，以至于后来整个行业在扩容问题上撞的墙，很大程度上就是因为偏离了这个模型。</p>
+<p>交易机制解释了“钱怎么动“。但还有一个更基本的问题悬而未决：谁来保证这些交易不被篡改？谁来确保同一枚硬币不被花费两次？在序章中，我们说过解决双花的本质是排序——确定交易的先后次序。下一章，我们将看到比特币如何用一种令人叹为观止的方式来实现这个排序——不靠权威，不靠投票，而是靠物理世界中最不可伪造的东西：能量。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="06-electronic-cash.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="08-proof-of-work.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="06-electronic-cash.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="08-proof-of-work.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

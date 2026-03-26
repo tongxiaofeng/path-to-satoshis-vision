@@ -1,0 +1,406 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>第十五章：比特币与 BTC——协议分裂的真相 - 正本清源比特币</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="Bitcoin: The Path to Satoshi&#x27;s Vision">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="custom-cbdc12bd.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-e84ab39c.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-d8d8ae9b.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">正本清源比特币</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/tongxiaofeng/path-to-satoshis-vision" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/tongxiaofeng/path-to-satoshis-vision/edit/main/chapters/src/15-btc-deviation.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                            <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="第十五章比特币与-btc协议分裂的真相"><a class="header" href="#第十五章比特币与-btc协议分裂的真相">第十五章：比特币与 BTC——协议分裂的真相</a></h1>
+<h2 id="一个名字的继承"><a class="header" href="#一个名字的继承">一个名字的继承</a></h2>
+<p>假设一个人去世了，留下了一份详细的遗嘱：房子留给长子，但不得拆除或改建；花园必须对邻居开放；书房的藏书不得出售。长子继承了房子，拿到了房产证，名字也过户到了他名下。然后他拆掉了花园的围墙，把它改成了私人停车场；他锁上了书房的门，把藏书搬去了地下室；他在客厅打了隔断，改成了三间出租屋。</p>
+<p>从法律上说，这栋房子仍然登记在同一个地址，仍然挂着同一个门牌号。但从遗嘱的角度看，这栋房子已经不是父亲留下的那栋房子了。门牌号还在，但契约已经被违背。</p>
+<p>这个比喻并不完美，但它捕捉到了比特币与BTC之间关系的核心张力。BTC继承了比特币的名字、ticker符号、交易历史和品牌认知。在绝大多数人的心目中，BTC就是比特币，比特币就是BTC。但如果我们认真对照中本聪发布的白皮书和0.1版本代码——那份“遗嘱“——就会发现，BTC在过去十几年中对原始协议做出了一系列根本性的修改。每一次修改都有充分的技术理由，每一次都被包装成“升级“或“改进“，但累积起来的效果是：今天运行在BTC网络上的协议，与中本聪设计的协议之间，已经存在结构性的差异。</p>
+<p>第二部分的九章——从第六章到第十四章——完整地论证了比特币的原始设计：电子现金的定义、UTXO交易模型、工作量证明、经济激励、隐私架构、法律定位、协议锁定、链上扩容、脚本与智能合约。现在，读者已经掌握了完整的参照系。有了这个参照系，我们可以逐一检视BTC的每一次“升级“，看看它到底改变了什么。</p>
+<h2 id="第一刀操作码禁用2010年"><a class="header" href="#第一刀操作码禁用2010年">第一刀：操作码禁用（2010年）</a></h2>
+<p>故事要从最早的一次改变说起。</p>
+<p>2010年8月15日，中本聪在Bitcoin的代码库中提交了一次关键修改：禁用了大量脚本操作码。被禁用的包括OP_CAT（字符串拼接）、OP_SUBSTR（子串提取）、OP_LEFT和OP_RIGHT（字符串截取）、OP_INVERT、OP_AND、OP_OR、OP_XOR（位运算）、OP_MUL和OP_DIV（乘法和除法）、OP_MOD（取模）、OP_LSHIFT和OP_RSHIFT（位移）等十多个操作码。</p>
+<p>禁用的理由是安全：某些操作码的组合可能被恶意利用来发动拒绝服务（DoS）攻击。例如，OP_CAT与OP_DUP配合使用，攻击者可以构造出栈数据指数级增长的脚本，让验证节点的内存耗尽。这是一个真实的安全隐患，中本聪选择了最快速的应对——直接禁用。</p>
+<p>第三章已经详细讨论了这次禁用的技术背景，第十四章则论证了这些操作码对比特币脚本能力的重要性。在这里，我们需要从协议变更的角度来审视这件事。</p>
+<p>关键事实是：这次禁用是中本聪本人做出的，目的是应对紧急安全漏洞。它在当时的语境下是合理的——网络刚刚起步，节点数量极少，一次成功的DoS攻击可能直接杀死这个项目。但中本聪的应急处理，和后来BTC开发者对这些操作码的永久放弃，是两件完全不同的事情。</p>
+<p>打一个比方：你家的窗户玻璃碎了，冷风灌进来。你先用纸板临时糊上——这是应急措施。但如果你事后不去换一块新玻璃，反而用水泥把整个窗户封死，然后告诉家人“我们家不需要窗户“——这就不再是应急了，这是对房屋结构的永久改变。</p>
+<p>中本聪禁用操作码的行为，相当于糊上纸板。合理的后续操作是修复漏洞——给有问题的操作码加上资源限制（比如限制OP_CAT可以拼接的数据长度），然后重新启用它们。但在BTC的历史上，这件事从未发生。那块纸板变成了水泥墙。十多年来，BTC的开发者不仅没有修复并重启这些操作码，反而将操作码的缺失内化为一种“特性“——比特币脚本“不需要“那么多功能，比特币“不应该“做智能合约。</p>
+<p>第十四章已经证明了这种说法的荒谬：恢复这些操作码后，比特币脚本可以实现图灵完备的计算、零知识证明验证、代币系统、去中心化交易所——所有以太坊号称独有的功能。操作码的禁用不是一个无关紧要的细节，它是比特币脚本能力被“阉割“的起点，也是“比特币不能做智能合约“这一行业级误解的技术根源。</p>
+<h2 id="第二刀1mb-区块限制的固化"><a class="header" href="#第二刀1mb-区块限制的固化">第二刀：1MB 区块限制的固化</a></h2>
+<p>如果说操作码禁用是对比特币功能维度的截断，那么1MB区块限制的固化就是对比特币容量维度的绞杀。</p>
+<p>2010年7月14日，中本聪在代码中加入了一个限制：矿工产出的区块不得超过1MB。同年9月7日，第二次提交进一步强化了这个限制：网络将拒绝接受任何大于1MB的区块。</p>
+<p>这个限制被引入时，没有任何公开声明，没有正式讨论，没有白皮书修订。它被悄悄地加入了代码。根据可追溯的讨论记录，这个限制最初是作为反垃圾交易的临时措施——在网络早期，一个攻击者可以用极低的成本创建巨大的区块来瘫痪网络。1MB在当时远远超过实际需求——当时最大的区块也远不到1MB——所以这个限制不会影响正常使用，只是阻止恶意攻击。</p>
+<p>但“临时“这两个字，在后来的历史中被彻底遗忘了。</p>
+<p>第十三章详细论证了比特币的原始扩容设计：默克尔树的对数级证明路径——为承载百万级交易量的区块而设计；简化支付验证（SPV）——允许用户在不下载完整区块的情况下验证交易；磁盘空间回收——通过修剪已花费的交易来控制存储增长。这三个设计组件构成了一个完整的扩容架构，它们的存在本身就证明了中本聪的意图：比特币的区块应该随着需求增长而增大。</p>
+<p>白皮书第七节对磁盘空间的计算也暗示了这一点。中本聪写道：“假设每10分钟产生一个区块，80字节×6×24×365 = 每年4.2MB。“他在做这个计算时，讨论的是区块头的存储需求——因为完整的区块数据可以被修剪，只有区块头需要永久保存。如果他的设计预期是每个区块永远只有1MB，为什么要特别设计一套让大多数节点不需要存储完整区块数据的机制？</p>
+<p>中本聪本人在2010年10月的一篇帖子中，对这个问题给出了直接回答。当有人讨论提高区块大小限制的补丁时，他写道：</p>
+<blockquote>
+<p>“It can be phased in, like: if (blocknumber &gt; 115000) maxblocksize = largerlimit.”</p>
+</blockquote>
+<p>这句话清楚地表明，在中本聪的规划中，1MB限制是有终点的——在某个区块高度之后，限制应该被提高。这不是一个永久的设计参数，而是一个有到期日的临时措施。</p>
+<p>但从2010年中本聪离开比特币项目，到2017年区块容量危机全面爆发，这个限制不仅没有被提高，反而被异化成了一种设计哲学。BTC Core开发者中的主流观点逐渐演变为：小区块是比特币的核心特性，它保证了“去中心化“——因为更小的区块意味着更低的节点运行成本，从而更多的人可以运行全节点。</p>
+<p>这个论点在逻辑上存在根本缺陷。第十三章已经论证过：白皮书定义的“节点“是矿工——生产区块的参与者——而不是只验证和转发数据的“非挖矿全节点“。中本聪的扩容设计明确预期大多数用户将使用SPV模式，而不是运行全节点。将“人人都能运行全节点“提升为比特币的核心价值，然后以此为理由拒绝提高区块大小——这是在用一个原始设计中不存在的目标，来阻止原始设计中明确规划的扩容路径。</p>
+<h2 id="区块战争2015-2017"><a class="header" href="#区块战争2015-2017">区块战争：2015-2017</a></h2>
+<p>围绕区块大小限制的争论，最终演变成了比特币历史上最剧烈的内部冲突——所谓的“区块战争“（Block Size War）。这场持续了近三年的争论，不仅决定了BTC的技术路径，也从根本上改变了比特币社区的权力结构。</p>
+<h3 id="大区块阵营的尝试"><a class="header" href="#大区块阵营的尝试">大区块阵营的尝试</a></h3>
+<p>2015年，比特币的早期核心开发者Mike Hearn和Gavin Andresen——后者是中本聪离开后比特币项目的首席维护者——发布了Bitcoin XT，提议将区块大小限制提高到8MB。Bitcoin XT没有获得足够的矿工支持，未能激活。随后出现了Bitcoin Classic（提议提高到2MB）和Bitcoin Unlimited（提议取消硬编码限制，让矿工自行决定区块大小），但都没有达到激活所需的共识阈值。</p>
+<p>值得注意的是，大区块阵营的核心人物——Gavin Andresen和Mike Hearn——是比特币最早期的开发者，他们对中本聪的原始设计意图有直接的了解。他们的立场始终一致：中本聪设计比特币时预期区块会增大，1MB限制是临时的。</p>
+<h3 id="香港协议和纽约协议"><a class="header" href="#香港协议和纽约协议">香港协议和纽约协议</a></h3>
+<p>2016年2月，一群矿工和Bitcoin Core开发者在香港达成了一项协议：开发者将推进SegWit（隔离见证）方案，同时开发一个将区块大小提高到2MB的硬分叉方案。这被称为“香港协议“。但协议中的区块大小增加部分从未被履行。</p>
+<p>2017年5月，在纽约，包括超过80%算力的矿工和数十家主要比特币企业签署了“纽约协议“（也称SegWit2x）：先激活SegWit，然后在六个月后通过硬分叉将基础区块大小提高到2MB。SegWit于2017年8月激活——纽约协议的第一部分被执行了。但第二部分——2MB的区块大小提升——在2017年11月8日被宣布取消，理由是“缺乏共识“。</p>
+<p>两次承诺，两次食言。区块大小始终没有提高。</p>
+<h3 id="uasf用户激活软分叉"><a class="header" href="#uasf用户激活软分叉">UASF：用户激活软分叉</a></h3>
+<p>SegWit的激活过程本身就值得深思。在矿工多数不愿独立激活SegWit的情况下，一群BTC的支持者发起了“用户激活软分叉“（UASF，BIP148）运动——威胁从2017年8月1日起，运行UASF的节点将拒绝不包含SegWit信号的区块。这实质上是一种对矿工的最后通牒：要么激活SegWit，要么面临链分裂。</p>
+<p>在白皮书的设计中，节点（矿工）“用CPU算力进行投票”——这是共识机制的核心。UASF运动的实质是：非挖矿节点试图通过威胁链分裂来迫使矿工接受一项协议变更。无论对SegWit的技术优劣持何种看法，这种激活方式本身就偏离了白皮书定义的共识模型。</p>
+<h3 id="结局分裂"><a class="header" href="#结局分裂">结局：分裂</a></h3>
+<p>2017年8月1日，不愿接受SegWit的一部分矿工和开发者选择了另一条路：他们将区块大小提高到8MB（后来进一步提高到32MB），保留了传统的交易格式，不包含SegWit变更。这就是Bitcoin Cash（BCH）的诞生。</p>
+<p>区块战争的结局，在技术层面上是SegWit的激活和大区块方案的失败。但在更深的层面上，它确立了一个先例：BTC的协议可以被一小群核心开发者的技术偏好所主导，即使这种偏好与原始设计的方向相悖，即使矿工和企业的多数支持另一种方案。</p>
+<h2 id="第三刀隔离见证2017年8月"><a class="header" href="#第三刀隔离见证2017年8月">第三刀：隔离见证（2017年8月）</a></h2>
+<p>区块战争以SegWit的激活告终。现在让我们仔细审视这个被称为“升级“的改变到底做了什么。</p>
+<p>SegWit（Segregated Witness，隔离见证），正式编号BIP141，于2017年8月24日在BTC网络上激活。它的核心改变是：将交易的签名数据（“见证数据”）从交易的主体结构中分离出来，放到一个单独的数据区域中。</p>
+<p>这个改变有多个层面的影响。</p>
+<h3 id="交易结构的变异"><a class="header" href="#交易结构的变异">交易结构的变异</a></h3>
+<p>回忆第七章对比特币交易的论证。白皮书第二节定义了电子货币：“我们将电子货币定义为一条数字签名链。每一位所有者通过对前一笔交易的哈希和下一位所有者的公钥进行数字签名，并将签名附加到这枚货币的末尾，来将货币转让给下一位所有者。”</p>
+<p>在这个定义中，数字签名是交易的组成部分。签名不是交易的附属品，不是可以被分离出去的注脚——它是交易本身的一部分，是“电子硬币“这条签名链上的一个环节。所有者的身份验证和产权转移，在同一个数据结构中完成。</p>
+<p>SegWit做的事情，恰恰是把签名从交易中拆出来。在SegWit格式的交易中，交易ID（TXID）的计算不再包含签名数据。签名被移到了一个叫做“witness“（见证）的独立数据区域。交易本身和证明交易合法性的签名，不再存在于同一个数据结构中。</p>
+<p>用第七章的土地契约比喻来说：原始的比特币交易就像那张传统的土地契约——每一次转让的记录和签字都写在同一张纸上。SegWit做的事情，相当于把签字撕下来，单独存放在另一个文件夹里。那张纸上仍然写着“某人将此地转让给某人“，但签字不在这张纸上了——你需要去另一个地方才能看到签字。</p>
+<p>这不是一个无关紧要的数据格式调整。它改变了“电子硬币是一条数字签名链“这个基本定义的物理实现。在原始格式中，签名链是连续的、自包含的——每一笔交易都包含了验证其合法性所需的全部信息。在SegWit格式中，交易和证明交易有效的签名被分开存储，交易本身不再是自包含的。</p>
+<h3 id="见证数据的折扣"><a class="header" href="#见证数据的折扣">见证数据的折扣</a></h3>
+<p>SegWit还引入了一个新的概念：“区块权重”（block weight）。原来的1MB区块大小限制被替换为400万权重单位（4MWU）的限制。交易主体数据每字节计为4个权重单位，而见证数据（签名）每字节只计为1个权重单位。</p>
+<p>这意味着签名数据在“付费“上得到了75%的折扣。一个使用SegWit格式的交易，其签名数据占用的有效“空间“只有传统格式的四分之一。这个折扣的实际效果是：在400万权重单位的限制下，一个SegWit区块可以容纳大约1.7MB到2.1MB的实际数据（取决于交易类型的混合比例），其中大约1MB是交易主体，其余是折扣后的见证数据。</p>
+<p>表面上看，这增加了区块的有效容量。但它是以一种极其扭曲的方式实现的——不是直接提高区块大小（这是原始设计中预期的扩容方式），而是通过给签名数据“打折“来在不提高名义区块大小的前提下塞入更多数据。这种复杂的间接方式之所以被选择，有一个政治原因：它可以作为软分叉实施，不需要所有节点升级——而直接提高区块大小需要硬分叉，需要全网共识。</p>
+<p>第十二章论证了协议锁定的原则：比特币的核心设计在0.1版本发布时就被“写入石头“。从这个角度看，SegWit不是升级——它是对交易数据结构的根本性改变。白皮书定义的交易格式中，签名是交易的一部分。SegWit改变了这个定义。无论改变的理由多么充分（解决交易延展性、为闪电网络铺路），改变本身就构成了对原始协议的偏离。</p>
+<h3 id="为什么解决延展性不需要segwit"><a class="header" href="#为什么解决延展性不需要segwit">为什么解决延展性不需要SegWit</a></h3>
+<p>SegWit的支持者提出的一个核心理由是解决“交易延展性“（transaction malleability）问题——在原始交易格式中，签名数据在被打包之前可以被第三方修改（虽然这不影响交易的有效性），导致交易ID发生变化，这给依赖未确认交易ID的应用（尤其是支付通道和闪电网络）带来了麻烦。</p>
+<p>但交易延展性并不是一个需要重构交易数据结构才能解决的问题。事实上，更简单的方案早就存在——例如BIP62和BIP66，它们通过规范签名格式的细节来消除延展性，不需要把签名从交易中拆出来。选择SegWit而非这些更保守的方案，技术上的必要性是值得质疑的。</p>
+<h2 id="第四刀replace-by-fee2016年"><a class="header" href="#第四刀replace-by-fee2016年">第四刀：Replace-by-Fee（2016年）</a></h2>
+<p>在SegWit引发大规模争论的同一时期，BTC悄悄地引入了另一个改变，其影响同样深远但获得的关注远少于SegWit。</p>
+<p>Replace-by-Fee（RBF），正式编号BIP125，由Peter Todd在2015年提出，并在2016年2月发布的Bitcoin Core 0.12.0中实现为“选择性加入“（opt-in）的功能。RBF允许交易发送者用一笔手续费更高的新交易替换一笔尚未被确认的旧交易——只要旧交易标记了“可替换“信号。</p>
+<p>这个改变直接违反了比特币原始设计中的一个核心规则：首次看到规则（first-seen rule）。</p>
+<p>在比特币的原始实现中，节点在收到一笔交易后，会将它放入内存池并转发给其他节点。如果之后收到另一笔花费相同输入的交易——即使这笔新交易的手续费更高——节点会直接拒绝它。这就是“首次看到规则“：先到的交易有效，后到的冲突交易被拒绝。</p>
+<p>这个规则对比特币的“电子现金“功能至关重要。第六章论证了比特币的核心定义是点对点的电子现金。电子现金的一个基本要求是：在交易被广播后、被确认之前的那段时间里，收款方需要有一个合理的信心基础来判断这笔交易大概率会被确认。首次看到规则提供了这个基础——一旦交易被网络中的大多数节点接受并传播，发送者就很难用一笔冲突交易来替换它，因为大多数节点会拒绝后到的交易。</p>
+<p>这就是“零确认交易“（zero-confirmation transaction）可以在实际商业中被接受的技术前提。一家咖啡店可以在看到交易被广播后立即提供咖啡，不需要等待十分钟的区块确认——因为首次看到规则让交易被撤销的概率极低。不是零，但足够低，低到商业上可以接受，就像信用卡退款的风险在商业上也是可以接受的一样。</p>
+<p>RBF打破了这个模型。在RBF机制下，发送者可以在交易被确认之前用一笔新交易替换它——把收款地址改成自己的地址，同时提高手续费。节点不仅不会拒绝这笔新交易，反而会优先接受它。这意味着零确认交易不再可靠：收款方看到一笔交易被广播，提供了商品或服务，然后发送者用RBF把交易替换掉，把钱转回给自己。</p>
+<p>BTC的辩护是：RBF最初是“选择性加入“的——只有标记了特定信号的交易才能被替换。但这个辩护站不住脚，原因有二。第一，对于收款方来说，他无法控制发送方的交易是否标记了可替换信号。第二，也是更根本的，BTC后来的发展证实了滑坡效应：2022年，Bitcoin Core 24.0引入了“完全RBF“（full RBF）选项——允许节点替换任何未确认交易，无论它是否标记了可替换信号。虽然这个选项默认关闭，但它的存在本身就标志着首次看到规则在BTC网络中已经不再是一个可靠的保障。</p>
+<p>让我们用白皮书的语言来评估这个改变。白皮书摘要说得很清楚：比特币是一种“点对点电子现金系统“。电子现金必须能够在日常商业场景中使用——你付钱，对方收钱，交易完成。RBF让这个场景变得不可靠。在一个RBF广泛存在的网络中，商家必须等待至少一个区块确认才能信任一笔交易——而在1MB区块限制下，这意味着至少等待十分钟，在网络拥堵时可能等待数小时。</p>
+<p>一个不能做即时支付的电子现金系统，还是电子现金吗？</p>
+<h2 id="第五刀taproot2021年11月"><a class="header" href="#第五刀taproot2021年11月">第五刀：Taproot（2021年11月）</a></h2>
+<p>2021年11月14日，BTC在区块高度709,632处激活了Taproot升级，包含三个比特币改进提案：BIP340（Schnorr签名）、BIP341（Taproot）和BIP342（Tapscript）。</p>
+<p>Taproot的改变比SegWit更安静——它没有引发大规模的社区分裂，部分原因是反对BTC路线的人在2017年已经离开了。但从协议偏离的角度看，Taproot的改变同样深刻。</p>
+<h3 id="签名方案的替换"><a class="header" href="#签名方案的替换">签名方案的替换</a></h3>
+<p>BIP340引入了Schnorr签名方案，替代（或更准确地说，补充）了比特币一直使用的ECDSA签名。Schnorr签名在数学上确实有一些优势——线性特性允许多重签名被聚合成一个单一签名，提高了隐私性和效率。但这不是问题的关键。</p>
+<p>问题的关键是：白皮书和0.1版本代码定义的签名方案是ECDSA。改变签名方案，就是改变“电子硬币是一条数字签名链“中“签名“这个词的含义。如果SegWit是把签名从交易中拆出来，Taproot就是把签名本身换成了另一种东西。</p>
+<h3 id="脚本语义的改变"><a class="header" href="#脚本语义的改变">脚本语义的改变</a></h3>
+<p>BIP342（Tapscript）修改了比特币脚本中签名验证操作码的行为。OP_CHECKSIG和OP_CHECKSIGVERIFY——比特币脚本中最基本的两个操作码——在Tapscript环境中被修改为验证Schnorr签名而非ECDSA签名。这意味着在Taproot输出中执行的脚本，其语义与传统比特币脚本不同——相同的操作码在不同的上下文中执行不同的操作。</p>
+<p>这是一种协议层面的语义分裂。一个操作码的行为取决于它是在“传统“上下文还是“Tapscript“上下文中执行——这增加了系统的复杂性，也打破了脚本语义的一致性。</p>
+<h3 id="mast有条件地隐藏脚本"><a class="header" href="#mast有条件地隐藏脚本">MAST：有条件地隐藏脚本</a></h3>
+<p>BIP341引入了默克尔化抽象语法树（MAST），允许一笔交易包含多个可能的花费条件，但在花费时只需要揭示实际使用的那个条件。未使用的条件保持隐藏。</p>
+<p>这个功能本身有其技术价值——它提高了复杂交易的隐私性和效率。但从第十章论证的比特币隐私模型来看，MAST引入了一种与原始设计不同的隐私策略。白皮书的隐私模型是通过匿名公钥来实现的——“公众可以看到有人正在向另一个人发送一笔金额，但没有将交易与任何人关联的信息。“这是一种透明但匿名的模型。MAST则引入了一种选择性隐藏的模型——不是所有信息都可见但不可关联，而是某些信息被主动隐藏。</p>
+<p>这两种隐私模型的哲学是不同的，而BTC将后者叠加到了前者之上——不是替换，而是增加了一层新的复杂性。</p>
+<h2 id="偏离的模式从修补到变异"><a class="header" href="#偏离的模式从修补到变异">偏离的模式：从修补到变异</a></h2>
+<p>回顾这五次主要的协议改变，一个清晰的模式浮现出来。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>改变</th><th>时间</th><th>影响</th><th>偏离的维度</th></tr>
+</thead>
+<tbody>
+<tr><td>操作码禁用</td><td>2010年8月</td><td>脚本能力被阉割</td><td>功能</td></tr>
+<tr><td>1MB区块限制固化</td><td>2010年至今</td><td>扩容路径被堵死</td><td>容量</td></tr>
+<tr><td>RBF</td><td>2016年</td><td>零确认交易不再可靠</td><td>现金功能</td></tr>
+<tr><td>SegWit</td><td>2017年8月</td><td>交易结构被改变</td><td>数据模型</td></tr>
+<tr><td>Taproot</td><td>2021年11月</td><td>签名方案和脚本语义被改变</td><td>密码学基础</td></tr>
+</tbody>
+</table>
+</div>
+<p>每一次改变都有合理的技术叙事——安全修复、容量优化、延展性解决、隐私增强。但它们的累积效果是一个根本性的事实：今天的BTC协议与2009年的比特币协议之间，存在结构性差异。交易的数据格式不同了（SegWit）。签名的算法不同了（Taproot/Schnorr）。脚本的能力不同了（操作码禁用）。区块的容量被锁死了（1MB）。未确认交易的行为不同了（RBF）。</p>
+<p>如果一艘船的木板被逐一替换，直到没有一块是原来的木板，它还是原来那艘船吗？这是哲学史上著名的忒修斯之船悖论。但比特币的情况比忒修斯之船更极端——BTC不仅替换了“木板“（技术实现），还改变了“设计图纸“（协议规则）。忒修斯之船至少保持了船的形状和功能不变。BTC改变的是船的结构本身。</p>
+<h2 id="ticker--协议"><a class="header" href="#ticker--协议">Ticker ≠ 协议</a></h2>
+<p>这就引出了一个核心问题：BTC是比特币吗？</p>
+<p>要回答这个问题，需要区分两个完全不同的概念：<strong>ticker符号</strong>和<strong>协议</strong>。</p>
+<p>Ticker符号是市场标识。当你在交易所看到“BTC“这三个字母时，你看到的是一种可交易资产的标识符——就像“AAPL“代表苹果公司的股票。ticker符号是由交易所分配的，它的唯一功能是告诉你“这个价格对应哪个资产“。ticker符号不包含任何技术信息——它不告诉你这个资产的底层协议是什么，不告诉你交易的数据结构是什么样的，不告诉你签名用的是哪种算法。</p>
+<p>协议是技术规范。比特币的协议定义了：交易的格式（UTXO模型、输入输出结构）、签名的方式（ECDSA on secp256k1）、共识规则（工作量证明、最长链规则）、脚本的语法和语义（操作码集合及其行为）、区块的结构（头部+交易列表+Merkle根）。这些规则在白皮书中被定义，在0.1版本代码中被实现。</p>
+<p>BTC继承了比特币的ticker符号。在2017年分叉时，BTC保留了“BTC“这个代号，Bitcoin Cash获得了“BCH“。从市场标识的角度看，BTC就是“比特币“。交易所这么叫它，媒体这么叫它，绝大多数人这么认为。</p>
+<p>但BTC没有完整地继承比特币的协议。SegWit改变了交易格式。Taproot改变了签名方案。操作码禁用削弱了脚本能力。1MB限制堵死了链上扩容路径。RBF破坏了零确认交易的可靠性。</p>
+<p>一个继承了名字但改变了规则的系统，应该被如何称呼？</p>
+<p>这不是一个文字游戏。它关系到一个根本性的问题：当我们说“比特币“时，我们指的是什么？是一个ticker符号——一种在交易所可以买卖的资产？还是一套协议——中本聪定义的那套规则？</p>
+<p>如果“比特币“指的是ticker符号，那么BTC当然是比特币——因为交易所就是这么标记它的。</p>
+<p>如果“比特币“指的是协议——白皮书定义的那套规则——那么BTC与比特币之间已经存在结构性的差异。它仍然是一条运行着的区块链，它仍然使用工作量证明，它仍然有2100万的供应上限。但它的交易格式、签名方案、脚本能力、区块容量和未确认交易的行为，都与原始设计不同了。</p>
+<h2 id="数字黄金扩容失败后的退路"><a class="header" href="#数字黄金扩容失败后的退路">“数字黄金”：扩容失败后的退路</a></h2>
+<p>理解了BTC对原始协议的偏离之后，一个自然的问题是：BTC的社区和开发者如何解释这种偏离？</p>
+<p>答案是一个叙事的转换。</p>
+<p>比特币的白皮书标题是“一种点对点的电子现金系统“。在比特币的头几年，社区对这个定义没有争议——比特币就是电子现金，目标是替代传统支付系统，让人们可以点对点地、无需中间人地进行交易。</p>
+<p>但当1MB区块限制导致网络拥堵、交易费飙升、确认时间延长之后，比特币作为电子现金的功能事实上被摧毁了。五十美元的手续费加上数小时的确认时间，让“用比特币买咖啡“变成了一个笑话。这时候，一个新的叙事开始在BTC社区中兴起：“比特币不是用来买咖啡的，比特币是数字黄金。”</p>
+<p>这个叙事转换的时间线非常能说明问题：</p>
+<p>“数字黄金“的说法在2015年之前几乎不存在于比特币社区的主流话语中。它是在区块大小争论的背景下逐渐出现的——恰恰是在比特币的电子现金功能因为人为的容量限制而退化之后。先是扩容失败，然后才是叙事转变。不是因为社区“发现“了比特币作为价值存储的独特属性，而是因为比特币作为支付工具的功能被废掉了，需要一个新的故事来解释“为什么这仍然有价值”。</p>
+<p>“数字黄金“叙事在逻辑上有两个根本性的缺陷。</p>
+<p>第一，它与白皮书直接矛盾。白皮书的标题是“电子现金系统“，不是“电子黄金系统“。白皮书第一节讨论的是支付——商业交易、小额支付、交易成本。白皮书第六节关于激励机制的设计，明确预期交易手续费将在区块奖励减半后成为矿工收入的主要来源——这要求大量的链上交易，而不是少量的高价值转账。一个“数字黄金“——以囤积而非流通为主要用途——无法产生足够的交易手续费来维持网络的安全性。</p>
+<p>第二，“数字黄金“叙事混淆了结果和原因。比特币确实具有某些与黄金类似的属性——供应有限、不可伪造、不需要信任发行方。但这些属性是比特币作为电子现金的副产品，不是它的核心目的。货币要成为可靠的价值存储手段，前提是它首先要作为交换媒介被广泛使用——这是货币经济学的基本常识，也是为什么黄金是先作为交易媒介被使用、然后才成为价值储存手段的。一种不能用来交易的“货币”，凭什么储存价值？</p>
+<p>把比特币从电子现金重新定义为数字黄金，不是一个自然的认知演化。它是扩容路线被人为堵死后，不得不进行的叙事退却。当你的车跑不了了，你不是去修引擎，而是宣布“这其实是一件雕塑“。</p>
+<h2 id="最长诚实链的重新理解"><a class="header" href="#最长诚实链的重新理解">“最长诚实链“的重新理解</a></h2>
+<p>白皮书中有一段经常被引用但很少被准确理解的话：</p>
+<blockquote>
+<p>“Nodes always consider the longest chain to be the correct one and will keep working on extending it.”</p>
+<p>“节点始终认为最长的链是正确的，并将持续在其上工作以延长它。”</p>
+</blockquote>
+<p>在BTC社区的通常解读中，这句话被理解为：BTC拥有最多的算力、最长的链，所以BTC就是“正确的“比特币。谁的链最长，谁就是比特币。</p>
+<p>但这种解读忽略了一个关键的限定条件。白皮书同一节中明确写道：</p>
+<blockquote>
+<p>“Nodes accept the block only if all transactions in it are valid and not already spent.”</p>
+<p>“节点只有在区块中所有交易都有效且尚未被花费的情况下才接受该区块。”</p>
+</blockquote>
+<p>以及：</p>
+<blockquote>
+<p>“They vote with their CPU power, expressing their acceptance of valid blocks by working on extending them and rejecting invalid blocks by refusing to work on them.”</p>
+<p>“它们用CPU算力进行投票，通过在有效区块上继续工作来表达对其接受，通过拒绝在无效区块上工作来表达对其拒绝。”</p>
+</blockquote>
+<p>关键词是“valid“——有效的。最长链规则不是说“最长的任意链就是正确的“。它说的是“最长的有效链就是正确的“。什么是“有效“？遵守协议规则的链才是有效的。</p>
+<p>现在问题变得尖锐了：如果协议规则本身被改变了呢？</p>
+<p>一条按照修改后的规则运行的链，和一条按照原始规则运行的链，哪一条才是“有效“的？白皮书定义了一套规则，然后说“遵守这些规则的最长链是正确的“。如果有人改变了规则然后说“看，遵守新规则的链更长，所以新规则是正确的“——这就是循环论证了。</p>
+<p>第十二章论证了中本聪的“set in stone“原则：“比特币的性质决定了，一旦0.1版本发布，其核心设计就在其整个生命周期内被写入了石头。“如果我们接受这个原则——协议规则是固定的——那么“最长诚实链“的含义就很清楚：它是遵守原始规则的最长链，不是遵守某个修改版规则的最长链。</p>
+<p>这不意味着BTC没有价值。它是一条运行着的区块链，有真实的算力在维护它，有真实的市场在为它定价。但“有价值“和“是比特币“是两个不同的命题。一条改变了比特币原始规则的链，无论它积累了多少算力、获得了多少市场认可，从协议定义的角度看，它与比特币之间已经存在了不可调和的差异。</p>
+<h2 id="分叉不是升级是退出"><a class="header" href="#分叉不是升级是退出">分叉不是升级，是退出</a></h2>
+<p>“升级“这个词本身就包含了一个未经审视的假设：改变后的系统优于改变前的系统，而且改变后的系统仍然是同一个系统。</p>
+<p>当你的手机操作系统从iOS 17升级到iOS 18时，它仍然是iOS。核心功能保持一致，API接口向后兼容，应用程序照常运行。这是升级。</p>
+<p>但如果你的手机突然运行了一个不同的操作系统——它看起来像iOS，图标风格相似，但底层架构不同，某些核心功能的行为发生了改变，部分原有API不再兼容——这不是升级，这是操作系统的替换。你仍然在用你的手机，但手机上运行的系统已经不是原来的那个了。</p>
+<p>BTC对比特币协议的改变，更接近后者而非前者。SegWit不是对交易格式的优化，它是交易格式的改变。Taproot不是对签名方案的增强，它是签名方案的替换。RBF不是对交易传播的改进，它是对首次看到规则的废弃。这些改变不是在原有系统内的渐进调整——它们改变了系统的基本规则。</p>
+<p>在传统的协议治理中，当一部分参与者想要运行一套不同的规则时，正确的做法是分叉出去——创建一条新链，使用新的名称，让市场决定哪条链更有价值。这正是以太坊和以太坊经典之间的关系：以太坊改变了规则（回滚DAO攻击），以太坊经典保留了原始规则。改变规则的那一方自觉地承认了自己是“新“系统。</p>
+<p>但在比特币的分裂中，情况恰恰相反。改变规则的一方保留了原始的名称和ticker符号，而坚持原始规则的一方反而被要求使用新名称。BTC改变了交易格式、签名方案、扩容路径和零确认行为，但它仍然叫“比特币“。而保留了原始交易格式和大区块扩容路径的Bitcoin Cash，被称为“分叉币“。</p>
+<p>这就好比一栋楼的业主委员会投票改变了楼的结构——拆掉了花园、封死了窗户、改变了电路——然后对不同意这些改变的住户说：“你们才是违规的。这栋楼还是原来的楼。”</p>
+<p>从协议定义的角度看，每一次改变规则的硬分叉或实质性软分叉，在逻辑上都不是“升级“，而是“退出“——退出原始规则，进入一套新的规则。改变规则的链不再是原来的链，无论它保留了什么名字。</p>
+<h2 id="小结"><a class="header" href="#小结">小结</a></h2>
+<p>本章的论证可以归纳为以下几点。</p>
+<p>第一，BTC在过去十几年中对比特币的原始协议做出了一系列根本性的改变：操作码禁用削弱了脚本能力，1MB区块限制堵死了链上扩容路径，SegWit改变了交易数据结构，RBF废弃了首次看到规则，Taproot改变了签名方案和脚本语义。这些不是边际调整，而是对协议核心组件的修改。</p>
+<p>第二，每一次改变都有技术理由，但技术理由不能改变一个事实：改变后的协议与原始协议不同了。安全修复、效率优化、功能增强——这些都是合理的工程目标。但如果实现这些目标的方式是修改比特币的基本规则，那么修改后的系统就不再是严格意义上的“比特币“了。它是一个基于比特币的衍生系统。</p>
+<p>第三，BTC继承了比特币的ticker符号和品牌认知，但ticker符号不等于协议。“BTC“这三个字母告诉你的是交易所的资产代码，不是底层协议的技术规范。把ticker等同于协议，就像把一家公司的股票代码等同于公司的章程——代码不变不代表章程没有被修改。</p>
+<p>第四，“数字黄金“叙事是扩容失败后的退路，不是比特币的原始愿景。白皮书定义的是电子现金系统，不是价值存储工具。先堵死现金功能，再宣布“本来就不是现金”——这不是认知的深化，而是叙事的退却。</p>
+<p>第五，“最长链就是比特币“是对白皮书的误读。白皮书说的是“最长的有效链”，而“有效“的前提是遵守原始协议规则。改变了规则的链，无论多长，都不能用自己的长度来证明自己的规则变更是合法的。</p>
+<p>理解了BTC如何偏离原始设计之后，下一章将探讨一个更尖锐的问题：BSV——声称自己最忠实于原始设计的那条链——到底在多大程度上恢复了中本聪的比特币？它在技术上做对了什么，在治理上犯了什么错？它离中本聪的原始愿景还有多远？</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="14-script-smart-contracts.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="16-bsv.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="14-script-smart-contracts.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="16-bsv.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

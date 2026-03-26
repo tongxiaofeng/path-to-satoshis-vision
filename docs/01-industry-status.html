@@ -1,0 +1,346 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>第一章：区块链行业的现状 - 正本清源比特币</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="Bitcoin: The Path to Satoshi&#x27;s Vision">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="custom-cbdc12bd.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-e84ab39c.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-d8d8ae9b.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">正本清源比特币</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/tongxiaofeng/path-to-satoshis-vision" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/tongxiaofeng/path-to-satoshis-vision/edit/main/chapters/src/01-industry-status.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                            <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="第一章区块链行业的现状"><a class="header" href="#第一章区块链行业的现状">第一章：区块链行业的现状</a></h1>
+<h2 id="你转过-usdt-吗"><a class="header" href="#你转过-usdt-吗">你转过 USDT 吗？</a></h2>
+<p>假设你要给朋友转一笔 USDT。</p>
+<p>这应该是一件简单的事。USDT 就是美元稳定币，不管在哪里，1 USDT 都等于 1 美元。你打开钱包，输入金额，输入对方地址——然后你停住了。屏幕上弹出一个选择：ERC-20、TRC-20、BEP-20、SOL、Polygon、Arbitrum、Optimism……</p>
+<p>你知道选错了会怎样吗？</p>
+<p>如果你的朋友给你的是一个 TRC-20 的地址，而你选了 ERC-20 网络发送，这笔钱就会消失在两条链之间的缝隙里。没有错误提示，没有自动退回，没有客服电话。链上的交易是不可逆的——但讽刺的是，你的钱并没有真的到达任何一条链。它只是“不见了“。</p>
+<p>这不是一个极端案例。在加密货币社区的各种论坛上，“发错链了怎么办“是最常见的求助帖之一。Reddit 的加密货币板块、Twitter 上的求助贴、各种 Telegram 群组——每天都有人在问同样的问题。有人因此丢了几百美元，有人丢了几万美元。有些情况下，如果接收方是一个中心化交易所，你可以提交工单请求人工找回，前提是交易所支持那条链、愿意帮你处理、并且收取一笔不菲的手续费。Coinbase 在其帮助文档中明确写道：发送到错误网络的加密资产通常无法找回。如果接收方是一个普通钱包地址——祝你好运。</p>
+<p>而且这还只是“选错链“这一种错误。你还可能遇到：Gas 费不足导致交易卡住、合约地址和钱包地址混淆导致资产发到黑洞、不同链上的地址格式兼容但网络不兼容导致“成功发送“却永远收不到。在 EVM 兼容链的世界里，你的以太坊地址和 BNB Chain 地址看起来一模一样——都是 0x 开头的一长串十六进制字符——但它们是完全不同的网络。这种表面上的相似性让错误变得更加容易发生。</p>
+<p>截至 2026 年初，仅 USDT 一种稳定币就部署在至少十条主要公链上，并通过各种桥接协议扩展到超过 80 个网络。Tether 官方在 2026 年 3 月的透明度报告中显示，USDT 总发行量约 1,868 亿美元，其中约 839 亿美元在 Tron 上，约 961 亿美元在以太坊上，剩余的分布在 BNB Chain、Solana、Arbitrum、Avalanche、Polygon 等网络中。</p>
+<p>一种代币，十几条链，八十多个网络。用户每一次转账，都要面对一个选择题。选对了，几秒到账；选错了，资产蒸发。而且这些选项之间的差异，对普通用户来说几乎是不可理解的。ERC-20 和 TRC-20 有什么区别？一个跑在以太坊上，一个跑在 Tron 上。为什么同一种稳定币要跑在不同的链上？因为不同的链有不同的手续费和速度。那为什么不能只用一条链？这个问题的答案，涉及整个行业过去十几年走过的弯路——而这正是本章要讲的故事。</p>
+<p>停下来想一想：你在银行转账时，需要选择“走哪条线路“吗？你用支付宝付款时，需要决定“这笔钱走哪个清算网络“吗？当然不需要。那些系统之所以好用，正是因为用户根本不需要知道底层的基础设施是什么——一切都在一个统一的系统里完成。</p>
+<p>而区块链行业花了十五年，建造出的是一个让用户在转账前必须先搞清楚网络拓扑的系统。一个声称要“让金融回归普通人“的行业，却建造了一个比传统银行系统更复杂、更容易出错、更不友好的转账流程。</p>
+<p>这只是问题的冰山一角。</p>
+<h2 id="碎片化的世界"><a class="header" href="#碎片化的世界">碎片化的世界</a></h2>
+<p>多链并存不仅仅是用户体验的问题。它是整个行业最深层的结构性困境。</p>
+<p>截至 2025 年初的一项研究统计了从 Layer 0 到 Layer 2 的共 147 条活跃区块链网络。而这还只是经过筛选后符合纳入标准的数量——如果算上所有曾经宣称自己是“公链“的项目，这个数字要翻好几倍。</p>
+<p>每一条链都有自己的代币、自己的钱包、自己的生态、自己的开发工具、自己的用户社区。以太坊上的 DeFi 协议不能直接和 Solana 上的协议交互。你在 Arbitrum 上持有的资产，不能直接在 Optimism 上使用。BNB Chain 上的 NFT，在以太坊上看不到。即使在以太坊自己的 L2 生态内部，Arbitrum、Optimism、Base、zkSync 之间的资产也不能直接互通——你需要先把资产“桥接“回以太坊主网，再“桥接“到目标 L2 上，这个过程可能要等七天，还要付两次跨链手续费。</p>
+<p>这就好比互联网在 2025 年还停留在这样一个状态：你在中国移动的网络上写了一封电子邮件，但中国联通的用户收不到。要想发给联通用户，你得先把邮件“桥接“到一个中间服务器上，这个中间服务器把邮件格式转换一下，再转发到联通的网络。在这个过程中，邮件有可能丢失，有可能被篡改，而中间服务器本身随时可能被黑客攻破。</p>
+<p>荒谬吗？这就是区块链行业今天的现实。</p>
+<p>更糟糕的是，碎片化不是一个正在被解决的问题——它是一个正在加剧的问题。每隔几个月就有新的 Layer 1 公链宣布上线，每隔几周就有新的 Layer 2 发布。每一个新项目都声称自己解决了前辈的问题——更快、更安全、更便宜。但每一个新项目的出现，都让用户需要记住的链名又多了一个，需要安装的钱包又多了一个，需要理解的规则又多了一套。</p>
+<p>碎片化创造了一种表面上的“繁荣“——看啊，这个行业有这么多创新，这么多选择！——但它的代价是，整个生态的流动性被切割成了无数个孤立的碎片，用户的资产被困在一个又一个围墙花园里。</p>
+<p>对于开发者来说，情况同样糟糕甚至更糟。如果你想开发一个 DeFi 应用，你必须决定部署在哪条链上。部署在以太坊？Gas 费太高，小额用户用不起。部署在 Solana？生态不同，智能合约要用 Rust 重写。部署在 Arbitrum？那你只能覆盖以太坊生态的一部分用户。如果你想覆盖所有主流链的用户，你需要在每条链上都部署一个版本，然后维护它们之间的一致性——这是一项几乎不可能完成的工程任务。</p>
+<p>传统互联网的开发者只需要写一个网站或一个 App，全世界的用户都能访问——不管用户用的是什么品牌的手机、什么运营商的网络。互联网之所以成功，正是因为 TCP/IP 协议提供了一个统一的通信标准。而区块链的开发者，要为每条链写一个版本。我们花了十七年，建造出了一个比互联网诞生之前还要碎片化的技术生态。这不是技术进步，这是技术倒退。</p>
+<p>而把这些碎片连接起来的尝试，则带来了另一场灾难。</p>
+<h2 id="跨链桥连接碎片的代价"><a class="header" href="#跨链桥连接碎片的代价">跨链桥：连接碎片的代价</a></h2>
+<p>既然资产被困在不同的链上，一个自然的想法就是建造“桥“来连接它们。这就是跨链桥（cross-chain bridge）的由来。</p>
+<p>跨链桥的基本逻辑是：你把资产锁定在 A 链的一个智能合约里，然后桥在 B 链上铸造出等量的“包装资产“（wrapped token）。当你想把资产移回 A 链时，桥销毁 B 链上的包装资产，再释放 A 链上锁定的原始资产。</p>
+<p>听起来很合理。但这个看似简单的流程，隐藏着一个致命的问题：桥本身就是一个信任中心。你必须相信桥的智能合约没有漏洞，你必须相信桥的验证者没有被收买，你必须相信桥的私钥没有被泄露。如果这些信任中的任何一环失败，锁在合约里的所有资产——不只是你的，是所有人的——都会被洗劫一空。</p>
+<p>这不是理论推演。这是已经反复发生的现实。</p>
+<p>2021 年 8 月，Poly Network 被黑客攻击，损失超过 6.1 亿美元。攻击者利用跨链合约中访问权限管理的漏洞，直接修改了合约的管理员密钥，控制了三条链上锁定的全部资产。这起事件后来有一个戏剧性的结尾——黑客声称自己只是为了“暴露漏洞“，并在 15 天内归还了全部资产。但并非每个黑客都这么“善良“。</p>
+<p>2022 年 2 月，Wormhole 桥遭到攻击，损失 3.2 亿美元。黑客利用 Solana 端验证逻辑的漏洞，凭空铸造了 12 万枚包装以太币（wETH），然后将其兑换为真实资产。Wormhole 的母公司 Jump Crypto 自掏腰包补上了这个窟窿——普通项目没有这种财力。</p>
+<p>2022 年 3 月，Ronin 桥被攻破，损失 6.25 亿美元。Ronin 是热门区块链游戏 Axie Infinity 的侧链，其桥采用多重签名机制，需要 9 个验证者中的 5 个签名才能执行提款。黑客——后被确认为朝鲜黑客组织 Lazarus Group——获取了 5 个验证者的私钥，直接批准了两笔巨额提款。最令人震惊的是，这次攻击发生后六天才被发现——因为有用户报告无法提款，团队才去检查桥的状况。</p>
+<p>2022 年 8 月，Nomad 桥遭到攻击，损失约 1.9 亿美元。与前面的案例不同，Nomad 的漏洞被一个人发现后，攻击方法迅速被“开源“——数百个地址加入了抢劫，像一场链上的“零元购“。</p>
+<p>这些只是最大的几起事件。自 2021 年以来，跨链桥攻击的累计损失已超过 25 亿美元，桥成为整个加密生态中被攻击最多的基础设施类别。2022 年，仅五起桥攻击事件就造成了 13.17 亿美元的损失，占当年 Web3 总损失的 57%。</p>
+<p>以太坊创始人 Vitalik Buterin 自己在 2022 年初就曾公开警告跨链桥的安全风险，他写道：“跨链桥的根本性安全局限性是我对多链未来乐观、但对跨链未来悲观的关键原因。”</p>
+<p>这句话值得细品。区块链行业最具影响力的人物之一，亲口承认跨链桥存在“根本性安全局限“。但行业并没有因此停下脚步。用户的资产仍然散落在几十条链上，跨链桥仍然是连接它们的唯一方式。每一座桥都是一个潜在的定时炸弹，而用户别无选择——除非你愿意把资产永远锁死在一条链上。</p>
+<p>为什么桥的安全问题如此难以解决？因为这不是一个��以通过“更好的代码“来修复的工程问题。它是多链架构的结构性后果。当你有两条独立的区块链，它们各自有自己的共识机制、自己的安全保障。A 链的安全性由 A 链的矿工（或验证者）保护，B 链的安全性由 B 链的矿工保护。但桥横跨两条链——它的安全性既不由 A 链保护，也不由 B 链保护。它需要自己的一套安全机制，而这套机制的强度几乎总是弱于它所连接的任一条链。桥就是多链体系中最薄弱的环节——而攻击者永远盯着最薄弱的环节。</p>
+<p>回想一下序章的内容。比特币解决的核心问题是什么？消除可信第三方。而跨链桥是什么？一个你必须信任的第三方。区块链行业用了十五年的时间，从“不需要信任中间人“的起点，走到了“你必须信任一座桥“的终点。</p>
+<h2 id="layer-2一个名不副实的承诺"><a class="header" href="#layer-2一个名不副实的承诺">Layer 2：一个名不副实的承诺</a></h2>
+<p>跨链桥连接的是不同的 Layer 1 公链。但即使在同一个生态内部，碎片化的问题也同样严重。以太坊的 Layer 2（L2）就是最典型的例子。</p>
+<p>以太坊的 L2 方案——以 Arbitrum 和 Optimism 为代表——承诺解决以太坊主网的拥堵和高 Gas 费问题。它们的基本逻辑是：把大量交易放到 L2 上执行，只把最终的结果提交到以太坊主网（L1）进行验证。这样既能享受以太坊的安全性，又能获得更高的速度和更低的费用。</p>
+<p>这个叙事听起来很完美。但当你打开盖子看看里面的实际运作方式时，会发现一个令人不安的事实。</p>
+<p>每一条 L2 的核心组件是“排序器“（sequencer）——负责收集用户交易、确定交易顺序、打包提交到 L1。而在几乎所有主流 L2 上，排序器都是由单一实体运行的。Arbitrum 的排序器由 Offchain Labs 运营。Optimism 的排序器由 OP Labs 运营。Base 的排序器由 Coinbase 运营。</p>
+<p>单一的排序器意味着什么？</p>
+<p>意味着你在 L2 上的每一笔交易，其排序权都掌握在一家公司手中。这家公司可以决定哪些交易先处理、哪些后处理。它可以审查特定的交易——虽然理论上用户可以通过“强制包含“机制绕过审查，但这个过程可能需要数小时甚至更长时间。它还可以从交易排序中提取价值——所谓的 MEV（最大可提取价值）——通过在用户交易前后插入自己的交易来获利。</p>
+<p>更直接的风险是：如果排序器宕机，整条 L2 就瘫痪了。这不是假设——Arbitrum 的排序器在 2022 年 Nitro 升级以来已经经历了至少 8 次宕机，每次持续 30 分钟到 2 小时不等。2023 年 6 月，一个软件 bug 导致排序器停止将交易批次提交到以太坊主网。2023 年 12 月，一次铭文（inscription）流量激增导致排序器停摆近三个小时，用户面对的是交易失败和异常高涨的 Gas 价格。</p>
+<p>L2 的支持者会说：排序器虽然是中心化的，但安全性仍然由以太坊 L1 保证。如果排序器作恶，用户可以通过 L1 上的欺诈证明（fraud proof）或有效性证明（validity proof）来挑战。</p>
+<p>这种说法在理论上是正确的。但它描述的安全模型本质上是“先信任，再申诉“——你先信任排序器会正确处理你的交易，如果它作弊了，你再通过一个复杂的链上挑战流程来纠正。这个挑战流程通常需要 7 天的等待期（在 Optimistic Rollup 中），在此期间你的资产被锁定。</p>
+<p>“先信任，再申诉”。这难道不就是传统金融系统的运作方式吗？你先信任银行会正确处理你的转账，如果出了问题，你再去找银行投诉，走申诉流程。区别只是，在传统金融系统里，你至少还有消费者保护法和金融监管机构可以依靠。而在 L2 的世界里，你的“申诉对象“是一组智能合约——前提是你有足够的技术能力来发起链上挑战。</p>
+<p>还有一个更深层的问题：L2 的排序器可以决定交易的执行顺序，而在去中心化金融（DeFi）的世界里，交易顺序直接决定了利润分配。一个大额的代币交换交易，如果被排序器提前“看到“，排序器就可以在这笔交易之前插入自己的买单、在之后插入卖单——所谓的“三明治攻击“——从用户的交易中榨取利润。在中心化排序器的架构下，这种行为几乎无法被外部审计或阻止。用户的每一笔交易，都在排序器的“全知视角“下裸奔。</p>
+<p>L2 的愿景是“去中心化的扩容“。现实是：用户把自己的交易排序权交给了一家私人公司，然后被告知“如果出了问题你可以申诉“。这和中本聪白皮书描述的系统——不需要信任任何第三方的点对点电子现金——相距多远？</p>
+<p>更值得思考的是：如果 L2 的安全性最终要靠 L1 来兜底，那 L2 到底解决了什么问题？用户在 L2 上获得了更快的速度和更低的费用，但代价是引入了一个新的信任中间层。这不正是序章中描述的“传统方案“吗——通过引入一个中间人来解决技术问题，而代价是你必须信任这个中间人？</p>
+<h2 id="中心化交易所新时代的银行"><a class="header" href="#中心化交易所新时代的银行">中心化交易所：新时代的银行</a></h2>
+<p>如果说多链碎片化、跨链桥和 L2 的中心化是技术层面的问题，那么中心化交易所（CEX）的主导地位则是整个行业最明显的讽刺。</p>
+<p>看数据。</p>
+<p>2025 年，DEX（去中心化交易所）与 CEX 的现货交易量比率大约在 20% 左右——也就是说，链上去中心化交易只占总交易量的五分之一，剩下的五分之四都发生在中心化交易所的服务器上。在衍生品市场，这个差距更加悬殊：DEX 的期货交易量仅占 CEX 的约 12%。</p>
+<p>换句话说，在一个以“去中心化“为核心叙事的行业里，超过 80% 的交易发生在中心化的、链下的、由私人公司控制的平台上。即使 DEX 的份额在过去几年有所增长——2025 年的现货 DEX/CEX 比率已经从 2021 年的 6% 上升到了 20% 左右——绝对主导权仍然牢牢掌握在中心化交易所手中。</p>
+<p>这些平台的运作方式和传统银行有什么本质区别吗？</p>
+<p>当你在 Binance 上买卖比特币时，你的交易并没有在任何区块链上发生。Binance 在自己的数据库里修改了两个数字——你的余额减少，对手方的余额增加。这和你在银行转账时发生的事情一模一样。Binance 的服务器就是那个“中心化账本“，你必须信任 Binance 不会挪用你的资金，不会伪造交易记录，不会在某一天突然限制你的提款。</p>
+<p>不仅如此，中心化交易所还拥有传统银行也不曾有过的权力。它们可以随意上线或下线某个交易对，可以在极端行情中单方面暂停交易或提款，可以冻结你的账户而不需要任何法律程序。2025 年，Binance 一家的 CEX 市场份额就维持在 38-40% 左右，远超第二名 Bybit 的约 10%。全球加密资产交易的命脉，集中在极少数几家公司的服务器上。</p>
+<p>这正是中本聪白皮书第一段就要解决的问题——对可信第三方的依赖。</p>
+<p>而 FTX 的崩盘，则以最惨烈的方式证明了这种信任的脆弱性。</p>
+<h2 id="ftx一面照妖镜"><a class="header" href="#ftx一面照妖镜">FTX：一面照妖镜</a></h2>
+<p>2022 年 11 月，全球第三大加密货币交易所 FTX 在短短几天内轰然倒塌。</p>
+<p>故事的导火索是一篇报道。2022 年 11 月 2 日，CoinDesk 披露了一份关于 Alameda Research（FTX 创始人 Sam Bankman-Fried 旗下的交易公司）资产负债表的文件，显示 Alameda 的主要资产是 FTX 自己发行的平台代币 FTT——一种由 FTX 自身背书、流动性极差的资产。消息传开后，用户开始恐慌性提款。然后人们发现：钱不够了。</p>
+<p>调查最终揭露了真相：FTX 在未经客户授权、未做任何披露的情况下，将客户存放在交易所的数十亿美元资金转移给了 Alameda Research，用于风险投资、房地产购买、政治捐款，以及弥补 Alameda 的交易亏损。FTX 的账目上存在约 80 亿美元的缺口。</p>
+<p>Sam Bankman-Fried 于 2024 年 3 月被判处 25 年联邦监禁，罪名包括电信欺诈和洗钱等八项罪名，并被要求没收 110 亿美元。</p>
+<p>让这件事情变得格外讽刺的是 FTX 崩盘前的形象。Sam Bankman-Fried 是国会山的常客，是政治捐款的大金主，是各种加密行业峰会上的座上宾。FTX 的广告出现在超级碗赛场上，其名字刻在迈阿密热火队的主场球馆上。他被《福布斯》和《财富》等主流媒体塑造为“加密行业的良心“——一个推崇“有效利他主义“的年轻亿万富翁。整个行业、监管机构、主流媒体，所有人都“信任“了他。然后这种信任在 72 小时内崩塌。</p>
+<p>FTX 的崩盘不是一个“意外事故“。它是中心化信任模型的逻辑必然。当你把资产交给一个中心化实体保管时，你就把自己的命运交到了这个实体的手中。这和你把钱存在银行里没有任何本质区别——唯一的区别是，银行至少还有存款保险制度和监管审计，而加密交易所什么都没有。</p>
+<p>FTX 之前，是 Mt. Gox——2014 年全球最大比特币交易所的倒闭，约 85 万枚比特币失踪。再往前，是无数更小的交易所悄无声息地关门跑路。FTX 之后，谁知道下一个是谁。</p>
+<p>每一次 CEX 暴雷之后，行业都会掀起一阵“not your keys, not your coins“（不是你的私钥，就不是你的币）的呼声。然后风头过去，大多数人照旧把资产存在交易所里——因为自己管理私钥太麻烦了，因为链上交易太慢了、太贵了、太容易出错了（还记得选错链丢失资产的故事吗？）。</p>
+<p>这就形成了一个恶性循环：链上体验糟糕 → 用户涌向中心化交易所 → 交易所变得越来越像银行 → 交易所暴雷 → 行业呼吁“回归去中心化“ → 但链上体验仍然糟糕 → 用户继续涌向下一个中心化交易所。</p>
+<p>循环的每一轮，都让行业离中本聪的初始愿景更远一步。人们嘴上说着“去中心化“，手上做的却是把越来越多的资产交给越来越少的中心化实体。到了 2025 年，仅 Binance 一家就占据了 CEX 现货交易市场近 40% 的份额。全球加密货币交易的大半壁江山，掌握在一家注册在开曼群岛的私人公司手中。这和“华尔街大银行控制全球金融“的图景有什么本质区别？</p>
+<h2 id="全景图我们到底建造了什么"><a class="header" href="#全景图我们到底建造了什么">全景图：我们到底建造了什么？</a></h2>
+<p>让我们退后一步，把上面描述的所有问题放在一起看。</p>
+<p><strong>碎片化</strong>：上百条互不兼容的链，用户的资产和流动性被切割成无数碎片。同一种稳定币要部署在十几条链上，用户转账前要先判断网络拓扑。</p>
+<p><strong>跨链桥</strong>：为了连接碎片而建造的基础设施，本身成为了最大的安全隐患。累计损失超过 25 亿美元，且问题没有根本性的解决方案。每一座桥都是一个新的信任中心。</p>
+<p><strong>L2 中心化</strong>：号称“去中心化扩容“的 Layer 2，其核心组件由单一公司运营。用户的交易排序权被集中在一个实体手中，安全模型是“先信任再申诉“。</p>
+<p><strong>CEX 主导</strong>：超过 80% 的交易量发生在中心化交易所的链下服务器上。用户把资产存放在一个私人公司控制的数据库里，和传统银行的模式没有本质区别。FTX 的崩盘证明了这种信任可以在一夜之间被摧毁。</p>
+<p>现在问自己一个问题：这一切，和比特币白皮书描述的那个世界，有什么关系？</p>
+<p>白皮书说的是：“一种不依赖信任的电子交易系统。”</p>
+<p>行业建造的是：几十条互不相通的链、需要信任的桥、需要信任的排序器、需要信任的交易所。</p>
+<p>白皮书说的是：“一个点对点网络，使用工作量证明来记录交易的公开历史。”</p>
+<p>行业建造的是：一个由私人公司运营的排序器网络、一个由私人公司运营的交易撮合系统，链上只记录最终结果——如果有链上记录的话。</p>
+<p>白皮书说的是：“节点可以随意离开和重新加入网络。”</p>
+<p>行业建造的是：如果 Offchain Labs 的服务器宕机了，Arbitrum 就停了。如果 Binance 决定下线某个交易对，你没有任何办法。</p>
+<p><strong>行业花了十五年，重新建造了比特币要摧毁的系统。</strong></p>
+<p>这不是夸张，也不是修辞。这是对行业现状的准确描述。</p>
+<p>一个可信第三方（银行）被替换成了多个可信第三方（交易所、桥、排序器）。不但没有减少信任依赖，反而增加了——你现在需要同时信任交易所不会跑路、桥不会被黑、排序器不会审查你的交易。一个统一的清算网络被替换成了上百个互不兼容的碎片化网络。一个简单的转账流程被替换成了一个需要用户理解网络拓扑、选择正确链路、承担错误后果的复杂流程。</p>
+<p>在每一个维度上，今天的“区块链行业“都比它声称要取代的传统金融系统更复杂、更脆弱、更依赖信任。传统银行系统至少有一个优点：它是一个统一的系统。你不需要在“工商银行链“和“建设银行链“之间选择转账路径。而区块链行业用了十七年的时间，把一个统一的愿景拆成了上百个互不兼容的碎片，然后又花了大量的资源去建造连接这些碎片的桥——而这些桥本身又成了新的安全隐患和信任瓶颈。</p>
+<h2 id="这一切是怎么发生的"><a class="header" href="#这一切是怎么发生的">这一切是怎么发生的？</a></h2>
+<p>这是真正的问题。</p>
+<p>如果你问行业里的大多数人，他们不会否认上述任何一个事实。多链碎片化是公认的痛点。跨链桥的安全问题是公认的难题。L2 排序器的中心化是公认的妥协。CEX 的主导地位是公认的讽刺。</p>
+<p>但大多数人会把这些问题归结为“发展过程中的阵痛“。他们会说：多链竞争是市场的自然选择；跨链桥的安全性在不断改善；L2 的排序器去中心化正在推进（Arbitrum 在 2025 年就宣布了排序器去中心化的路线图）；DEX 的市场份额在持续增长。一切都在变好，只是需要时间。</p>
+<p>这种叙事令人安心。它把所有的问题都框定为暂时性的技术挑战，让人相信只要给足时间和资源，一切都会自然而然地得到解决。</p>
+<p>但它回避了一个根本性的追问：<strong>为什么我们会走到这一步？</strong></p>
+<p>比特币白皮书发表于 2008 年，比特币网络上线于 2009 年。从那时到现在，将近十七年。一个以“消除可信第三方“为使命的行业，为什么在十七年后，比任何时候都更依赖可信第三方？</p>
+<p>一个以“去中心化“为核心价值的行业，为什么在十七年后，其核心基础设施——排序器、桥、交易所——每一个都是中心化的？</p>
+<p>一个以“统一的全球账本“为技术愿景的行业，为什么在十七年后，其生态碎片化到了用户转一笔钱都要先选网络的程度？</p>
+<p>这不可能只是“发展过程中的阵痛“。阵痛意味着系统在朝正确的方向前进，只是途中遇到了暂时的困难。但我们看到的不是这样。多链碎片化在加剧而不是收敛。L2 的数量在增加而不是减少。CEX 的规模在膨胀而不是萎缩。跨链桥在 2025 年的损失已经超过了 2024 年全年。当一个行业朝着与其初始目标完全相反的方向走了十七年，而且偏离的速度还在加快时，问题不在于走得不够快，而在于方向本身就错了。</p>
+<p>错在哪里？又是从什么时候开始错的？</p>
+<p>有人会说，错误始于以太坊——它引入了“世界计算机“的概念，把区块链从支付工具变成了通用计算平台，由此打开了多链竞争的潘多拉魔盒。有人会说，错误始于比特币社区内部的分裂——围绕区块大小的争论导致了不可弥合的路线分歧。还有人会说，错误始于更早——始于人们对中本聪白皮书的第一次误读。</p>
+<p>不管错误的起点在哪里，有一件事是确定的：今天行业面对的所有混乱——碎片化、桥的安全灾难、L2 的中心化妥协、CEX 的全面主导——都不是孤立的技术问题，不是可以各自解决的独立挑战。它们是同一个根本性错误的不同表征。这个错误不在于某一个项目的设计缺陷，而在于整个行业对“比特币到底解决了什么问题“的根本性误解。当你误解了出发点，每一步努力都会把你带到错误的方向上——走得越远，离目标越远。</p>
+<p>要回答这个问题，我们需要回到起点。不是回到比特币的起点——序章已经讲过了。我们需要回到比特币之前，回到那些尝试创造数字货币的先驱们的起点。因为只有理解了他们失败的原因，才能真正理解比特币的突破到底在哪里——以及行业后来是如何把这个突破遗忘、误解、直至亲手拆毁的。</p>
+<p>这就是接下来的故事。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="00-preface.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="02-pre-bitcoin.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="00-preface.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="02-pre-bitcoin.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

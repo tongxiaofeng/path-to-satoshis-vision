@@ -1,0 +1,17 @@
+[book]
+title = "正本清源比特币"
+description = "Bitcoin: The Path to Satoshi's Vision"
+authors = ["佟晓峰"]
+language = "zh-CN"
+src = "src"
+
+[build]
+build-dir = "../docs"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+git-repository-url = "https://github.com/tongxiaofeng/path-to-satoshis-vision"
+edit-url-template = "https://github.com/tongxiaofeng/path-to-satoshis-vision/edit/main/chapters/{path}"
+no-section-label = false
+additional-css = ["custom.css"]

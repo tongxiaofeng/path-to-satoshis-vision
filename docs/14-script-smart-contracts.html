@@ -1,0 +1,372 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>第十四章：脚本与智能合约——图灵完备的比特币 - 正本清源比特币</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="Bitcoin: The Path to Satoshi&#x27;s Vision">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="custom-cbdc12bd.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-e84ab39c.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-d8d8ae9b.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">正本清源比特币</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/tongxiaofeng/path-to-satoshis-vision" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/tongxiaofeng/path-to-satoshis-vision/edit/main/chapters/src/14-script-smart-contracts.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                            <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="第十四章脚本与智能合约图灵完备的比特币"><a class="header" href="#第十四章脚本与智能合约图灵完备的比特币">第十四章：脚本与智能合约——图灵完备的比特币</a></h1>
+<h2 id="引子"><a class="header" href="#引子">引子</a></h2>
+<p>1958年，计算机科学家Charles H. Moore在美国国家射电天文台工作时，发明了一种编程语言。这种语言极其简洁——没有复杂的语法结构，没有华丽的抽象层，只有一个栈和一组操作符。你把数据压入栈中，操作符从栈顶取数、计算、再把结果放回去。整个计算过程像流水线一样，一步接一步，清晰透明，没有任何隐藏的状态。</p>
+<p>这种语言叫Forth。</p>
+<p>Forth从来没有成为主流编程语言。它太底层、太简洁，不符合大多数程序员对“现代语言“的审美期待。但它在一个特殊的领域获得了压倒性的成功：嵌入式系统和关键任务控制。NASA的航天器控制软件用Forth编写。医疗设备的固件用Forth编写。工业控制器、邮政分拣机、甚至某些核电站的监控系统——凡是对确定性和可靠性有极端要求的场景，Forth都是首选。原因很简单：它的执行过程是完全可预测的。没有垃圾回收的暂停，没有动态分派的开销，没有隐藏的副作用。给定一段Forth代码和一组输入，你可以精确地预测每一步的栈状态和最终输出。</p>
+<p>五十年后，中本聪为比特币设计交易验证语言时，选择了Forth作为蓝本。这不是巧合，也不是偶然。对于一个需要在全球数千个互不信任的节点上执行、且执行结果必须完全一致的脚本系统来说，确定性不是一个“有则更好“的特性——它是唯一的选择。</p>
+<p>比特币脚本（Bitcoin Script）就是这样诞生的：一种基于Forth的、栈操作的、确定性的脚本语言。在Forth的影响下，比特币脚本使用逆波兰表示法（Reverse Polish Notation）——先写操作数，再写操作符。数据被压入栈中，操作符从栈中取出数据、计算、把结果压回栈。整个过程没有变量名，没有对象引用，没有隐式的内存分配——每一步都是对栈的显式操作，完全透明，完全可追踪。</p>
+<p>这种语言被设计来回答一个简单而关键的问题：谁有权花费这笔钱？</p>
+<p>这个问题听起来简单，但它的答案空间远比你想象的大。一个条件可以是一个签名，可以是两个签名中的任意一个，可以是一个时间限制加一个签名，可以是一段数据的哈希值的匹配——可以是任何你能用逻辑表达的条件。</p>
+<p>这意味着比特币脚本从诞生的第一天起，就不只是一个“验证密码“的工具。它是一种编程语言——一种为特定场景极度优化的、简洁到极致的编程语言。而这种语言的能力，远远超出了大多数人的认知。</p>
+<h2 id="被遗忘的图灵机比特币脚本的原始设计与复兴"><a class="header" href="#被遗忘的图灵机比特币脚本的原始设计与复兴">被遗忘的图灵机：比特币脚本的原始设计与复兴</a></h2>
+<h3 id="一种被严重低估的语言"><a class="header" href="#一种被严重低估的语言">一种被严重低估的语言</a></h3>
+<p>大多数人对比特币脚本的印象，停留在“它只能做简单的转账验证“。这个印象不是完全错误的——如果你看的是2024年BTC链上的比特币脚本的话。但如果你看的是中本聪2009年发布的原始版本，你会看到一个截然不同的东西。</p>
+<p>比特币脚本的工作原理很直观。每一笔交易都包含两段脚本：一段叫“锁定脚本“（scriptPubKey），附着在每一个交易输出（UTXO）上，定义了“满足什么条件才能花这笔钱“；另一段叫“解锁脚本“（scriptSig），由花费者提供，包含满足条件的证据。验证时，解锁脚本和锁定脚本首尾相接，在一个栈上从左到右依次执行。如果执行完毕后栈顶值为“真“，交易有效；否则无效。</p>
+<p>这就是全部了。没有虚拟机，没有全局状态，没有运行时环境。一个栈、两段脚本、一个真假判断。</p>
+<p>但简洁不等于简陋。中本聪在原始版本中为这个脚本系统配备了丰富的操作码（opcodes）：</p>
+<ul>
+<li><strong>算术操作</strong>：加减乘除（OP_ADD、OP_SUB、OP_MUL、OP_DIV）、取模（OP_MOD）</li>
+<li><strong>位运算</strong>：与或异或（OP_AND、OP_OR、OP_XOR）、取反（OP_INVERT）</li>
+<li><strong>字符串操作</strong>：拼接（OP_CAT）、截取（OP_SUBSTR、OP_LEFT、OP_RIGHT）</li>
+<li><strong>移位操作</strong>：左移右移（OP_LSHIFT、OP_RSHIFT）</li>
+<li><strong>密码学操作</strong>：多种哈希函数（OP_SHA256、OP_HASH160、OP_RIPEMD160）、签名验证（OP_CHECKSIG、OP_CHECKMULTISIG）</li>
+<li><strong>流程控制</strong>：条件分支（OP_IF、OP_ELSE、OP_ENDIF）、脚本终止（OP_RETURN、OP_VERIFY）</li>
+</ul>
+<p>把这些操作码组合起来，你能做的事情远不止“验证一个签名“。你可以构建多重签名方案——要求三个人中至少两个签名才能花费。你可以设置时间锁——资金只能在某个时间点之后才能被移动。你可以实现哈希锁——只有提供正确原像（preimage）的人才能解锁资金。你可以编写复杂的条件逻辑——“如果是Alice的签名，直接放行；如果是Bob的签名，必须等24小时；如果Alice和Bob都签名，可以立即转给第三方”。</p>
+<p>这些不是理论推演。这些能力在2009年的比特币中就已经存在了。</p>
+<p>更进一步地说，“谁有权花费这笔钱“这个看似简单的问题，实际上可以编码极其丰富的商业逻辑。一份合同本质上是什么？是一组关于“在什么条件下谁可以做什么“的规则。一份保险合同说“如果发生特定事件，保险公司支付赔款”。一份期权合约说“在到期日之前，持有者有权以约定价格买入标的资产“。一份多方合伙协议说“任何支出超过一万元，需要至少两位合伙人签名批准“。所有这些商业逻辑，都可以被翻译成“在什么条件下谁有权花费这笔钱“的形式——而这正是比特币脚本的表达域。</p>
+<p>中本聪在设计比特币脚本时，给出的操作码集合远非只够做“简单转账“。他显然预见了更复杂的使用场景。字符串操作可以处理复杂的数据结构，位运算可以实现紧凑的状态编码，乘除法可以进行精确的金额计算。这些操作码的组合空间，足以表达相当复杂的商业逻辑。</p>
+<p>事实上，中本聪在早期与其他开发者的交流中，多次提到了比特币脚本的扩展潜力。他设计的操作码集合不是为了“刚好够用“，而是为了提供一个足够丰富的基础工具箱，让未来的开发者可以在上面构建各种应用。用编程语言的术语来说，这些操作码构成了一个足够表达力的指令集——就像CPU的指令集不需要为每种应用定制专门的指令，只需要提供足够丰富的基础操作，剩下的由软件层面的组合来实现。</p>
+<h3 id="一次影响深远的临时措施"><a class="header" href="#一次影响深远的临时措施">一次影响深远的“临时措施“</a></h3>
+<p>第三章已经详细叙述了这段历史，这里简要回顾关键节点。</p>
+<p>2010年，比特币上线仅一年多，有人发现了脚本系统的安全漏洞。某些操作码的组合可以被恶意利用：OP_LSHIFT存在一个能让节点崩溃的bug；OP_CAT配合OP_DUP可以构造出指数级增长的数据，让验证节点的内存爆炸。面对这些真实的攻击向量，中本聪做了一个果断的决定：直接禁用存在风险的操作码。OP_CAT、OP_SUBSTR、OP_MUL、OP_DIV、OP_AND、OP_OR、OP_XOR、OP_LSHIFT、OP_RSHIFT——一批操作码被标记为禁用，执行到它们时脚本直接返回失败。</p>
+<p>在当时的语境下，这是一个合理的工程决策。比特币刚上线一年多，全网算力极低，用户极少。一个严重漏洞就可能致命。先禁用，等网络成熟后再评估如何安全地恢复——这是正确的应急策略。</p>
+<p>然后中本聪在2011年消失了。</p>
+<p>接管代码库的Bitcoin Core团队不仅没有恢复这些操作码，反而在后续版本中进一步限制了脚本能力。他们引入了脚本大小限制、操作码数量限制、栈深度限制，把一个原本灵活强大的脚本系统，压缩成了一个只能做最基本验证的残废工具。被禁用的操作码从“临时的安全补丁“变成了“永久的功能阉割“。</p>
+<p>到2013年Vitalik Buterin审视比特币脚本系统时，他看到的就是这个被阉割后的版本——一个连乘法都做不了的语言。他得出“比特币脚本太受限，不能做智能合约“的结论，是基于当时BTC代码的事实观察，但他犯了一个逻辑错误：把人为施加的限制当成了设计本身的局限。</p>
+<p>2018年，BSV（Bitcoin Satoshi Vision）项目启动，其核心目标之一就是恢复中本聪原始协议中被禁用的操作码，并移除Bitcoin Core后来添加的人为限制。到2020年的“Genesis“升级，BSV恢复了绝大部分原始操作码，移除了脚本大小限制和操作码数量限制，让比特币脚本回到了它本该拥有的完整状态。</p>
+<p>这不是在比特币上“添加“新功能，而是把被拆掉的零件重新装回去。</p>
+<p>这个区分至关重要。以太坊是在一个全新的架构上从零构建智能合约能力——新的虚拟机、新的数据模型、新的状态管理机制、新的共识规则。BSV是在中本聪的原始架构上恢复已有的能力——不需要新的虚拟机（脚本系统本身就是执行引擎），不需要新的数据模型（UTXO就是状态载体），不需要新的状态管理（每个UTXO自带状态，花费即回收），不需要新的共识规则（工作量证明和最长链规则原封不动）。一个是推倒重建，一个是修旧如初。两条路径的工程复杂度和风险完全不同。</p>
+<p>打个比方：一台汽车的发动机被拆掉了。你有两个选择——把发动机装回去，或者从头发明一种全新的动力系统。前者需要的是机械师和原厂零件，后者需要的是数十年的研发和数十亿的投资，而且新动力系统很可能带来原始设计中不存在的新问题。以太坊走的是后一条路，BSV走的是前一条路。</p>
+<h3 id="不需要循环也能图灵完备"><a class="header" href="#不需要循环也能图灵完备">不需要循环也能图灵完备</a></h3>
+<p>恢复操作码之后，比特币脚本的能力引出了一个核心问题：它是否图灵完备？</p>
+<p>这个问题的答案需要分两个层面来理解。</p>
+<p><strong>第一个层面：单个脚本不是图灵完备的。</strong></p>
+<p>比特币脚本没有循环指令。没有OP_LOOP，没有OP_GOTO，没有任何允许执行流回到之前位置的操作码。脚本从第一个操作码执行到最后一个操作码，一条直线走到底。这意味着给定一段脚本，你可以在执行前就精确地知道它需要多少步才能执行完毕——步数等于操作码的数量。</p>
+<p>这是一个刻意的设计选择，不是一个缺陷。</p>
+<p>在计算机科学中，有一个著名的不可判定性结果叫“停机问题“（Halting Problem）：对于一段图灵完备的代码，不存在通用的算法能在执行前判断它是否会终止。换句话说，如果你允许循环，你就无法保证每段代码都会执行完毕——它可能陷入无限循环，永远不停下来。</p>
+<p>在以太坊中，这个问题通过Gas机制来处理：每一步计算消耗一定量的Gas，Gas耗尽时强制终止。这是一个可行的方案，但代价是巨大的复杂性——Gas价格需要估算、Gas市场可以被操纵、Gas耗尽导致交易失败但手续费照扣。</p>
+<p>比特币在语言层面直接消除了这个问题。没有循环，就不存在无限循环的可能性。每段脚本的执行时间有确定的上界，验证节点可以在接受脚本之前就知道验证它需要多少资源。不需要Gas机制，不需要运行时计量，不需要任何额外的复杂性。</p>
+<p>这就是Forth哲学在比特币中的体现：用语言层面的约束来保证运行时的安全性。</p>
+<p>很多人把“没有循环“视为一种限制。但这恰恰是看问题的角度决定了结论。从功能的角度看，没有循环确实意味着单个脚本的计算能力是有限的。但从安全的角度看，没有循环意味着验证节点在接受一笔交易之前，可以精确地知道验证它需要消耗多少计算资源。这种可预测性在去中心化网络中是极其宝贵的——如果验证一笔交易的成本不可预测，恶意用户就可以构造消耗巨大资源的交易来瘫痪网络。以太坊为此付出了沉重的代价：2016年的“上海攻击“（Shanghai DoS Attack）正是利用了EVM中某些操作码的Gas定价过低，构造了执行极其缓慢的交易来瘫痪网络，迫使以太坊进行紧急硬分叉来修改Gas价格表。在比特币中，这类攻击在语言层面就被消除了。</p>
+<p><strong>第二个层面：比特币系统是图灵完备的。</strong></p>
+<p>单个脚本不能循环，但交易可以链接。</p>
+<p>回忆一下UTXO模型的工作方式：每笔交易消费一组UTXO作为输入，产生新的UTXO作为输出。每个输出UTXO上附着一段锁定脚本，定义了下一次花费的条件。当这个UTXO被花费时，花费者提供解锁脚本，两段脚本一起执行来验证交易的有效性。</p>
+<p>现在，想象这样一个场景：交易A产生了一个UTXO，这个UTXO的锁定脚本不仅检查花费条件，还要求下一笔交易的输出UTXO必须包含特定格式的锁定脚本——也就是说，当前交易对未来的交易施加了约束。交易B花费了A的输出，执行了一步计算，把结果编码在新的UTXO中，同时继续对未来的交易施加约束。交易C花费了B的输出，执行下一步计算，以此类推。</p>
+<p>每一笔交易是一个计算步骤。每个步骤保证终止（因为单个脚本没有循环）。但步骤的序列——交易链——可以无限延伸。</p>
+<p>这就是比特币实现图灵完备性的方式：不是在单个脚本内部通过循环来实现，而是通过交易链的迭代来实现。单个脚本是有界的计算步骤，交易链是无界的计算序列。安全性和计算完备性在不同的层面上被分别保证。</p>
+<p>这个论证不是纯理论的。sCrypt团队在比特币上实现了图灵机的直接模拟——每一步状态转换是一笔链上交易，磁带状态编码在UTXO中。他们还实现了Conway的生命游戏（Game of Life）和Rule 110元胞自动机——这两个系统都已被数学证明具有图灵完备性。当你能在一个平台上运行任意图灵机时，这个平台就是图灵完备的。</p>
+<p>让我们用一个更通俗的类比来理解这个设计。</p>
+<p>想象一条工厂的流水线。每个工位执行一个固定的操作——切割、焊接、打磨、组装。没有哪个工位会“循环“执行自己的动作无数次——那会卡住整条流水线。每个工位做完自己的一步，把半成品传递给下一个工位。但整条流水线可以生产任意复杂的产品——复杂性来自工位之间的组合和传递，而不是来自单个工位的内部循环。</p>
+<p>比特币的设计与此完全类似。单个脚本是一个工位——执行有限的操作，保证完成。交易链是整条流水线——工位之间通过UTXO传递状态，实现任意复杂度的计算。这种设计在微观层面保证了安全（每个工位必然终止），在宏观层面实现了完备（流水线可以任意延长）。</p>
+<p>这里必须指出一个关键的语义区别。图灵完备不要求无限的资源——图灵在他1936年的原始论文中描述的是一个“无界“（unbounded）的系统，而不是“无限“（infinite）的系统。你不需要一条无限长的纸带，你只需要一条“需要多长就能有多长“的纸带。比特币交易链正好满足这个条件：没有硬性的上限规定交易链的最大长度，你可以根据计算需求创建任意数量的交易。</p>
+<p>以太坊选择了在单个合约内部实现图灵完备性——代价是停机问题和Gas机制。比特币选择了在系统层面通过交易链实现图灵完备性——代价是某些计算需要多笔交易才能完成。但后者的代价是工程层面的不便，而前者的代价是架构层面的复杂性。工程不便可以通过工具来消解，架构复杂性则会永久地增加系统的攻击面。</p>
+<p>换一种方式来理解这两种选择的差异。以太坊的方式就像在一栋大楼里建一个无限大的会议室——你可以在里面讨论任何话题，但你也必须雇保安来防止有人在里面赖着不走（Gas机制）。比特币的方式是建一排标准大小的会议室——每个会议室的使用时间是固定的，到时间就清场，但你可以预约任意多个会议室来连续开会，完成任意复杂的议程。前者的风险是有人占着会议室不走导致整栋楼瘫痪，后者没有这个风险——但需要一个好的预约系统来协调连续的会议。</p>
+<p>这个“好的预约系统“，就是高级开发工具的职责所在。而好消息是，这样的工具已经存在。</p>
+<h3 id="utxo合约-vs-账户合约两种范式的本质差异"><a class="header" href="#utxo合约-vs-账户合约两种范式的本质差异">UTXO合约 vs 账户合约：两种范式的本质差异</a></h3>
+<p>理解了比特币脚本的能力之后，我们可以正式比较两种智能合约范式。第三章从架构层面分析了UTXO模型和账户模型的差异——并行性、安全性、状态膨胀。这里我们从智能合约开发的角度，看看这种差异在实践中意味着什么。</p>
+<p><strong>以太坊的账户合约：共享状态的世界。</strong></p>
+<p>以太坊的智能合约是一段部署在链上的代码，拥有自己的存储空间（合约状态）。任何人都可以发起交易来调用这段代码，代码执行时可以读取和修改自己的存储，也可以调用其他合约。所有合约共享一个全局状态树，任何合约都可以访问这棵树上的任何节点。</p>
+<p>这种模型对开发者来说很直观——它就像传统的服务器端编程。你写一个函数，函数读取数据库、修改数据库、返回结果。状态是持久的、可变的、全局可访问的。</p>
+<p>但正如第三章所论证的，这种“直觉上的简单“带来了结构性的代价：串行执行（因为需要避免状态竞争）、安全漏洞（因为全局可变状态创造了无数的攻击向量）、状态膨胀（因为全局状态只增不减）。</p>
+<p><strong>比特币的UTXO合约：独立状态的世界。</strong></p>
+<p>比特币的智能合约不是一段驻留在链上的持久代码。它是附着在UTXO上的锁定脚本——定义了“在什么条件下这笔资金可以被花费“。合约的“状态“不是存储在某个全局数据库中的，而是编码在UTXO本身之中。当UTXO被花费时，旧状态被消费，新状态被编码在新的UTXO中。</p>
+<p>每一个UTXO是一个独立的、自包含的状态单元。它不引用任何外部状态，不依赖任何其他UTXO的当前值。验证一笔交易只需要检查这笔交易本身的输入和输出——不需要查询全局状态树，不需要知道网络中其他交易的情况。</p>
+<p>这种模型的直接后果是：</p>
+<p><strong>天然可并行。</strong> 两笔消费不同UTXO的交易之间没有任何数据依赖，可以完全并行验证。不需要锁，不需要排队，不需要全局协调。吞吐量可以随硬件性能线性扩展。</p>
+<p><strong>确定性执行。</strong> 给定一笔交易的输入和脚本，执行结果是完全确定的。没有“当前区块号“、“当前时间戳”、“其他合约的状态“等外部变量可以影响执行结果。脚本验证是纯函数——相同的输入永远产生相同的输出。</p>
+<p><strong>结构性安全。</strong> 没有全局状态可以被意外读取或修改。没有“在转账过程中被回调“的可能性。重入攻击、闪电贷操纵、三明治攻击——这些以太坊上臭名昭著的攻击类别，在UTXO模型中从架构层面上不存在。</p>
+<p><strong>自然回收。</strong> UTXO被花费后从活跃集合中移除，不再占用节点需要维护的状态空间。活跃状态的大小取决于当前未花费的UTXO数量，而不是历史上所有交易的累积。没有状态膨胀问题。</p>
+<p>用一个更具体的例子来说明这种差异。假设你要在链上实现一个代币交易市场。</p>
+<p>在以太坊上，你部署一个合约，合约里维护一张全局的订单簿——所有买单和卖单都记录在这个合约的存储中。每当有人提交新订单或撮合交易时，合约读取全局订单簿、执行匹配逻辑、修改余额、更新订单状态。因为所有操作都在同一个全局状态上进行，所有交易必须排队执行——你的买单和他的卖单不能同时处理，因为它们可能修改同一份数据。在交易高峰期，用户争抢区块空间，Gas价格飙升，普通用户被高频交易者的“三明治攻击“夹在中间吃亏。</p>
+<p>在比特币的UTXO模型上，每一个订单是一个独立的UTXO。订单的状态——价格、数量、方向——编码在UTXO的脚本中。撮合交易就是消费两个匹配的UTXO（一个买单、一个卖单），产生新的UTXO代表交易结果。两组不相关的买卖订单可以同时被撮合，因为它们消费的是不同的UTXO，之间没有任何数据依赖。没有全局订单簿需要排队访问，没有全局状态可以被操纵——三明治攻击在这里失去了施展的空间，因为攻击者无法通过修改全局状态来前后夹击目标交易。</p>
+<p>当然，UTXO合约也有不同于账户合约的编程挑战。状态传递需要通过交易链来实现，跨UTXO的交互需要通过精心设计的交易结构来协调。对于习惯了“读数据库——改数据库——写数据库“这种思维方式的开发者来说，UTXO模型需要一种范式转换——从“修改共享状态“的思维切换到“传递独立状态“的思维。</p>
+<p>但这恰恰是工具层面的问题——而工具是可以不断改进的。正如C语言让程序员不再需要手写汇编代码，高级的智能合约开发框架可以让开发者在不直接面对UTXO底层细节的情况下，享受UTXO模型的架构优势。</p>
+<h2 id="工具的成熟从底层脚本到开发者生态"><a class="header" href="#工具的成熟从底层脚本到开发者生态">工具的成熟：从底层脚本到开发者生态</a></h2>
+<h3 id="scrypt让比特币说typescript"><a class="header" href="#scrypt让比特币说typescript">sCrypt：让比特币说TypeScript</a></h3>
+<p>如果你让一个以太坊开发者直接用操作码编写比特币脚本，他大概率会在十分钟内放弃。这就好比让一个习惯了Python的程序员去写汇编语言——不是不能做，而是效率太低，出错率太高，心智负担太重。</p>
+<p>这正是sCrypt要解决的问题。</p>
+<p>sCrypt是一个基于TypeScript的比特币智能合约开发框架。它的核心思路很简单：让开发者用他们已经熟悉的高级语言编写智能合约逻辑，由编译器负责将高级代码转换成底层的比特币脚本。开发者不需要理解每一个操作码的栈操作细节，就像C语言的程序员不需要理解每一条CPU指令一样——编译器处理了这个翻译过程。</p>
+<p>为什么选择TypeScript？因为它是全球最流行的编程语言之一。根据GitHub的年度统计，TypeScript/JavaScript是使用人数最多的语言家族，全球有超过两千万开发者。选择TypeScript作为宿主语言，意味着这两千万开发者都可以在几乎零学习成本的情况下开始编写比特币智能合约。这不是一个微不足道的工程决策——它决定了比特币智能合约生态能否获得足够大的开发者基础。</p>
+<p>sCrypt的技术架构值得简要说明。sCrypt严格来说是TypeScript的一个子集——所有sCrypt代码都是合法的TypeScript代码，但不是所有TypeScript代码都是合法的sCrypt代码。这种“子集“关系意味着开发者可以直接使用现有的TypeScript工具链——VS Code的语法高亮、代码补全、类型检查都直接可用。sCrypt还提供了完整的开发工具链：集成开发环境、包管理器、调试器、SDK和API，覆盖了从编写到测试到部署的全流程。</p>
+<p>更重要的是sCrypt能做什么。以下列举的不是理论能力，而是已经被实现和验证的功能：</p>
+<p><strong>代币和NFT。</strong> 在UTXO模型上发行和管理代币，代币本身就是UTXO，每一笔代币转移就是一笔标准的比特币交易。不需要“代币标准“（如以太坊的ERC-20），不需要单独的“代币合约“维护全局余额表——代币的所有权由UTXO的拥有者直接决定。</p>
+<p><strong>去中心化交易所（DEX）。</strong> 通过原子交换（atomic swap）和链上订单簿实现无需信任第三方的代币交易。在以太坊上，DEX需要一个合约来维护流动性池的全局状态，每笔交易都要修改这个全局状态，因此所有交易必须串行执行。在UTXO模型上，每笔交易是独立的UTXO消费和创建，可以完全并行处理。</p>
+<p><strong>零知识证明验证。</strong> 这是最能说明比特币脚本能力的例子。零知识证明（Zero-Knowledge Proof，ZKP）被公认为区块链领域最复杂的密码学应用——它允许一方向另一方证明某个陈述为真，而不泄露任何额外信息。sCrypt已经在比特币上实现了ZKP的链上验证——这直接否定了“比特币脚本太简单，做不了复杂密码学运算“的说法。如果连零知识证明都能验证，还有什么是做不了的？</p>
+<p><strong>深度神经网络。</strong> sCrypt团队甚至在比特币脚本中实现了深度神经网络的推理过程。这不是为了证明比特币应该用来训练AI——而是为了证明一个更根本的论点：比特币脚本的计算能力没有理论上的限制，限制只存在于工具的成熟度和开发者的想象力。</p>
+<p><strong>ZK-Rollup。</strong> sCrypt在比特币上实现了ZK-Rollup——一种将大量交易在链下批量处理、然后通过零知识证明在链上验证正确性的方案。在以太坊生态中，ZK-Rollup被视为扩容的核心路径之一。但在以太坊上，ZK-Rollup是因为主链吞吐量不足而被迫采用的妥协方案。在比特币上，它是一种可选的效率优化——主链本身已经具备充足的处理能力，ZK-Rollup提供了额外的压缩选项。</p>
+<p>sCrypt的意义不仅仅在于它是一个好用的开发工具。它的意义在于它用实际的代码和部署在链上的合约，彻底粉碎了“比特币不能做智能合约“的迷思。每一个在比特币上运行的sCrypt合约，都是对这个迷思的一次实证反驳。</p>
+<p>值得强调的是，sCrypt在比特币上实现这些功能时，不需要对比特币协议做任何修改。它使用的是比特币脚本原生的操作码——只要这些操作码没有被人为禁用。sCrypt的能力不是来自某个“升级“或“扩展“，而是来自比特币脚本本身的原始设计。它只是让这种能力变得易于使用而已。</p>
+<h3 id="runar面向企业的多语言编译器"><a class="header" href="#runar面向企业的多语言编译器">Runar：面向企业的多语言编译器</a></h3>
+<p>如果说sCrypt是为Web3开发者提供的进入比特币智能合约世界的入口，那么Runar则是为企业级应用打开了另一扇门。</p>
+<p>Runar是由BSV Association的Teranode总监Siggi Oskarsson开发的一个智能合约编译器。它的核心理念是：不要求开发者学习新语言，而是让他们用已经会的语言来编写比特币智能合约。</p>
+<p>Runar支持五种编程语言：TypeScript、Go、Rust、Python，以及类似Solidity和Move风格的语言。开发者用这些语言编写智能合约逻辑，Runar将其编译为比特币脚本。这意味着一个用Rust编写系统软件的团队，一个用Python做数据分析的团队，一个用Go构建微服务的团队，都可以在不切换技术栈的情况下开始在比特币上构建智能合约。</p>
+<p>Runar的工程品质值得特别关注。它的五种语言实现彼此完全独立——不是一个实现的封装或翻译，而是五套从头编写的独立编译器。设计目标是：五套编译器对相同的输入必须产生字节级一致的输出。这种“多重独立实现、交叉验证“的方法论直接借鉴自航空航天工业的安全标准——飞行控制软件的可靠性不是通过一个完美的实现来保证的，而是通过多个独立实现的一致性来保证的。如果三套独立编写的程序对相同输入产生了相同输出，你可以高度确信输出是正确的。</p>
+<p>Runar内置了16种示例合约，涵盖了常见的企业应用场景：多种支付授权模式、代币管理、状态机、预言机集成、可证明公平的博弈系统，以及零知识证明。</p>
+<p>特别值得一提的是Runar的后量子安全特性。量子计算的发展对当前基于椭圆曲线的数字签名构成了潜在威胁——理论上，足够强大的量子计算机可以破解ECDSA签名。行业中对此的讨论往往停留在“未来某天需要应对“的层面，但Runar已经提供了现成的解决方案：它内置了两种后量子签名方案的验证——WOTS+和SLH-DSA（即FIPS 205/SPHINCS+标准，美国国家标准技术研究院正式发布的后量子密码学标准）。开发者只需四行代码，就可以创建一个抗量子计算攻击的钱包，编译后仅约10KB的比特币脚本。这种前瞻性不是来自对比特币协议的修改，而是来自比特币脚本本身的表达能力——操作码集合足够丰富，可以在脚本层面实现新的密码学原语，而不需要在协议层面添加新的功能。</p>
+<p>sCrypt和Runar代表了两种互补的路径：sCrypt面向Web3原生开发者，提供最接近TypeScript体验的开发环境；Runar面向企业和系统级开发者，提供多语言支持和航空级的工程可靠性。两者共同构成了比特币智能合约生态的开发者基础设施——不是在比特币之上叠加一层新的复杂性，而是让比特币自身的脚本能力变得易于使用。</p>
+<p>这里有一个值得深思的对比。以太坊的智能合约生态从一开始就需要开发者学习一门全新的语言——Solidity。Solidity是专门为以太坊设计的，语法借鉴了JavaScript和C++，但其语义和运行模型与所有传统语言都不同。开发者不仅要学习新语法，还要理解EVM的执行模型、Gas的计量方式、全局状态的交互规则、合约之间的调用关系——这是一个陡峭的学习曲线，也是安全漏洞的温床。Solidity开发者犯的很多错误，根源在于他们用传统编程的直觉来理解一个全新的执行环境。</p>
+<p>相比之下，sCrypt和Runar选择了一条完全不同的路径：不要求开发者学习新语言，而是让已有的语言成为进入比特币智能合约世界的桥梁。这不是偷懒——这是对开发者体验的深思熟虑的设计选择。当你用TypeScript写sCrypt合约时，你的类型检查、调试工具、编程直觉都是通用的，只有编译目标是比特币脚本。这大幅降低了犯错的概率，因为开发者在熟悉的环境中工作。</p>
+<h3 id="从不能到已经在做"><a class="header" href="#从不能到已经在做">从“不能“到“已经在做“</a></h3>
+<p>让我们后退一步，看看全局。</p>
+<p>十年前，“比特币不能做智能合约“是行业的共识。这个共识如此强大，以至于催生了以太坊和它之后的数百条竞争链——一个市值数千亿美元的“智能合约平台“品类。</p>
+<p>今天，在恢复了原始操作码的比特币上：</p>
+<ul>
+<li>图灵机可以被直接模拟，每一步状态转换是一笔链上交易</li>
+<li>Conway的生命游戏和Rule 110元胞自动机——两个被数学证明具有图灵完备性的系统——已经在比特币上运行</li>
+<li>零知识证明——被公认为最复杂的密码学应用——可以在比特币脚本中验证</li>
+<li>代币、NFT、DEX等以太坊生态的标志性应用，都可以在UTXO模型上实现</li>
+<li>企业级的多语言编译器已经提供了生产级的开发工具链</li>
+</ul>
+<p>这些不是路线图上的愿景，不是白皮书里的承诺。这些是已经部署在链上的、可以验证的事实。</p>
+<p>“比特币不能做智能合约“这句话的前提，从一开始就是错的。它描述的不是比特币的设计局限，而是一个被人为阉割后的代码库的当时状态。当你把被拆掉的零件装回去，比特币的脚本系统不仅能做智能合约——它用一种在安全性、并行性和确定性上都优于账户模型的方式来做智能合约。</p>
+<p>这正是第三章留下的悬念的完整回答。第三章提出了这样一个问题：如果比特币脚本从来就能做智能合约，只是被人为阉割了，那么以太坊要解决的那个问题——在区块链上实现可编程的智能合约——从一开始就不需要一个全新的平台来解决。本章用技术事实证明了这一点。中本聪的脚本系统，加上UTXO模型的交易链迭代，构成了一个图灵完备的、安全的、可并行的智能合约平台。sCrypt和Runar等工具让这个平台对开发者变得友好和易用。</p>
+<p>一个误解催生了一个行业。纠正这个误解，不会让那个行业消失——已经建造的东西不会因为你指出它的地基有问题就凭空蒸发。但纠正这个误解可以让我们看清：未来的正确方向在哪里。</p>
+<h2 id="小结"><a class="header" href="#小结">小结</a></h2>
+<p>比特币的脚本系统，从中本聪的原始设计起，就是一个远比行业认知强大得多的工具。它基于Forth语言的栈操作范式，在语言层面通过禁止循环来保证每段脚本必然终止——这不是缺陷，而是安全特性。而在系统层面，通过交易链的迭代，比特币实现了图灵完备的计算能力——单个步骤有界，步骤序列无界。sCrypt和Runar等工具的成熟，让这种能力不再停留在理论论证中，而是成为开发者可以直接使用的生产力。</p>
+<p>回扣第三章的论证：Vitalik Buterin在2013年看到的“比特币不能做智能合约“的现实，是人为阉割的产物，不是设计的局限。把被禁用的操作码恢复，把被施加的限制移除，比特币的脚本系统完全可以承载以太坊试图实现的一切功能——而且在UTXO模型的架构上，天然具备账户模型所不具备的并行性、安全性和确定性。</p>
+<p>至此，我们完成了对比特币作为一个系统的完整论证——从电子现金的定义（第六章），到交易的UTXO结构（第七章），到工作量证明的物理担保（第八章），到激励机制的经济引擎（第九章），到隐私模型的精确权衡（第十章），到法律框架内的运作方式（第十一章），到协议锁定的治理逻辑（第十二章），到处理能力的扩容路径（第十三章），到本章的脚本与智能合约能力。这九章共同回答了一个问题：比特币是什么，它能做什么。</p>
+<p>答案是：比特币是一个完整的系统。它不需要Layer 2来扩容，不需要外部平台来做智能合约，不需要修改协议来适应新的需求。中本聪在2009年发布的那套设计——UTXO模型、工作量证明、经济激励、假名隐私、脚本系统——已经包含了一个全球电子现金系统所需要的一切。每一个组件都服务于整体，每一个设计选择都互相支撑，组成了一个自洽而完备的工程架构。</p>
+<p>但如果比特币的设计如此完整，为什么今天行业的现状与这个设计如此割裂？为什么最大的“比特币“网络（BTC）反而是偏离原始设计最远的那一个？为什么一个不需要修改的协议被反复修改，一个设计好的扩容路径被主动堵死，一个本该完整的系统被人为阉割成了“数字黄金“？</p>
+<p>第三部分将回答这些问题。我们将从“正本“——比特币是什么——转向“清源“——比特币发生了什么。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="13-scaling.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="15-btc-deviation.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="13-scaling.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="15-btc-deviation.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

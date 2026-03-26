@@ -1,0 +1,420 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>序章：一切从双花开始 - 正本清源比特币</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="Bitcoin: The Path to Satoshi&#x27;s Vision">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="custom-cbdc12bd.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-e84ab39c.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-d8d8ae9b.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">正本清源比特币</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/tongxiaofeng/path-to-satoshis-vision" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/tongxiaofeng/path-to-satoshis-vision/edit/main/chapters/src/00-preface.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                            <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="序章一切从双花开始"><a class="header" href="#序章一切从双花开始">序章：一切从双花开始</a></h1>
+<h2 id="一张百元钞票"><a class="header" href="#一张百元钞票">一张百元钞票</a></h2>
+<p>想象一个最简单的场景。</p>
+<p>你从钱包里抽出一张百元钞票，递给面前的咖啡店老板。他接过钞票，找你零钱，交易完成。</p>
+<p>这个过程简单到不值一提。但它之所以成立，依赖一个你可能从未想过的前提：你把钞票递出去之后，你手里就没有了。</p>
+<p>这不是废话。这是物理世界最深刻的事实之一。</p>
+<p>一块石头、一枚硬币、一锭黄金——物质世界中的任何东西，一旦从一个人手里转移到另一个人手里，原来的持有者就不再拥有它。不是因为法律规定，不是因为道德约束，而是因为原子不可凭空复制。你没有办法把一枚硬币“复制粘贴“出第二枚。物理定律不允许。</p>
+<p>人类几千年的经济活动——从最早的贝壳交易到今天的黄金结算——都建立在这个前提之上。我们之所以能用“钱“来交换物品，最底层的原因是：钱花出去就没有了。一笔钱不能同时花两次。</p>
+<p>这件事太平凡了，平凡到我们不会注意它。但正因为太平凡，当我们进入另一个世界时，才会措手不及。</p>
+<h2 id="信息的本性"><a class="header" href="#信息的本性">信息的本性</a></h2>
+<p>现在换一个场景。</p>
+<p>你用微信给朋友发了一张照片。发完之后，你手机里还有这张照片吗？当然有。你发了一百次，手机里照样有。你可以复制一万份，每一份和原件一模一样。</p>
+<p>这不是微信的特殊功能，也不是数字技术的副作用。这就是信息的本性。</p>
+<p>信息是一种抽象的模式。一段文字、一首歌、一张图片——它们的本质是一串比特，一组0和1的排列。和物理世界中的原子不同，比特可以被精确、无损、零成本地复制。你复制一个文件，原件不会少一个字节。比特和它的载体天然可分离——同一串数据可以同时存在于一万块硬盘上，每一份都是完美的原件。</p>
+<p>物质不可复制，信息天然可复制。这是物质世界和信息世界之间最根本的差异。</p>
+<p>不需要更多的理论了。仅凭这一条差异，你就能推导出一个让整个数字货币领域头疼了几十年的问题。</p>
+<h2 id="双花一个不可避免的问题"><a class="header" href="#双花一个不可避免的问题">双花：一个不可避免的问题</a></h2>
+<p>现在设想你要在纯数字的世界里创造一种“货币“。</p>
+<p>这种货币不是纸币，不是硬币，而是一段数字信息——一串比特。它记录着“张三拥有100元“。</p>
+<p>问题来了。</p>
+<p>张三决定用这100元买咖啡。他把这段数字信息发给了咖啡店老板，老板收到了“张三转账100元“的记录。交易似乎完成了。但张三手里还有这段信息的原件。他可以把同样的100元再发给隔壁的水果店老板。如果水果店老板也没有办法发现这100元已经被花过了，他也会接受这笔付款。</p>
+<p>同一笔钱，花了两次。</p>
+<p>这就是双花问题（double-spending problem）。</p>
+<p>注意，这不是某个系统设计的漏洞，不是某个程序员写了个bug。<strong>这是信息可复制性在货币场景下的必然结果。</strong> 只要你的“钱“是用比特来表示的，它就天然可以被复制。只要它可以被复制，持有者就可以把同一笔钱花两次。</p>
+<p>白皮书的摘要开篇就点明了这个问题的核心地位：</p>
+<blockquote>
+<p>“Digital signatures provide part of the solution, but the main benefits are lost if a trusted third party is still required to prevent double-spending.”</p>
+<p>“数字签名提供了部分解决方案，但如果仍需一个可信的第三方来防止双重支付，那么其主要优势就丧失了。”</p>
+</blockquote>
+<p>数字签名——密码学中的公私钥技术——可以证明“这笔转账确实是张三授权的“。但它不能证明“张三没有用同一笔钱给别人也转过一次“。签名解决的是身份和授权问题，而双花是一个完全不同的问题：同一笔钱是否已经被花过？</p>
+<p>这就是数字货币的原罪。在解决双花之前，数字世界里不可能存在真正的“钱“。</p>
+<h2 id="传统方案找一个你信得过的人"><a class="header" href="#传统方案找一个你信得过的人">传统方案：找一个你信得过的人</a></h2>
+<p>人类对这个问题的第一反应，也是最自然的反应，是找一个中间人。</p>
+<p>银行就是这个中间人。</p>
+<p>当你用手机银行转账时，你的手机并没有直接把“钱“发给对方。你的手机把一条指令发给了银行：“请从我的账户里扣100元，加到对方的账户里。“银行收到指令后，检查你的账户余额是否够用，如果够用，就在自己维护的账本上修改两个数字——你的余额减100，对方的余额加100。</p>
+<p>这个账本是银行的，只有银行能修改。</p>
+<p>正是因为只有银行一个人能改账本，双花问题就被“解决“了：你不可能给两个人各转一次100元，因为银行在处理第一笔转账时就已经把你的余额扣掉了。当第二笔转账到达时，银行发现余额不足，直接拒绝。</p>
+<p>这个方案有效。全球的电子支付系统——银行、支付宝、微信支付——全部基于这个逻辑运行。</p>
+<p>但这个方案有一个代价，白皮书第一节说得很清楚：</p>
+<blockquote>
+<p>“Commerce on the Internet has come to rely almost exclusively on financial institutions serving as trusted third parties to process electronic payments.”</p>
+<p>“互联网上的商业活动已经几乎完全依赖于金融机构作为可信第三方来处理电子支付。”</p>
+</blockquote>
+<p>代价就是：你必须信任这个中间人。</p>
+<p>你必须相信银行不会伪造你的交易记录。你必须相信银行不会无故冻结你的账户。你必须相信银行不会把你的财务数据卖给第三方。你必须相信银行永远不会倒闭。你必须相信银行背后的政府不会在某一天决定你的钱不再属于你。</p>
+<p>这不是理论上的风险。2013年，塞浦路斯政府在金融危机中直接从储户账户中划走存款来救助银行。2022年，加拿大政府冻结了参与“自由车队“抗议的卡车司机的银行账户——不经法院审判，直接冻结。在这些事件中，人们突然意识到一个残酷的事实：存在银行里的钱，在某种意义上并不完全是“你的“。它的使用需要银行的配合，而银行的配合需要政府的许可。</p>
+<p>白皮书对此的描述直截了当：</p>
+<blockquote>
+<p>“While the system works well enough for most transactions, it still suffers from the inherent weaknesses of the trust based model.”</p>
+<p>“虽然该系统对大多数交易运作得足够好，但它仍然受到基于信任模式固有弱点的困扰。”</p>
+</blockquote>
+<p>“Works well enough”——“足够好”。这两个字里藏着一个巨大的妥协。大多数时候，银行确实不会对你搞鬼。但“大多数时候“不是“永远“。每一次金融危机、每一次资本管制、每一次账户冻结，都在提醒我们：基于信任的系统，其安全上限就是你信任对象的可靠程度。</p>
+<p>白皮书还指出了信任模式带来的具体经济损失：</p>
+<blockquote>
+<p>“The cost of mediation increases transaction costs, limiting the minimum practical transaction size and cutting off the possibility for small casual transactions.”</p>
+<p>“调解成本增加了交易费用，限制了最低实际交易规模，切断了小额临时交易的可能性。”</p>
+</blockquote>
+<p>因为银行要承担调解纠纷的责任，它必须对每笔交易收取足够高的手续费来覆盖这个成本。这意味着小额支付在经济上变得不划算——给街头艺人打赏一块钱，手续费可能比打赏金额还高。信任的代价不仅是抽象的风险，还是实实在在的经济摩擦。</p>
+<p>更深一层地看，传统方案并没有真正“解决“双花问题。它只是把问题转化了——从“如何防止数字货币被复制“变成了“如何信任这个记账的人“。双花的风险没有消失，只是从技术层面转移到了制度层面。</p>
+<p>真正的问题于是浮出水面：<strong>能否在不依赖任何可信第三方的前提下，在纯数字环境中解决双花问题？</strong></p>
+<h2 id="二十年的探索"><a class="header" href="#二十年的探索">二十年的探索</a></h2>
+<p>在中本聪之前，一代密码学家和计算机科学家已经看到了这个问题，并为之奋斗了二十多年。</p>
+<p>1983年，密码学家David Chaum提出了盲签名技术，奠定了匿名数字支付的理论基础。1989年，他创立了DigiCash——第一个实际运行的匿名数字支付系统。DigiCash在密码学上是优雅的，但它运行的前提是有一家银行愿意作为可信第三方来验证交易、防止双花。当唯一合作的银行退出后，DigiCash于1998年破产。技术再优雅，也抵不过中心化的单点脆弱。</p>
+<p>1997年，Adam Back提出了Hashcash，用计算难题来对抗垃圾邮件——这是工作量证明概念的先驱。1998年，Wei Dai发表了b-money提案，第一次系统性地描述了去中心化数字货币的构想，但缺少可行的共识机制。同年，Nick Szabo提出了Bit Gold方案，结合了工作量证明和时间戳链，是所有前比特币设计中最接近终点的一个，但始终未能解决去中心化环境下的共识收敛问题。2004年，Hal Finney基于Hashcash构建了RPOW——可复用的工作量证明系统，但验证仍然依赖一台可信服务器。</p>
+<p>这些先驱的努力画出了同一条轨迹：所有人都想摆脱可信第三方，但没有人找到一个能在去中心化环境中真正防止双花的方案。</p>
+<p>一直到2008年。</p>
+<h2 id="排序唯一的答案"><a class="header" href="#排序唯一的答案">排序：唯一的答案</a></h2>
+<p>让我们暂时忘掉比特币，忘掉区块链，回到双花问题本身。</p>
+<p>同一笔100元，被花了两次——一次给了咖啡店的Alice，一次给了水果店的Bob。这两笔交易在数据层面都是合法的：签名正确，余额充足。怎么判定哪笔有效？</p>
+<p>你可能已经想到了：看谁先。</p>
+<p>如果能确定给Alice的交易发生在先，那它有效；给Bob的那笔发生在后，就是双花，应该被拒绝。反过来也一样——具体谁先谁后并不重要，重要的是存在一个所有人公认的先后顺序。</p>
+<p>这不是一种可选的解决方案，也不是诸多方案中的一种。这是唯一的机制。</p>
+<p>想一想银行是怎么解决双花的。你的两笔转账先后到达银行服务器，银行按到达的顺序处理：先到的那笔扣款成功，后到的那笔因余额不足被拒。银行做的事情，本质上就是<strong>排序</strong>——确定交易的先后顺序。</p>
+<p>再想想现实世界。为什么排队买票不会出现“一张票卖给两个人“？因为先来后到。排在前面的人先买到票，排在后面的人发现票已卖完。排队就是一种排序机制。</p>
+<p>**解决双花，就是确定交易顺序。**这是一个逻辑必然，不存在其他路径。</p>
+<p>白皮书对此说得非常精确：</p>
+<blockquote>
+<p>“We need a way for the payee to know that the previous owners did not sign any earlier transactions. For our purposes, the earliest transaction is the one that counts, so we don’t care about later attempts to double-spend.”</p>
+<p>“我们需要一种方法让收款方确认之前的所有者没有签署过任何更早的交易。就我们的目的而言，最早的那笔交易才是有效的，因此我们不关心后续的双重支付尝试。”</p>
+</blockquote>
+<p>“最早的那笔交易才是有效的”——这句话把双花问题完全归结为排序问题。一旦全局的交易顺序被确定，双花在逻辑上就不可能存在。</p>
+<p>白皮书紧接着指出了实现这一点所需的条件：</p>
+<blockquote>
+<p>“To accomplish this without a trusted party, transactions must be publicly announced, and we need a system for participants to agree on a single history of the order in which they were received.”</p>
+<p>“要在没有可信方的情况下实现这一点，交易必须被公开宣布，并且我们需要一个系统让参与者对交易被接收的先后顺序达成单一的历史共识。”</p>
+</blockquote>
+<p>关键词是“single history“——单一的历史。不是每个人都有自己版本的排序，而是所有人对同一个排序达成共识。</p>
+<p>问题于是变得尖锐了：排序需要一个排序者。银行充当排序者，代价是你必须信任银行。我们不想信任任何人。那么——<strong>谁来排序？</strong></p>
+<h2 id="没有裁判的比赛"><a class="header" href="#没有裁判的比赛">没有裁判的比赛</a></h2>
+<p>这就是中本聪面对的终极难题。</p>
+<p>一群互不认识、互不信任的人，分布在全球各地，通过互联网连接。没有人知道其他人是谁，没有人有理由相信其他人是诚实的。在这种条件下，如何让所有人对交易的排序达成一致？</p>
+<p>不能靠道德——你不知道对方是什么人。不能靠法律——参与者跨越不同国家，没有统一的司法管辖。不能靠投票——在匿名网络中，一个人可以伪造一万个身份，“一人一票“瞬间失效。</p>
+<p>如果排序者不可信，排序本身就不可信。如果排序不可信，双花就无法被防止。如果双花无法被防止，数字货币就不可能存在。</p>
+<p>二十年来，所有的先驱都困在这一步。</p>
+<p>然后中本聪想到了一个办法。</p>
+<p>他的思路可以用一句大白话来概括：<strong>如果不能信任任何一个人，那就让所有人去竞争，谁付出的代价最大，谁来排序。</strong></p>
+<p>“代价“是什么？是真金白银的能量消耗——电力。</p>
+<p>这就是工作量证明（Proof of Work）。</p>
+<h2 id="用能量换取秩序"><a class="header" href="#用能量换取秩序">用能量换取秩序</a></h2>
+<p>中本聪在白皮书第一节的最后一句话中，定义了他的方案：</p>
+<blockquote>
+<p>“In this paper, we propose a solution to the double-spending problem using a peer-to-peer distributed timestamp server to generate computational proof of the chronological order of transactions.”</p>
+<p>“在本文中，我们提出了一种利用点对点分布式时间戳服务器来生成交易时间顺序之计算证明的方案，以此解决双重支付问题。”</p>
+</blockquote>
+<p>请注意这句话中的每一个关键词。</p>
+<p>“Distributed timestamp server”——分布式时间戳服务器。比特币不是一个“加密货币系统“，不是一个“去中心化数据库“。在中本聪的定义中，它是一台给交易盖时间戳的机器。时间戳的功能是什么？确定先后顺序。先后顺序解决什么问题？双花。</p>
+<p>“Computational proof”——计算证明。这个顺序不是某个权威宣布的，不是投票表决的，而是通过计算来证明的。什么样的计算？消耗真实能量的计算。</p>
+<p>让我们看看这个机制是如何运作的。</p>
+<p>想象一个场景：全球有成千上万的矿工，每个人都在自己的电脑前工作。他们做的事情本质上是这样的：</p>
+<p>第一步，每个矿工收集网络中还没有被确认的交易，把它们打包成一个“候选区块“——你可以把它理解为一页账本草稿。</p>
+<p>第二步，每个矿工开始解一道数学题。这道题没有捷径，只能一个一个地试。就像猜一个保险箱密码：你不知道密码是什么，只能从000001、000002一个一个地试，直到某个数字让保险箱打开。这个过程需要消耗大量的电力和计算资源。</p>
+<p>第三步，第一个猜对的矿工赢得这一轮竞争。他把自己的那一页“账本草稿“广播给全网，其他矿工验证答案是否正确——这个验证过程极快，瞬间完成。验证通过后，这一页就成为正式的账本记录——一个区块。</p>
+<p>第四步，所有矿工在这个新区块的基础上，开始下一轮竞争。</p>
+<p>这个过程大约每十分钟发生一次。网络会自动调整数学题的难度，确保不管全球有多少矿工参与竞争，平均出块时间始终维持在十分钟左右。</p>
+<p>注意一个关键细节：每个区块的出块权都是独立竞争的。上一轮赢了的矿工，在下一轮没有任何先发优势。排序权在每一个区块的时间尺度上都在被重新争夺——这不像是一个一旦当选就可以连任的总统，更像是一场永不停歇的公开竞拍，每十分钟重新来过。</p>
+<p>白皮书第四节描述了这个过程的关键特性：</p>
+<blockquote>
+<p>“Once the CPU effort has been expended to make it satisfy the proof-of-work, the block cannot be changed without redoing the work. As later blocks are chained after it, the work to change the block would include redoing all the blocks after it.”</p>
+<p>“一旦CPU算力已被消耗以满足工作量证明，该区块就无法在不重做工作的情况下被更改。由于后续的区块在其之后链接，修改该区块的工作将包括重做其后所有区块的工作。”</p>
+</blockquote>
+<p>这段话的意思是：每一个区块的背后，都凝结了大量的能量消耗。如果有人想篡改一个已经被写入的区块——比如把一笔已经确认的交易删掉，从而实现双花——他不仅需要重做这个区块的全部计算，还需要重做这个区块之后所有区块的计算。随着时间推移，篡改的代价呈指数级增长，很快就变得在经济上完全不可行。</p>
+<p>这就是为什么比特币的交易一旦被确认，就几乎不可逆。不是因为有人规定不许逆转，而是因为逆转的代价高到没有人愿意支付。</p>
+<p>更妙的是，这个机制让“自私“和“诚实“指向同一个方向。矿工不需要是好人。他们完全可以是纯粹的逐利者。但在这个竞争机制下，诚实地按规则打包交易就是利润最大化的策略。任何试图作弊的行为——比如故意篡改交易顺序——都会增加自己挖出的区块被网络拒绝的风险，白白浪费已经投入的电力成本。当理性的自利计算指向诚实行为时，系统的安全性就不再依赖于人性的善——而是依赖于人性的贪。后者是一个远比前者更可靠的假设。</p>
+<h2 id="为什么必须是能量"><a class="header" href="#为什么必须是能量">为什么必须是能量</a></h2>
+<p>你可能会问：为什么非得消耗能量？不能用别的方式来竞争排序权吗？</p>
+<p>这个问题比看上去更重要。答案涉及一个深层次的逻辑。</p>
+<p>首先，代价必须是真实的。如果获得排序权不需要付出任何代价，那每个人都会抢着来排序，而且作弊没有损失。系统瞬间崩溃。</p>
+<p>其次，代价必须是系统外部的。假设你设计一个系统，要求参与者质押系统内部的代币，作弊时没收质押物。听起来合理，但想一想：谁来判定“作弊“？系统中的其他参与者。谁来执行“没收“？还是这些参与者。如果超过一定比例的参与者决定串通呢？他们可以集体篡改规则，免除自己的罚款，甚至把被没收的代币还回去。这就像一场足球比赛，球员同时兼任裁判——判罚规则本身就可以被球员修改。</p>
+<p>能量消耗不存在这个问题。矿工的电费付给了电网，硬件成本付给了制造商。这些支出发生在比特币系统之外，不受链上任何规则的管辖。无论链上发生什么事，花掉的电不会回来。没有任何多数派可以投票取消物理世界中已经发生的能量消耗。</p>
+<p>最后，代价必须是可独立验证的。工作量证明有一个极其优雅的数学性质：做题极难，验题极易。矿工可能花了十分钟消耗了大量电力才找到一个合格的答案，但任何人都可以在毫秒级别内验证这个答案是否正确——不需要询问任何权威，不需要投票，只需要执行一次简单的数学运算。</p>
+<p>真实的、外部的、可独立验证的。能量消耗——也就是工作量证明——是目前已知的唯一同时满足这三个条件的机制。</p>
+<p>这不是中本聪的个人偏好，更不是一种可以被随意替换的“算法选择“。在解决“无信任环境下的全局排序“这个问题的约束条件下，工作量证明是逻辑推导的唯一终点。</p>
+<h2 id="从无序到有序"><a class="header" href="#从无序到有序">从无序到有序</a></h2>
+<p>让我们退后一步，看看中本聪到底完成了什么。</p>
+<p>在比特币出现之前，数字世界里的所有交易记录，其可信度都依赖于某个机构。银行的账本是可信的，因为你信任银行。支付宝的记录是可信的，因为你信任阿里巴巴。如果这些机构消失了、倒闭了、或者决定不再为你服务了，你的“钱“——那些数字——就变成了没有意义的比特。</p>
+<p>比特币改变了这一切。</p>
+<p>它从一个最基本的物理事实出发——物质不可复制，信息可以——推导出数字货币的根本障碍是双花；然后证明解决双花的唯一方式是全局排序；然后通过工作量证明，让一组互不信任的参与者在没有任何中心权威的条件下，对交易顺序达成共识。</p>
+<p>白皮书的结论部分这样总结：</p>
+<blockquote>
+<p>“We have proposed a system for electronic transactions without relying on trust. We started with the usual framework of coins made from digital signatures, which provides strong control of ownership, but is incomplete without a way to prevent double-spending. To solve this, we proposed a peer-to-peer network using proof-of-work to record a public history of transactions that quickly becomes computationally impractical for an attacker to change if honest nodes control a majority of CPU power.”</p>
+<p>“我们提出了一种不依赖信任的电子交易系统。我们从由数字签名构成的常规货币框架出发，该框架提供了对所有权的强有力控制，但在缺乏防止双重支付的方法时是不完整的。为了解决这个问题，我们提出了一个点对点网络，使用工作量证明来记录交易的公开历史——只要诚实节点控制着大多数CPU算力，攻击者要篡改该历史将很快变得在计算上不可行。”</p>
+</blockquote>
+<p>每一句话都指向同一个核心：<strong>防止双花。</strong></p>
+<p>数字签名解决了所有权控制——但不完整，因为没有解决双花。工作量证明补上了最后一块拼图——通过能量消耗来构建一个不可篡改的交易顺序。</p>
+<h2 id="数字世界里的物理性"><a class="header" href="#数字世界里的物理性">数字世界里的“物理性“</a></h2>
+<p>比特币的真正突破，比大多数人理解的更加深刻。</p>
+<p>回想一下物质世界。一块黄金之所以有价值，除了它好看之外，更根本的原因是：它是稀缺的（地球上只有那么多），它是排他的（你拿着别人就拿不了），它是持久的（不会腐烂消失）。这三个属性都是物理定律的直接结果——原子不可凭空创造，不可同时被两人持有，不可无痕消除。</p>
+<p>数字世界本来不具备上述任何一条。比特可以无限复制，所以没有稀缺性。同一份数据可以同时存在于一万台机器上，所以没有排他性。修改一个比特不会留下任何痕迹，所以没有持久性。</p>
+<p>但比特币通过工作量证明，在数字世界中第一次创造出了类似于物理属性的东西。</p>
+<p>每一个区块的创建都需要消耗真实的能量——这赋予了数字记录以“制造成本“，就像开采黄金需要消耗体力和工具。一旦区块被写入并被后续区块确认，修改它的代价随时间急剧增长——这赋予了数字记录以“不可篡改性“，就像刻在石碑上的文字难以被无痕抹去。整个账本被全球数以万计的节点同步保存——这赋予了数字记录以“持久性“，就像一本被复印了一万份分发到世界各地的书，不可能被任何人销毁。</p>
+<p>Hugo Nguyen对此有一个精辟的概括：“PoW本质上是将物理现实印刻到数字制品上的机制。“通过能量消耗这个中介，比特币的账本获得了一种数字信息本不该拥有的属性——物理性。比特是没有重量的，但凝结了能量的比特，有了重量。</p>
+<p>这意味着什么？</p>
+<p>意味着人类第一次在数字世界中创造了不可逆的稀缺性。</p>
+<p>在比特币之前，数字世界里的一切“稀缺“都是人为制造的假象。一款限量版数字皮肤之所以“稀缺“，是因为游戏公司控制着服务器，决定只发行一万份。公司倒闭的那天，这种“稀缺“就烟消云散。</p>
+<p>比特币的稀缺是真实的。2100万枚的总量上限不是某个公司的承诺，而是通过工作量证明在物理层面被强制执行的约束。没有任何人、任何机构、任何政府可以凭空增发哪怕一个聪。这种稀缺不依赖于任何人的善意或承诺——它依赖于物理定律。</p>
+<p>如果把这个成就放在更宏大的历史背景下看，它的意义会更加清晰。人类文明的绝大多数制度——货币、法律、产权——都建立在“记录“之上。合同写在纸上，法律刻在石碑上，产权登记在册页中。纸张和石碑之所以能承载这些制度，是因为它们具备物理性：制造有成本，写上的字难以被无痕抹去，载体本身可以长期保存。</p>
+<p>在比特币之前，数字世界从未拥有过这样的“纸张“。比特是完美的通信介质——传输快、复制易——却是糟糕的记录介质。所有数字世界中的“记录“，其可信度都不得不寄生于某个机构的信誉。比特币通过工作量证明，第一次在比特的世界里制造出了“纸“——一种具有物理属性的数字载体。这张纸上现在写着交易记录，但它能写的远不止于此。</p>
+<p>正如白皮书所说，比特币网络“以其非结构化的简洁性而具有强健性“：</p>
+<blockquote>
+<p>“The network is robust in its unstructured simplicity. Nodes work all at once with little coordination. They do not need to be identified, since messages are not routed to any particular place and only need to be delivered on a best effort basis. Nodes can leave and rejoin the network at will, accepting the proof-of-work chain as proof of what happened while they were gone.”</p>
+<p>“该网络以其非结构化的简洁性而具有强健性。节点同时工作，几乎不需要协调。它们不需要被识别身份，因为消息不会被路由到任何特定位置，只需以尽力而为的方式传递即可。节点可以随意离开和重新加入网络，接受工作量证明链作为它们离开期间所发生事件的证明。”</p>
+</blockquote>
+<p>节点可以随意加入和离开，不需要任何人的批准。这个系统的运行不依赖于任何特定参与者的存在。它像物理定律一样，一旦启动就自行运转——有人来就加入，有人走就退出，账本不为任何人停顿。</p>
+<h2 id="一条清晰的逻辑链"><a class="header" href="#一条清晰的逻辑链">一条清晰的逻辑链</a></h2>
+<p>让我们把整条推理串起来。</p>
+<p>起点：物质不可复制，信息可以复制。</p>
+<p>第一步：在数字世界中创造“货币“，必然面临双花问题——同一笔钱可以被花两次。</p>
+<p>第二步：解决双花的唯一方式是确定交易的全局顺序——排序。</p>
+<p>第三步：如果排序由一个中心机构来做，你就必须信任这个机构——这正是传统银行的模式。</p>
+<p>第四步：如果要在不信任任何人的条件下实现排序，就需要一个去中心化的竞争机制，让竞争的代价是外部的、物理的、不可逆的。</p>
+<p>第五步：工作量证明——通过消耗能量来竞争排序权——是满足上述所有条件的唯一已知方案。</p>
+<p>终点：比特币，一个不依赖任何可信第三方的电子现金系统。</p>
+<p>这条逻辑链中的每一步，都是前一步的必然推论。不是某种哲学主张，不是某种政治立场，而是从“信息可复制“这个物理事实出发，一步步推导出的工程必然。</p>
+<p>这就是比特币。不多，不少。</p>
+<h2 id="被误解的突破"><a class="header" href="#被误解的突破">被误解的突破</a></h2>
+<p>然而，事情并没有按照这条清晰的逻辑发展。</p>
+<p>2008年，中本聪发布白皮书。2009年1月3日，比特币网络上线。在最初的几年里，只有极少数密码学爱好者和技术极客在关注这个项目。然后比特币的价格开始上涨。然后更多的人涌入。然后“区块链“这个词被从比特币中抽离出来，变成了一个独立的概念。然后数以千计的“区块链项目“涌现——它们声称自己改进了比特币，但大多数对中本聪到底解决了什么问题一无所知。</p>
+<p>人们把比特币理解为“一种加密货币“——这是对的，但极度肤浅。就像把飞机理解为“一种交通工具“——你没说错，但你完全没有触及空气动力学的核心。</p>
+<p>人们把区块链理解为“一种分布式数据库“——这几乎是错的。区块链不是数据库。它是一个排序机制——一个通过工作量证明让互不信任的参与者对交易顺序达成共识的系统。如果你把排序机制拿掉（比如用权益证明替换工作量证明），剩下的确实就只是一个分布式数据库——一个笨重的、低效的分布式数据库，没有任何理由不去用传统的中心化方案。</p>
+<p>人们说“PoW太浪费能源了，我们应该用更环保的共识机制“——这就像说“建造大楼太浪费钢材了，我们应该用纸板来建“。能量消耗不是PoW的缺陷，恰恰是它的安全来源。你消耗的能量越多，篡改记录的代价越高。你“节省“下来的能量，就是你从安全性上减掉的保障。</p>
+<p>这些误解不是无害的。它们直接导致了行业长达十五年的歧路。</p>
+<p>比特币社区内部，围绕区块大小的争论最终导致了2017年的分裂。一方认为应该保持小区块，让每个人都能运行全节点；另一方认为应该扩大区块，让比特币成为真正的全球支付网络。这场争论的本质，归根结底，是对“比特币到底是什么“的不同理解。</p>
+<p>而在比特币之外，以太坊、Solana以及数千个“区块链“项目，带着对比特币原始设计的各种误读，建造了一个越来越复杂、越来越碎片化的行业图景。用户需要在几十条链之间选择，稍有不慎就会丢失资产。开发者需要学习几十种不同的技术栈。整个行业看起来蒸蒸日上，但距离中本聪白皮书描述的那个简洁、强大、统一的“点对点电子现金系统“，似乎越来越远。</p>
+<p>这些歧路是如何产生的？每一次偏离的逻辑是什么？哪些是善意的误解，哪些是利益驱动的扭曲？</p>
+<p>这正是接下来我们要讲的故事。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+                            <a rel="next prefetch" href="01-industry-status.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+                    <a rel="next prefetch" href="01-industry-status.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

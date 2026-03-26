@@ -1,0 +1,381 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>第八章：工作量证明——用能量锚定秩序 - 正本清源比特币</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="Bitcoin: The Path to Satoshi&#x27;s Vision">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="custom-cbdc12bd.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-e84ab39c.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-d8d8ae9b.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">正本清源比特币</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/tongxiaofeng/path-to-satoshis-vision" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/tongxiaofeng/path-to-satoshis-vision/edit/main/chapters/src/08-proof-of-work.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                            <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="第八章工作量证明用能量锚定秩序"><a class="header" href="#第八章工作量证明用能量锚定秩序">第八章：工作量证明——用能量锚定秩序</a></h1>
+<h2 id="引子"><a class="header" href="#引子">引子</a></h2>
+<p>1850年，热力学刚刚起步的年代，德国物理学家鲁道夫·克劳修斯提出了一个后来改变人类世界观的概念：熵。</p>
+<p>克劳修斯观察到一个看似平凡的事实：热量总是自发地从高温物体流向低温物体，从不反过来。你把一杯热水放在桌上，它会慢慢变凉，直到与室温一致。但你从来不会看到一杯凉水自发地变热。这个方向性不需要任何外力来维持——它是宇宙的默认状态。</p>
+<p>从这个观察出发，克劳修斯给出了热力学第二定律的经典表述：<strong>在一个孤立系统中，熵只会增加或保持不变，永远不会自发减少。</strong> 通俗地说：宇宙天然地趋向无序。要在任何地方创造秩序，你必须从外部输入能量——而且这个过程必然在别处制造出更多的无序。</p>
+<p>秩序不是免费的。它的账单由能量来支付。</p>
+<p>上一章我们拆解了比特币的交易机制——UTXO如何实现产权的不可逆转移。但交易机制只解决了“钱怎么动“的问题，还有一个更根本的悬念：谁来保证这些交易的顺序不被篡改？谁来确保同一枚硬币不被花费两次？在序章中我们已经确认，解决双花的本质就是确定排序。这一章，我们将深入这个排序机制的内部——工作量证明——看看它为什么不仅仅是一种“共识算法“，而是数字世界中秩序的物理根基。</p>
+<h2 id="时间戳铸造机pow-作为排序的物理担保"><a class="header" href="#时间戳铸造机pow-作为排序的物理担保">时间戳铸造机：PoW 作为排序的物理担保</a></h2>
+<h3 id="从时间戳服务器说起"><a class="header" href="#从时间戳服务器说起">从时间戳服务器说起</a></h3>
+<p>序章已经介绍了PoW的基本运作方式——矿工竞争出块、能量消耗保证不可逆、自利即诚实。本章不再重复这些内容。我们要从一个更深的层次来理解PoW的本质。</p>
+<p>白皮书第三节给出了一个极其重要但经常被忽略的定义：</p>
+<blockquote>
+<p>“The solution we propose begins with a timestamp server. A timestamp server works by taking a hash of a block of items to be timestamped and widely publishing the hash.”</p>
+<p>“我们提出的方案始于一个时间戳服务器。时间戳服务器的工作方式是对一组待加时间戳的数据项取哈希值，并广泛发布该哈希值。”</p>
+</blockquote>
+<p>请注意中本聪用的词：timestamp server——时间戳服务器。不是“挖矿系统“，不是“区块生成器“，不是“共识引擎“。在他的概念框架中，比特币首先是一台<strong>盖时间戳的机器</strong>。</p>
+<p>为什么是时间戳？因为时间戳的本质功能是<strong>存在性证明</strong>。当一组交易被哈希进一个区块，而这个区块的哈希又被发布到全网，它证明的是：这些交易在这个时间点之前已经存在。不是“可能存在“，不是“声称存在“，而是密码学意义上的确定存在——因为如果这些交易不存在，就不可能产生这个特定的哈希值。</p>
+<p>白皮书紧接着指出了时间戳的累积效应：</p>
+<blockquote>
+<p>“Each timestamp includes the previous timestamp in its hash, forming a chain, with each additional timestamp reinforcing the ones before it.”</p>
+<p>“每个时间戳在其哈希中包含前一个时间戳，形成一条链，每一个新增的时间戳都强化了它之前的所有时间戳。”</p>
+</blockquote>
+<p>这就是“链“的真正含义。每个区块不仅为自己包含的交易提供时间戳，还通过引用前一个区块的哈希，为之前所有区块的时间戳提供了额外的确认。区块越往后叠加，前面的时间戳就越牢固。这不是隐喻——这是数学结构。要篡改第100个区块中的一笔交易，你不仅要重做第100个区块的工作量证明，还要重做从第101到当前最新区块的所有工作量证明。随着时间推移，篡改的计算成本呈指数级增长。</p>
+<p>但这里有一个关键的问题：传统的时间戳服务器——比如报纸或Usenet帖子——依赖一个可信的发布者。白皮书第四节解决了这个问题：</p>
+<blockquote>
+<p>“To implement a distributed timestamp server on a peer-to-peer basis, we will need to use a proof-of-work system similar to Adam Back’s Hashcash, rather than newspaper or Usenet posts.”</p>
+<p>“要在点对点的基础上实现分布式时间戳服务器，我们需要使用类似于Adam Back的Hashcash的工作量证明系统，而不是报纸或Usenet帖子。”</p>
+</blockquote>
+<p>这句话揭示了PoW在比特币架构中的精确位置：<strong>PoW是让时间戳服务器去中心化的手段。</strong> 传统时间戳靠权威机构的信誉来保证，比特币的时间戳靠能量消耗来保证。一个区块的工作量证明不是在“解无用的数学题“——它是这个区块作为时间戳的物理担保。没有这个担保，时间戳就只是一个声称，任何人都可以伪造；有了这个担保，伪造一个时间戳的代价等于重新消耗同等量级的能量。</p>
+<p>让我们把这个逻辑连回序章的核心论点。双花问题的本质是排序问题；排序问题的本质是“在无信任环境下确定事件的先后顺序“；而“确定先后顺序“正是时间戳的功能。所以中本聪把比特币定义为“分布式时间戳服务器“不是一个随意的措辞——这是对比特币解决双花问题之路径的最精确描述。PoW就是让这台时间戳机器在没有可信操作员的条件下依然可靠运转的物理机制。</p>
+<h3 id="为什么不是解数学题"><a class="header" href="#为什么不是解数学题">为什么不是“解数学题“</a></h3>
+<p>“矿工在解复杂的数学难题”——这可能是关于比特币流传最广、误导性最大的描述。</p>
+<p>矿工做的事情，用技术语言说，是反复尝试不同的nonce值，使得区块头的SHA-256哈希值小于一个目标值。这个过程没有任何“数学“可言——没有方程要解，没有定理要证，没有算法上的巧妙。它是纯粹的暴力枚举：试一个数、算一次哈希、不满足就换下一个、再试、再算。</p>
+<p>这看起来像是在做无用功。但“无用功“恰恰是关键。</p>
+<p>设想一种替代方案：如果“出块权“是通过解一道真正有智力含量的数学题来决定的——比如分解一个大整数，或者证明一个数学猜想——那么拥有更高效算法的参与者就会获得不成比例的优势。一旦某个矿工发现了一个比暴力枚举更快的算法，他就可以用更少的能量消耗获得更多的出块权。这意味着排序权的分配不再与能量消耗成正比，而是与算法优势成正比。</p>
+<p>PoW选择了一种刻意“没有捷径“的计算。SHA-256哈希函数的一个核心密码学性质是：已知输出，无法反推输入。没有比逐一尝试更好的方法。这保证了一件至关重要的事情：<strong>获得排序权的唯一途径是消耗能量。</strong> 没有聪明的捷径，没有数学上的后门，没有可以积累的认知优势。一个CPU一票，而每一票的成本是真实的电力。</p>
+<p>白皮书对此的表述极为精确：</p>
+<blockquote>
+<p>“Proof-of-work is essentially one-CPU-one-vote.”</p>
+<p>“工作量证明本质上是一个CPU一票。”</p>
+</blockquote>
+<p>“一个CPU一票“的前提是：每一票的代价相同，都是能量。如果存在不消耗能量就能投票的方式，这个前提就崩塌了。PoW的“无用计算“正是为了消灭一切非能量的竞争维度，确保排序权的分配严格锚定在物理世界的能量消耗上。</p>
+<h3 id="热力学视角秩序必须被支付"><a class="header" href="#热力学视角秩序必须被支付">热力学视角：秩序必须被支付</a></h3>
+<p>现在我们可以从一个更深的层次来理解PoW的能量消耗。</p>
+<p>想象一个房间里有一千颗台球，在桌面上随机滚动。你想把它们排成从1号到1000号的严格顺序。你需要做什么？你需要一颗一颗地把球捡起来、辨认号码、放到正确的位置上。这个过程需要做功——你的肌肉在消耗化学能。如果你什么都不做，台球不会自动排列成1到1000的顺序。永远不会。这就是热力学第二定律在日常生活中的表现。</p>
+<p>比特币面对的是同样的局面，只是规模更大。在任何一个时刻，全球网络中有成千上万笔未确认交易在随机传播。不同的节点在不同的时间收到不同的交易，没有人知道全局状态是什么样的。这是高度无序的状态。而比特币账本要做的，是把这些随机传播的交易变成一个严格有序的结构——数十万个区块，每个区块内包含经过验证的交易，按确定的顺序排列，打上时间戳；区块之间通过哈希指针形成严格的单向链条。</p>
+<p>从无序到有序。这就是熵减。</p>
+<p>热力学第二定律告诉我们：熵减不会自发发生。要在局部创造秩序，必须从外部输入能量，而且这个过程必然在环境中产生更多的无序——矿机的散热风扇吹出热风，电厂燃烧化石燃料排放废气。比特币账本的有序程度越高，创建和维护这种秩序所需的能量就越大。这不是工程上的低效，而是物理学的硬约束。</p>
+<p>有人可能会反驳：传统数据库也在创造秩序——银行的中心化账本同样把交易排列成有序的序列，但银行没有消耗那么多电力啊？这个反驳忽略了一个关键区别：银行的排序依赖于对银行的信任。信任是一种社会性的秩序来源——它降低了创建秩序的能量成本，但代价是引入了一个必须被信任的中心节点。比特币的排序不依赖于对任何人的信任。在一个没有信任、没有权威、参与者互不认识的环境中创造秩序，所需的能量代价不可避免地更高——因为你不能依靠任何“社会性“的捷径来降低熵减的成本。</p>
+<p>让我们把这个逻辑链完整地写出来：</p>
+<ul>
+<li>数字信息天然可复制 → 双花问题不可避免</li>
+<li>解决双花的唯一方式是确定交易排序</li>
+<li>排序意味着从无序到有序 → 这是一个熵减过程</li>
+<li>热力学第二定律：熵减需要外部能量输入</li>
+<li>因此：<strong>任何不消耗外部能量的排序机制，都在违反热力学第二定律的推论</strong></li>
+</ul>
+<p>这条逻辑链的力量在于：它不依赖于任何特定的技术实现。不管你用什么“共识算法“，不管你的系统架构多么精巧，只要你想在数字世界中创建一个不依赖可信第三方的、不可篡改的交易排序，你就必须消耗外部能量。这不是比特币的设计选择，这是物理定律的要求。</p>
+<p>从这个角度看，PoW的能量消耗不是一个需要被辩护的“缺点“，而是一个需要被理解的物理必然。矿机散发的热量是比特币账本有序性的热力学代价——就像你家冰箱的压缩机发热是食物低温保存的热力学代价一样。你不会说冰箱“浪费电“，因为你理解制冷需要做功。同样的逻辑，应该应用于理解比特币的能量消耗。</p>
+<h3 id="能量消耗同时是城墙"><a class="header" href="#能量消耗同时是城墙">能量消耗同时是“城墙“</a></h3>
+<p>PoW的能量消耗有双重功能。第一重，如上所述，是创造秩序的热力学必要条件。第二重，是保护已创造秩序的安全屏障。</p>
+<p>每一个被写入区块链的区块，其背后凝结的能量消耗是热力学不可逆的。电能转化为计算，计算产生的热量散逸到环境中——这个过程在原理上不可逆。花掉的电不会因为任何人的意志而回到发电厂。</p>
+<p>这意味着：<strong>要改写比特币的历史，攻击者必须重新花费至少同等量级的能源。</strong> 而且，由于攻击者需要追赶诚实链不断增长的长度，他实际上需要的能源远超已有链的累积能耗。白皮书第四节对此有精确的数学描述：</p>
+<blockquote>
+<p>“To modify a past block, an attacker would have to redo the proof-of-work of the block and all blocks after it and then catch up with and surpass the work of the honest nodes.”</p>
+<p>“要修改一个过去的区块，攻击者必须重做该区块及其之后所有区块的工作量证明，然后赶上并超过诚实节点的工作。”</p>
+</blockquote>
+<p>这道城墙的独特之处在于：它不是静态的，而是在持续增厚。每过十分钟，新的区块被添加，新的能量被注入，历史记录的不可逆性就更强一分。一笔被确认六个区块的交易，其背后约有六十分钟累积的全网算力做担保。攻击者要逆转这笔交易，需要在六十分钟内消耗超过全网在同一时间段消耗的能量——以2025年的比特币网络规模，这意味着需要同时控制数百万台专用矿机和为它们供电的电力基础设施。</p>
+<p>Hugo Nguyen对此有一个精辟的概括：“PoW本质上是将物理现实印刻到数字制品上的机制。“通过能量消耗这个中介，比特币的账本获得了一种数字信息本不该拥有的属性——物理性。比特是没有重量的，但凝结了能量的比特，有了重量。</p>
+<h3 id="难度调整系统的自我校准"><a class="header" href="#难度调整系统的自我校准">难度调整：系统的自我校准</a></h3>
+<p>白皮书第四节还描述了一个常被低估的机制：</p>
+<blockquote>
+<p>“To compensate for increasing hardware speed and varying interest in running nodes over time, the proof-of-work difficulty is determined by a moving average targeting an average number of blocks per hour. If they’re generated too fast, the difficulty increases.”</p>
+<p>“为了补偿不断增长的硬件速度以及运行节点的兴趣随时间的变化，工作量证明的难度由一个移动平均值决定，目标是每小时产生固定数量的区块。如果区块产生得太快，难度就会增加。”</p>
+</blockquote>
+<p>每2016个区块（约两周），比特币网络会自动重新计算挖矿难度。如果过去两周出块速度快于十分钟一个，难度上调；如果慢于十分钟，难度下调。这个调整不需要任何人的批准，不需要任何委员会的投票，不需要任何“治理“流程。它是写在协议中的数学规则，由每个节点独立计算和执行。</p>
+<p>难度调整的深层意义在于：它使得比特币成为一个自我校准的系统。无论外部世界发生什么——算力翻倍、矿机迭代、电价波动、矿场迁移——系统总会在两周内自动收敛到十分钟一个区块的节奏。这意味着比特币不需要运维团队，不需要人工干预，不需要任何形式的外部管理。它像一个恒温器：感知偏差，自动修正。</p>
+<p>从2009年上线至今，比特币从未因需要中心化协调而停机。这个事实的技术根基，就是难度调整机制。</p>
+<h3 id="逐块竞争与真相的涌现"><a class="header" href="#逐块竞争与真相的涌现">逐块竞争与“真相“的涌现</a></h3>
+<p>序章提到过，PoW的竞争是逐块进行的——上一轮的获胜者在下一轮没有任何先发优势。这里需要深入探讨这个设计的一个微妙但关键的含义。</p>
+<p>在分布式网络中，不存在绝对的全局时钟。Alice的交易和Bob的交易可能几乎同时被广播，由于网络延迟，矿工甲先收到Alice的，矿工乙先收到Bob的。在绝对意义上，哪笔交易“真的“先发生？这个问题没有答案——在没有全局时钟的分布式系统中，“绝对的先后顺序“本身就是一个不存在的概念。</p>
+<p>矿工面对的不是客观真相（Truth），而是各自的实相（Reality）——他们实际观察到的交易顺序。在这个框架下，诚实不是“说出真相“，而是“如实报告自己看到的“。矿工按照自己收到交易的先后顺序（first-seen原则）来排列区块中的交易，就是诚实的。</p>
+<p>当不同矿工的诚实实相互相冲突时——比如两个矿工几乎同时找到了合法区块，包含了不同的交易顺序——竞争机制发挥作用。网络中的其他矿工在最先收到的区块上继续工作，当下一个区块被找到时，更长的那条链胜出。“真相“不是被发现的，而是通过能量竞争涌现的。</p>
+<p>比特币的核心工程成就正在于此：它没有试图在分布式网络中复原不存在的绝对真相，而是建立了一个机制，让一组自利的、互不信任的参与者，在没有裁判的情况下，持续就交易排序收敛到一致的结果。PoW不是在寻找真相——它是在创造共识。</p>
+<p>值得一提的是，这个收敛过程还有一个自我强化的网络效应。矿工之间存在持续优化网络延迟的经济动力——如果你接收新区块的速度比竞争对手慢，你就更容易在已经过时的旧区块上浪费算力，面临更高的孤块风险。这个经济压力驱动矿工主动投资高带宽、低延迟的网络连接，使得主要矿工之间自然形成高度互联的网络拓扑。经济激励自动驱动网络结构趋向最优，无需任何协议层面的强制规定。这是PoW竞争机制的一个优雅的副产品：不仅交易排序是竞争的结果，连网络拓扑的优化也是竞争的结果。</p>
+<h2 id="清源pos-的结构性缺陷与浪费迷思"><a class="header" href="#清源pos-的结构性缺陷与浪费迷思">清源：PoS 的结构性缺陷与“浪费“迷思</a></h2>
+<h3 id="proof-of-stake旧瓶装旧酒"><a class="header" href="#proof-of-stake旧瓶装旧酒">Proof of Stake：旧瓶装旧酒</a></h3>
+<p>序章简要提到了能量消耗为什么必须是外部的、物理的——用一个球员兼裁判的比喻说明了内部代价的循环性问题。现在让我们更系统地审视Proof of Stake。</p>
+<p><strong>第一，PoS取消了逐块竞争。</strong> 在PoW中，每个区块的出块权都是通过实时能量竞争决定的——在区块被挖出之前，没有人知道谁会赢。PoS取消了这种竞争。系统提前指定每个时间段由哪个验证者出块，依据是质押数量的加权抽签。谁来打包下一个区块，在区块产生之前就已经确定了。其他验证者不是竞争者，而是投票确认者。</p>
+<p>如果把PoW比作公开拍卖——价高者得，PoS就是预先分配的排班表——按质押比例轮流值班。这不是竞争，是任命。而任命的依据——质押量——是系统内部的资产。谁的代币多，谁的排序权大。这个结构，与传统金融中“谁的资本多，谁的话语权大“没有本质区别。</p>
+<p><strong>第二，没有外部物理代价意味着作弊成本是虚拟的。</strong> PoS的安全论证依赖一个核心假设：攻击者会因为代币贬值而遭受损失，因此不会发动攻击。但这个假设有一个致命的漏洞：如果攻击者通过做空代币对冲了风险，那么代币贬值恰恰是攻击者的收益来源。“代币贬值会惩罚攻击者“这个威慑，对一个已经做空了代币的攻击者完全不起作用。</p>
+<p>更根本的问题是：PoS的安全性锚定在代币自身的市值上。账本的安全性依赖于代币的价值，而代币的价值依赖于账本的安全性——这是一个循环依赖。在平时，这个循环是良性的；但在压力下，它会断裂。PoW不存在这种循环。矿工消耗的电力成本由电价决定，与比特币的币价无关。攻击比特币的代价锚定在物理世界，不锚定在被攻击系统自身的市值上。</p>
+<p><strong>第三，预选出块者重新引入了可信第三方。</strong> PoS系统提前知道谁将出块。这创造了两个后果：一是可预见的出块者天然成为外部压力——审查要求、法律传票、DDoS攻击——的作用点。2022年OFAC制裁Tornado Cash之后，高峰期超过60%的以太坊区块主动排除了受制裁地址的交易。这些验证者不是被政府强制执行审查——他们是作为已知实体，主动选择了合规。当出块者是已知的、持续在线的实体时，他们就处于法律管辖之下。这是PoS架构的结构性结果，不是某个实现的偶然缺陷。</p>
+<p>二是可预见的出块者催生了MEV（最大可提取价值）的制度化产业链。因为谁出下一个块是提前知道的，专业搜索者可以扫描交易内存池，发现可提取价值（例如三明治攻击），然后将策略打包卖给出块者。约90%的以太坊区块通过这条路径产出。交易的排序权——区块链最核心的权力——被拆解成了一条标准化的产业链，每个环节明码标价。在PoW中，没有人能提前知道谁会挖出下一个区块，这条产业链从结构上就难以建立。</p>
+<p><strong>第四，存量资源与流量资源的根本区别。</strong> PoW的算力是一种流量资源——你必须持续消耗电力来维持算力。一旦停止付电费，你的算力归零。这意味着PoW中的“51%攻击“是一场持续出血的战争：维持多数算力需要每秒向电网支付巨额费用，经济可行性随时间急剧恶化。</p>
+<p>PoS的质押量是一种存量资源——你质押了代币之后，维持质押不需要额外的持续支出。一旦攻击者积累了足够的质押量（以太坊的设计中为总质押的2/3），他就获得了对共识的永久控制权。PoW是向物理世界持续交租，PoS是一次性夺城之后换掉了锁。</p>
+<p>这个区别的深层含义是：PoW中的权力分配是动态的、可竞争的——任何新进入者都可以通过购买算力参与竞争，不需要现有参与者的许可。PoS中的权力分配倾向于固化——持有更多代币的人获得更多出块奖励，奖励进一步增加他们的质押量，形成正反馈循环。股份集中导致权力集中，权力集中导致规则制定权集中，最终走向寡头固化。这不是某个特定PoS系统的治理失败，而是存量资源作为权力分配基础的必然趋势。</p>
+<p><strong>第五，PoS的终极安全阀暴露了它的本质。</strong> PoS的支持者会指出还有最后一道防线：social slashing——当极端攻击发生时，社区可以在链下协调，通过硬分叉来没收攻击者的质押并恢复网络。但这个“防线“恰恰证明了问题所在：PoS的最终安全保障不在协议内，而在协议外。它依赖一群人在Discord或Twitter上讨论“哪条链才是正统的“，然后投票决定分叉方向。这是一个非正式的、主观的、不可预测的社会协调过程。</p>
+<p>换言之，PoS在极端情况下的安全兜底机制，本质上就是一个可信第三方——只不过这个“第三方“不是一家公司，而是一个社区的社会共识。我们兜了一大圈，又回到了起点。</p>
+<h3 id="pow浪费能源错误的问题"><a class="header" href="#pow浪费能源错误的问题">“PoW浪费能源”：错误的问题</a></h3>
+<p>“PoW浪费能源“是对比特币最常见的批评之一。这个批评之所以有力，是因为它基于一个看似合理的直觉：矿工消耗了大量电力，做了大量计算，但这些计算本身“没有产生任何有用的结果”——不像蛋白质折叠模拟、不像气候建模、不像科学研究。</p>
+<p>但这个批评犯了一个范畴错误。</p>
+<p>PoW的计算不是为了“产生有用的结果“。它的功能是消耗能量本身。就像银行金库的钢筋混凝土墙“没有产生任何有用的结果“——它不能住人、不能种菜、不能当艺术品欣赏——但它的功能恰恰是“在那里“，是物理性的存在本身。PoW消耗的能量就是比特币账本的“钢筋混凝土墙“。</p>
+<p>从热力学角度看，这个批评需要被重新审视——不是在“值不值得“的层面，而是在“能不能“的层面。热力学第二定律告诉我们，创造和维护比特币账本这种程度的秩序，能量消耗有一个不可压缩的下限。问题不是“花这么多电值不值“——真正的问题是：你能不能不花这个代价就得到同样的东西？</p>
+<p>热力学的回答是：不能。</p>
+<p>PoS将能耗降低了约99.95%。这个数字常被当作优点。但从本文的推导框架来看，它恰恰暴露了问题：PoS没有通过能量消耗来构建安全性。那99.95%不是被“节省“下来的浪费，而是被移除的安全机制。就像把银行金库的墙从一米厚的钢筋混凝土换成一层纸板——你确实“节省“了99.95%的建材成本，但你同时失去了金库存在的意义。</p>
+<h3 id="asic专业化特性不是缺陷"><a class="header" href="#asic专业化特性不是缺陷">ASIC专业化：特性，不是缺陷</a></h3>
+<p>比特币挖矿硬件的演化路径是：CPU → GPU → FPGA → ASIC。每一代的算力效率都比前一代高出几个数量级，而单位算力的能耗则持续下降。</p>
+<p>批评者认为ASIC的出现使得挖矿变成了少数人的游戏，违背了“去中心化“的精神。这个批评混淆了两件事情。</p>
+<p>第一，专业化是所有产业的自然演化方向。汽车制造从手工作坊到工厂流水线，不是“中心化“——这是效率优化。挖矿从笔记本电脑到专用矿场，遵循同样的经济逻辑。去中心化指的是排序机制不依赖单一实体，而不是要求所有人用同样低效的工具参与。</p>
+<p>第二，ASIC专业化实际上提高了比特币的安全性。原因很直观：ASIC矿机除了挖比特币之外几乎没有其他用途。一台ASIC矿机的全部价值都绑定在比特币网络上——如果比特币网络崩溃，这台矿机就是一堆废铁。这意味着ASIC矿工与比特币网络的利益高度绑定：他们最不希望看到的就是网络被攻击，因为攻击会直接摧毁他们的资本投入。</p>
+<p>更关键的是，ASIC专业化大幅提高了攻击门槛。在GPU挖矿时代，攻击者可以临时租用大量GPU算力（这些GPU平时用于图形渲染或AI训练），发动突袭后归还设备。ASIC矿机没有这种灵活性——你不能临时“借用“全球一半的比特币矿机。攻击者必须从头购买或制造ASIC矿机，而全球ASIC制造产能有限、交货周期漫长，这为比特币网络增加了一道物理性的护城河。</p>
+<p>ASIC专业化还有一个被低估的效果：它持续降低了单位算力的能量消耗。从早期GPU矿机到最新一代ASIC矿机，每次哈希计算的能耗下降了超过十万倍。这意味着同样的网络安全等级，所需的绝对能耗在持续下降。PoW的能量效率不是固定不变的——工程进步在持续优化它，就像汽车发动机的燃油效率在过去一百年里持续提高一样。</p>
+<h3 id="pow的博弈有物理学兜底"><a class="header" href="#pow的博弈有物理学兜底">PoW的博弈有物理学兜底</a></h3>
+<p>让我们把PoW和PoS的安全性做一个最终的对比。</p>
+<p>PoW的安全性当然包含博弈论成分——矿工在利润最大化和攻击之间做理性选择。但这个博弈论有一个物理学决定的硬底线：发动攻击所需的能源成本由电价、芯片制造成本和热力学效率共同决定，这些变量完全在比特币系统之外。即使你是一个纯粹的破坏者、一个不在乎利润的国家级攻击者，你仍然需要向物理世界支付真实的能源账单。</p>
+<p>PoS的安全性也建立在博弈论之上——验证者在诚实出块和发动攻击之间做理性选择。但这个博弈论没有物理学下限。当攻击者不在乎代币价值、通过做空对冲了损失、或代币价格已因外部原因暴跌——没有任何物理层面的安全保障在下面接住。博弈论的屏障破了就是破了，底下是空的。</p>
+<p>一个类比或许有助于理解这个区别。PoW的安全性像一座建在岩石上的城堡——你可以攻击城墙，但岩石本身不会消失。PoS的安全性像一座建在代币市值上的城堡——当市值坚挺时，城堡巍然矗立；当市值崩塌时，城堡和地基一起消失。</p>
+<p>物理学是一个比博弈论更坚实的基础。能量守恒不会因为市场恐慌而失效，热力学第二定律不会因为代币价格下跌而暂停。比特币的安全性最终锚定在宇宙的物理结构上——这是PoS无论如何精巧都无法企及的。</p>
+<h3 id="本质一张分类表"><a class="header" href="#本质一张分类表">本质：一张分类表</a></h3>
+<p>把上面的分析汇总，我们可以画一张清晰的分类表：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th></th><th>传统BFT</th><th>以太坊PoS</th><th>Solana</th><th>比特币PoW</th></tr>
+</thead>
+<tbody>
+<tr><td>参与者</td><td>已知</td><td>已知</td><td>已知</td><td>任何人</td></tr>
+<tr><td>出块者</td><td>预定</td><td>预定</td><td>预定</td><td>竞争产生</td></tr>
+<tr><td>外部能耗</td><td>无</td><td>无</td><td>无</td><td>大量</td></tr>
+<tr><td>宕机恢复</td><td>人工协调</td><td>社会共识</td><td>基金会协调</td><td>自动调整</td></tr>
+</tbody>
+</table>
+</div>
+<p>前三列之间的差异是程度上的——它们是同一类系统的不同实现。它们与第四列之间的差异是性质上的。已知的参与者集合、预先指定的出块者、内部代币作为安全保证——这描述的是Byzantine Fault Tolerant分布式数据库。PoS用代币质押替换了传统BFT中的准入许可，但根本结构未变。给分布式数据库加上一个代币，不会把它变成区块链。</p>
+<p>Solana的Proof of History是一个经常被用来混淆这个分类的例子。PoH本身是一种通过连续SHA-256哈希链实现的可验证时钟机制——它能证明两个事件之间经过了多少计算步骤。但PoH不是共识机制。Solana的实际共识由Tower BFT完成，验证者集合已知，领导者按计划轮换，安全性依赖于2/3质押多数的诚实假设。Solana多次全网宕机后的恢复方式——基金会在Discord上协调验证者同步重启——与公司运维团队凌晨重启数据库集群没有本质区别。</p>
+<p>PoS和PoH不是区块链的替代方案。它们是分布式数据库技术的延续——有价值，但解决的是一个不同的问题。</p>
+<h2 id="小结"><a class="header" href="#小结">小结</a></h2>
+<p>工作量证明不是“挖矿“——这个比喻遮蔽了它的真正功能。PoW是比特币的时间戳铸造机：它用不可逆的能量消耗为每一批交易锻造物理担保，将无序的交易流凝固为不可篡改的时间序列。这个过程消耗能量不是浪费，而是热力学第二定律对“在数字世界中创造秩序“的刚性要求。任何试图绕过这个代价的方案——无论叫PoS、PoH还是别的什么名字——都不是在“优化“PoW，而是在移除它所提供的物理担保。</p>
+<p>排序机制已经就位。但排序权不是免费的——矿工为什么愿意消耗真金白银的电力来为全网交易排序？答案在于比特币精妙的经济激励设计。下一章，我们将拆解这个激励结构，看看比特币如何用区块奖励和交易手续费构建了一个自利即诚实的经济引擎。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="07-transactions.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="09-incentive-network.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="07-transactions.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="09-incentive-network.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>第十六章：BSV——回归原始协议 - 正本清源比特币</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="Bitcoin: The Path to Satoshi&#x27;s Vision">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="custom-cbdc12bd.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-e84ab39c.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-d8d8ae9b.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">正本清源比特币</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/tongxiaofeng/path-to-satoshis-vision" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/tongxiaofeng/path-to-satoshis-vision/edit/main/chapters/src/16-bsv.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                            <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="第十六章bsv回归原始协议"><a class="header" href="#第十六章bsv回归原始协议">第十六章：BSV——回归原始协议</a></h1>
+<p>上一章详细检视了BTC对比特币原始协议的一系列修改：操作码禁用、1MB区块限制固化、SegWit改变交易结构、RBF废弃首次看到规则、Taproot改变签名方案。每一次修改都有技术理由，但累积的效果是一个与中本聪设计显著不同的系统。</p>
+<p>这一章要讲的是另一条路径——声称自己最忠实于原始设计的那条链：BSV。</p>
+<p>“BSV“三个字母代表“Bitcoin Satoshi Vision”——中本聪的愿景。这个名字本身就是一种宣言：我们要恢复比特币的原始协议。宣言是否兑现了？技术上做到了什么？还差什么？面对市场的冷遇，又该怎么理解？</p>
+<p>本章的目标不是推销BSV，而是如实记录：一个试图回归原始协议的工程项目，到底做了哪些事情，做到了什么程度，以及为什么“技术正确“和“市场胜利“之间的距离，远比大多数人想象的要大。</p>
+<h2 id="从分裂到独立一段不愉快的历史"><a class="header" href="#从分裂到独立一段不愉快的历史">从分裂到独立：一段不愉快的历史</a></h2>
+<p>BSV的诞生源于一场不那么体面的冲突。</p>
+<p>2017年8月，比特币第一次分裂。BTC坚持1MB区块限制加SegWit路线，另一部分社区分叉出了BCH（Bitcoin Cash），将区块大小提高到8MB，后来又提高到32MB。BCH的初衷是恢复比特币作为电子现金的功能——至少在区块大小这一点上，BCH比BTC更接近中本聪的设计。</p>
+<p>但BCH内部很快也出现了分歧。</p>
+<p>2018年8月，BCH提出了一次升级方案，包含两个关键变更：规范交易排序（CTOR）和新操作码OP_CHECKDATASIG。以Craig Wright和Calvin Ayre为代表的一方强烈反对，认为这些修改偏离了原始协议设计，引入了不必要的复杂性。支持升级的一方——以Bitcoin ABC开发团队为核心——认为这些是合理的技术改进。</p>
+<p>2018年11月15日，BCH正式分裂。两条链使用相同的SHA-256挖矿算法，这导致了所谓的“算力大战“（Hash War）——双方调动算力，试图证明自己才是“真正的“BCH。这场大战持续了大约十天，最终以永久分裂告终：BCH ABC保留了BCH的ticker符号和大多数交易所的支持，而另一条链以“BSV“的名义独立运行。</p>
+<p>从市场角度来看，BSV在这场分裂中是“输家“——它没有继承BCH的品牌，也没有获得主流交易所的普遍认可。但从协议设计的角度看，BSV的立场有其逻辑自洽性：如果比特币的价值在于其原始协议的稳定性，那么任何对协议的修改——无论理由多么充分——都应该被审慎对待。BCH提出的CTOR改变了交易在区块内的排序方式，而中本聪的原始设计并没有强制规范排序。OP_CHECKDATASIG引入了一个原始协议中不存在的新操作码。在BSV看来，这些不是“改进“，而是“偏离“。</p>
+<p>当然，这段历史不能只看协议层面。Craig Wright声称自己是中本聪的身份争议，给BSV带来了巨大的负面效应。2019年4月，币安CEO赵长鹏公开称Wright为“骗子“，随即将BSV从币安下架。Kraken、ShapeShift等交易所紧随其后。这场大规模下架使BSV的价格在两天内暴跌约50%，更重要的是，它使BSV在主流加密货币市场中被严重边缘化。</p>
+<p>一个项目的技术方向，不应该因为其支持者的个人争议而被否定或肯定。但市场不这么运作。在加密货币世界里，叙事和社区共识的力量往往大于技术论证。一条推文就能让一个代币暴涨或暴跌，一场交易所下架就能让一个项目从主流视野中消失。BSV的遭遇是这种市场逻辑的极端案例：一个在技术方向上可能最忠实于原始设计的项目，因为与它关联的个人争议，被主流市场几乎完全拒绝。</p>
+<p>这段历史的教训是深刻的：在去中心化的世界里，人物崇拜和人物厌恶都是危险的。比特币的原始设计之所以优雅，恰恰是因为它不依赖于任何个人。中本聪的匿名消失，从某种意义上说，是比特币设计中最精妙的一步——它确保了协议不会被绑定在任何人的声誉上。BSV的困境恰好从反面证明了这一点。这是BSV必须面对的现实，也是本章后面会详细讨论的问题。</p>
+<h2 id="genesis回到创世"><a class="header" href="#genesis回到创世">Genesis：回到创世</a></h2>
+<p>抛开人物争议和市场博弈，让我们聚焦在BSV的技术路径上。</p>
+<p>BSV团队从独立之初就设定了一个明确的目标：恢复比特币的原始协议。不是在原始协议的基础上做“改进“，不是在原始协议的基础上做“创新“，而是尽可能回到中本聪2009年发布的0.1版本所定义的规则。这个目标在整个加密货币行业中是独一无二的——几乎所有其他项目都在追求“超越“比特币，只有BSV在追求“回到“比特币。</p>
+<p>这个逻辑的前提是本书前两部分建立的论证：比特币的原始设计已经足够完备，它不需要被“改进“，需要的是被正确地实施和扩展。如果这个前提成立，那么协议恢复就不是倒退，而是纠错。</p>
+<p>这个目标通过一系列阶段性升级来实现。2018年独立后，BSV首先在区块大小上迈出了步伐——从128MB到512MB再到2GB，每一步都在测试网络在更大区块下的表现。但真正的里程碑是2020年2月4日的Genesis升级——一个名字直接致敬创世区块的硬分叉。</p>
+<p>Genesis升级在区块高度620538处生效，它做了几件关键的事情。</p>
+<p>第一，彻底移除区块大小限制。不是把限制从32MB提到128MB或1GB——而是完全取消这个限制。区块大小不再由协议规则硬性规定，而是交由矿工根据市场力量和网络条件自行决定。这正是中本聪的原始设计意图：协议本身不应该限制区块的大小，就像TCP/IP协议不应该限制网页的大小一样。第十三章已经论证过，中本聪在白皮书中设计了默克尔树、SPV和磁盘空间回收这三个组件，构成了一个完整的链上扩容架构。Genesis升级移除区块限制，是这套扩容架构得以发挥作用的前提。</p>
+<p>第二，恢复被禁用的操作码。第十五章记录了中本聪在2010年因安全漏洞紧急禁用大量操作码的历史——OP_MUL、OP_DIV、OP_MOD、OP_LSHIFT、OP_RSHIFT、OP_CAT、OP_SUBSTR等十多个操作码被一刀切地禁用。BSV从2018年开始逐步恢复这些操作码：先是OP_MUL、OP_INVERT、OP_LSHIFT、OP_RSHIFT，然后在Genesis升级中恢复了大部分剩余操作码。同时，OP_RETURN的功能被恢复为原始行为——终止脚本执行，并根据栈顶元素的值判定脚本是否有效。</p>
+<p>第三，移除脚本层面的各种人为限制。BTC在发展过程中对脚本施加了越来越多的限制：脚本大小上限、操作码数量上限、栈元素大小上限、“标准交易“类型的白名单。这些限制将比特币脚本从一个通用计算引擎降格为只能执行几种固定模式的签名验证工具。Genesis升级取消了这些限制，让脚本回归为一个通用的、堆栈式的计算系统。</p>
+<p>第四，恢复对非标准交易的支持。BTC的“标准性“规则意味着只有特定类型的交易——P2PKH、P2SH、多重签名等——会被默认中继和打包。任何使用了复杂脚本逻辑的交易都被视为“非标准“而被拒绝。这相当于一个操作系统只允许运行预先批准的几款软件。Genesis升级取消了这个限制：只要交易的脚本是合法的比特币脚本，矿工就可以接受和处理它。</p>
+<p>如果把这四项变更放在一起看，它们的逻辑是一致的：移除后来添加的人为限制，恢复原始协议的开放性。区块大小不设上限——让市场决定容量；操作码全面恢复——让脚本拥有完整的计算能力；脚本限制取消——让开发者自由构造任何逻辑；非标准交易取消限制——让协议不预设“正确“的使用方式。</p>
+<p>用第十五章的比喻来说：如果BTC对原始协议的修改是“把窗户用水泥封死“，那么Genesis升级就是“把水泥凿开，重新装上玻璃“。凿开水泥比封上水泥更难——因为你需要小心翼翼地恢复原始结构，而不是简单地添加新的限制。每一个被恢复的操作码都需要经过安全审计，确保2010年导致禁用的漏洞已经通过其他方式（如资源限制）得到了解决。每一个被移除的限制都需要评估其对网络稳定性的影响。这不是简单的“把旧代码复制回来“，而是一个审慎的工程过程。</p>
+<p>Genesis升级之后，BSV的协议在核心层面已经非常接近中本聪0.1版本的设计。当然，“非常接近“不等于“完全相同”——多年来的各种补丁、修复和兼容性调整意味着没有任何实现能与2009年的代码完全一致。但在协议规则的层面上——什么交易是合法的、区块有多大、脚本能做什么——Genesis之后的BSV是所有现存比特币分叉中最接近原始设计的版本。</p>
+<p>2026年4月7日，BSV计划在区块高度943816处激活Chronicle升级——这被定位为协议恢复的最后一步。Chronicle将重新引入Genesis中尚未恢复的少数操作码，支持原始交易摘要算法（OTDA），并移除“清洁栈规则“等后来添加的限制。Chronicle升级完成后，BSV协议将被“锁定“——除了必要的安全修复外，协议规则将不再改变。</p>
+<p>协议锁定是一个重大的哲学承诺。它意味着BSV不会像BTC那样不断通过软分叉或硬分叉来“改进“协议。这一立场直接呼应了第十二章论证的原始治理模型：比特币协议应该像法律一样稳定，开发者不是立法者，没有权力修改规则。</p>
+<p>为什么协议锁定对企业用户至关重要？想象你是一家物流公司的CTO，你正在评估是否将供应链数据锚定到某条区块链上。你最大的顾虑不是性能，不是费用，而是稳定性——这条链的规则五年后还一样吗？我今天写的智能合约，三年后还能正常执行吗？如果协议随时可能被一群开发者通过投票修改，你就面临一个无法评估的系统性风险。协议锁定消除了这个风险。它承诺：你在BSV上部署的任何应用，将永远按照相同的规则运行。这正是TCP/IP协议栈的承诺——HTTP的基本规则从1991年至今没有改变过，这就是为什么三十年前的网页今天仍然可以被浏览器正确渲染。</p>
+<p>当然，协议锁定也有代价。如果未来出现了某个当前无法预见的技术需求，BSV将无法通过修改协议来应对。BSV的回答是：原始协议的脚本系统足够通用，可以在应用层面适应未来的需求，不需要修改底层规则。这个判断是否正确，只有时间能给出答案。</p>
+<h2 id="teranode链上扩容的工程实践"><a class="header" href="#teranode链上扩容的工程实践">Teranode：链上扩容的工程实践</a></h2>
+<p>恢复原始协议只是第一步。如果区块大小的限制被移除了，但节点软件本身处理不了大区块，那协议层面的“不设限“就只是一张空头支票。</p>
+<p>这就是Teranode项目要解决的问题。</p>
+<p>传统的比特币节点——无论是BTC的Bitcoin Core还是BSV早期使用的SV Node——都是单体架构：一个进程处理所有事务，包括接收交易、验证脚本、打包区块、存储数据、与其他节点通信。这种架构在区块较小时没有问题，但当区块增长到数百MB甚至GB级别时，单体架构就成了瓶颈：一个进程无法充分利用多核CPU，内存成为限制因素，I/O操作相互阻塞。</p>
+<p>Teranode的解决方案是将单体节点拆解为微服务架构。交易验证、区块组装、网络通信、数据存储——每个功能被拆分为独立的服务，可以在不同的服务器上运行，可以独立扩展。如果交易验证是瓶颈，就增加更多的验证服务实例；如果存储是瓶颈，就扩展存储集群。这种水平扩展的能力意味着，理论上，处理能力可以随着硬件的增加而线性增长，不存在架构层面的容量天花板。</p>
+<p>在数据库层面，Teranode采用了Aerospike——一个专为高吞吐量场景设计的NoSQL数据库。Aerospike的特点是将索引存储在内存中，将数据存储在SSD上，兼顾了访问速度和成本控制。BSV协会与Aerospike合作进行的基准测试中，数据库层面达到了超过300万TPS（每秒交易数）的吞吐量。</p>
+<p>但这里必须做一个关键区分，因为混淆测试数据和生产数据是技术讨论中最常见的误导手法之一。</p>
+<p>300万TPS是数据库层面的基准测试结果——它测量的是Aerospike作为存储引擎的原始读写能力，不包含交易验证、脚本执行、网络传播、共识达成等完整的区块链处理流程。当BSV协会宣称Teranode实现了“超过100万TPS“时，这个数字来自全球分布式环境下的端到端测试，包含了网络延迟和跨节点协调的开销，但仍然是在受控的测试环境中获得的数据。</p>
+<p>而在实际的主网运行中，情况完全不同。</p>
+<p>2024年12月，TAAL在区块高度875980处用Teranode软件挖出了主网上的第一个Teranode区块。2025年12月，GorillaPool在区块高度927546处用其“GorillaNode“（基于Teranode的实现）挖出了第一个区块。截至2026年初，已有多家矿工在主网上运行Teranode软件。但主网的实际日常交易量远没有达到测试环境中的百万TPS级别。BSV主网目前的常规处理能力约为2800 TPS。在2025年5月的一次压力测试中，BSV在24小时内处理了1.52亿笔链上交易，刷新了记录——但正如其名，这是“压力测试“，大部分交易来自测试工具的自动生成，而非有机的用户需求。</p>
+<p>这个差距说明了什么？</p>
+<p>它说明Teranode的架构设计在理论上是可行的。微服务架构、水平扩展、Aerospike数据库——这些工程选择本身是合理的。300万TPS的数据库基准测试证明了存储层不是瓶颈。100万TPS的全球测试证明了端到端的处理流程可以在分布式环境中运行。但从“技术上可行“到“生产中必要“之间，还有一个决定性的因素：需求。</p>
+<p>一条每天自然产生几万笔交易的区块链，不需要百万TPS的处理能力。Teranode展示的不是当前的需求，而是未来的容量——如果BSV的链上交易量真的增长到每天数十亿笔（物联网数据、供应链追踪、微支付等场景），Teranode的架构确保了网络不会因为容量不足而崩溃。这是一个“先建高速公路，再等车流增长“的策略。这个策略是否正确，取决于车流是否真的会来。</p>
+<p>2025年10月，BSV协会将Teranode的代码以“源码可用“（source-available）的方式公开在GitHub上。这意味着外部开发者可以审查、测试和贡献代码，但使用条件上仍有一些限制，不完全等同于传统意义上的“开源“。这一步对增加代码的透明性和接受外部审查有积极意义，但“源码可用“与真正的MIT或Apache许可证开源之间的差异，也值得关注。</p>
+<p>值得注意的是，Teranode的设计思路——微服务化、水平扩展、使用高性能数据库——并不是什么前沿技术。这些都是互联网行业处理大规模数据时的标准工程实践。Google搜索、Amazon购物、微信支付——所有处理海量请求的系统都采用类似的架构。Teranode的意义不在于它发明了什么新技术，而在于它证明了区块链节点可以采用与互联网行业相同的工程方法来扩展。换句话说，比特币的扩容不需要密码学突破，不需要新的共识协议，只需要好的软件工程——这恰好印证了中本聪在白皮书中的判断：比特币的扩展依赖于摩尔定律和网络带宽的自然增长。</p>
+<p>总结一下Teranode的现状：架构设计合理，基准测试数据亮眼，已在主网出块验证可行性，但实际日常吞吐量受限于需求侧而非供给侧。它解决了“比特币能不能在链上扩容“的工程问题，但没有解决“谁来用这些容量“的市场问题。</p>
+<h2 id="生态现状在建设中的系统"><a class="header" href="#生态现状在建设中的系统">生态现状：在建设中的系统</a></h2>
+<p>协议恢复了，扩容能力准备好了，接下来的问题是：谁在上面建东西？</p>
+<p>BSV的生态系统目前处于一个尴尬但真实的阶段：技术基础设施日趋完善，但应用层的丰富度和用户规模远远落后于BTC和以太坊。让我们逐一审视几个关键组成部分。</p>
+<p><strong>sCrypt：智能合约平台。</strong> sCrypt是BSV生态中最重要的开发工具之一。它是一个嵌入TypeScript的领域特定语言（DSL），让开发者可以用熟悉的TypeScript语法来编写、部署和管理BSV上的智能合约。BSV协会已将sCrypt确定为BSV区块链的官方智能合约语言。</p>
+<p>sCrypt的技术路径与以太坊的Solidity有根本区别。Solidity运行在以太坊虚拟机（EVM）上，采用账户模型，合约拥有持久化的链上状态。sCrypt则直接编译为比特币脚本，运行在UTXO模型上——合约的“状态“通过UTXO的链式传递来表达。第十四章已经论证过，UTXO模型的智能合约在并行处理能力上具有天然优势：不同的UTXO之间没有共享状态，可以被独立验证，不存在以太坊那种全局状态导致的串行化瓶颈。</p>
+<p>sCrypt生态中还包括一个值得注意的工具：Transpiler——一个可以将Solidity合约转换为sCrypt代码的编译器。这意味着以太坊上的现有合约逻辑，理论上可以被迁移到BSV上运行。当然，“理论上“和“实际上“之间的差距不容忽视——两种模型之间的根本差异意味着自动转换后的代码通常需要大量手动调整。</p>
+<p>sCrypt当前面临的核心挑战不是技术能力——它已经展示了在BSV上实现复杂智能合约的可行性——而是开发者社区的规模。在一个以太坊拥有数十万活跃开发者、Solidity教程遍布互联网的世界里，sCrypt的开发者社区仍然很小。BSV协会通过举办工作坊、发布教育资源和建设在线课程来吸引开发者，但生态的增长速度远不能与以太坊相比。</p>
+<p><strong>代币协议。</strong> 在BTC上，由于脚本能力被限制，代币协议（如BRC-20）不得不依赖一些“hack“式的方案来实现。在以太坊上，ERC-20和ERC-721标准依赖全局状态和账户模型。BSV的原生脚本能力支持在UTXO模型上直接实现代币系统——不需要额外的虚拟机层，不需要“inscription“式的数据嵌入，代币逻辑直接写在交易脚本中。</p>
+<p>BSV生态中已经出现了多种代币协议，包括STAS（基于智能合约的代币标准）、Tokenized（一个面向合规资产的代币化协议）等。这些协议利用BSV的完整脚本能力和大区块容量，可以在链上直接实现代币的发行、转让和管理，而不需要牺牲去中心化性或引入额外的信任假设。但与以太坊上成千上万的ERC-20代币和蓬勃的DeFi生态相比，BSV的代币生态仍处于早期阶段。</p>
+<p><strong>企业级应用。</strong> BSV的定位一直强调“企业级“——低交易费用、高吞吐量、大数据容量使其适合需要处理海量数据的商业场景。BSV协会明确将目标市场定位在金融支付、物流与物联网、医疗健康、供应链管理和政府应用等领域。</p>
+<p>在数据完整性方面，BSV的大区块和低费用使其可以作为一个不可篡改的数据公证层——企业将关键数据的哈希值写入BSV区块链，获得一个有时间戳、有工作量证明保护的存在证明。这比维护一个私有的“区块链“更有意义，因为公链的安全性不依赖于企业自身的诚实。</p>
+<p>在微支付方面，BSV的交易费用通常低于0.01美元（在2025年5月的压力测试中，平均每笔交易费用约为0.00137美元），这使得“按次付费“的商业模式成为可能——为每MB流量付费、为每次API调用付费、为每条数据记录付费。HandCash等钱包应用已经在探索这些方向，提供基于用户名（而非区块链地址）的即时支付，并向游戏和数字内容领域拓展。</p>
+<p>在物联网领域，BSV的低费用和高吞吐量使其成为机器对机器（M2M）微支付的潜在基础设施。设想一个由数十亿IoT设备组成的网络——传感器、智能电表、自动驾驶汽车——这些设备需要实时交换数据并为数据付费。每次数据交换的金额可能只有千分之一美分，但交易量可能达到每天数百亿笔。传统支付系统无法处理这种规模和粒度的交易——信用卡的最低手续费就足以让整个模式不可行。BSV的链上微支付架构理论上可以支撑这种场景。但“理论上“是关键词——截至目前，这些应用场景仍处于概念和原型阶段。</p>
+<p>我们必须诚实地面对一个事实：截至目前，BSV上的企业级应用大多还处于概念验证或早期部署阶段。与IBM的供应链区块链、微软的去中心化身份项目、或者以太坊上数百亿美元规模的DeFi协议相比，BSV的企业应用尚未产生具有行业影响力的标杆案例。技术能力的“可以做到“和商业落地的“已经做到“之间，存在巨大的鸿沟。这个鸿沟不是BSV独有的——整个区块链行业在企业级应用方面都面临类似的挑战——但BSV因为生态规模更小，这个鸿沟显得尤为突出。</p>
+<h2 id="坦诚面对现实技术正确不等于市场胜利"><a class="header" href="#坦诚面对现实技术正确不等于市场胜利">坦诚面对现实：技术正确不等于市场胜利</a></h2>
+<p>这是本章最重要的一节，也是这本书的知识诚信的试金石。</p>
+<p>截至2026年初，BSV的市值约在3亿美元左右，在加密货币市场排名约第100位上下。BTC的市值超过万亿美元。以太坊的市值超过千亿美元。BSV与这两个生态之间的差距，不是“有差距“，而是数量级的悬殊。</p>
+<p>BSV被币安、Kraken等主要交易所下架后，流动性大幅萎缩。虽然它仍然在OKX、HTX等交易所交易，并在2026年2月获得了受监管交易所LCX的上架，但与BTC和ETH在全球几乎每一个交易所都有交易对的普及度相比，BSV的可及性严重不足。</p>
+<p>在开发者社区方面，以太坊拥有数以万计的活跃开发者和数千个去中心化应用。BTC拥有一个庞大的、高度活跃的开源社区。BSV的开发者社区则小得多。GitHub上的代码活动、Stack Overflow上的问答数量、技术会议上的参与度——在所有这些衡量生态健康度的指标上，BSV都远远落后。</p>
+<p>在公众认知方面，BSV在主流加密货币讨论中几乎是隐形的。大多数加密货币投资者、分析师和媒体对BSV的认知，停留在“Craig Wright创建的那个分叉“的层面。技术上的论证——操作码恢复、区块限制移除、协议锁定——几乎从未进入主流讨论。</p>
+<p>为什么会这样？</p>
+<p>如果BSV在技术上最忠实于原始协议——而本书前面十五章论证了原始协议的设计是合理的、完整的、自洽的——那为什么市场如此冷淡？</p>
+<p>这个问题有多个层面的答案，每一个都值得认真对待。</p>
+<p><strong>第一，技术正确性和市场采用是两个不同维度的问题。</strong> 技术史上充满了“技术上更优但市场上失败“的案例。Betamax在画质上优于VHS，但VHS赢得了录像带战争。OS/2在技术设计上优于早期的Windows，但Windows凭借生态系统和商业策略占据了市场。TCP/IP甚至不是当时技术评价最高的网络协议栈，但它凭借开放性和实用性击败了OSI七层模型。</p>
+<p>市场竞争中，技术只是因素之一。网络效应、先发优势、品牌认知、生态系统的丰富度、进入门槛的高低——这些因素往往比技术本身更能决定胜负。BTC拥有“比特币“这个名字、十多年的品牌积累、全球最大的矿工网络、最广泛的交易所支持和最多的持有者。这些优势不是BSV通过“更忠实于白皮书“就能抵消的。</p>
+<p><strong>第二，交易所下架是一个毁灭性的打击。</strong> 在加密货币市场中，交易所是流动性的核心来源。一个不在主流交易所上市的代币，就像一只不在任何证券交易所挂牌的股票——无论公司基本面多好，投资者买不到就等于不存在。2019年的大规模下架从根本上切断了BSV进入主流投资者视野的通道。而下架的原因——Craig Wright的身份争议——与BSV的技术设计毫无关系。这是一个典型的“因人废事“的案例：BSV的协议设计不应该因为某个支持者的个人争议而被否定，但市场不会做这种理性的区分。</p>
+<p><strong>第三，“协议锁定“的哲学在快速迭代的行业中是逆潮流的。</strong> 加密货币行业的主流文化是“快速迭代、不断升级”。以太坊从PoW转向PoS，从单链转向分片，协议每隔几个月就有一次重大升级。在这种文化中，“我们要锁定协议，不再改变规则“听起来像是固步自封。但这恰恰是比特币原始设计的核心理念——协议是规则，规则不应该被规则制定者随意修改。这种理念在短期内看起来是劣势（缺乏“创新“的叙事），但在长期可能是优势（提供稳定的基础设施预期）。当然，“长期“到底有多长，没有人知道。</p>
+<p><strong>第四，BSV的叙事策略存在问题。</strong> “恢复中本聪的愿景“是一个技术性的叙事——它吸引的是那些深入研究过白皮书和原始协议的人。但这样的人在全球加密货币参与者中只占极小的比例。大多数人进入加密货币市场的动机是投资收益，而不是协议考古。BSV需要一个能够触及更广泛受众的价值主张——比如“每笔交易费用不到一美分“或“可以在链上存储任意数据”——但这些叙事在市场上的传播力度远远不及BTC的“数字黄金“或以太坊的“世界计算机“。</p>
+<p><strong>第五，生态系统存在“冷启动“困境。</strong> 开发者去用户多的平台，用户去应用多的平台，应用去开发者多的平台。这是一个典型的鸡生蛋问题。以太坊在2017-2020年间通过ICO热潮和DeFi爆发突破了这个困境——大量的资金涌入创造了大量的项目，大量的项目吸引了大量的开发者，大量的开发者创造了更多的工具和基础设施，形成了正向循环。BTC通过“数字黄金“叙事和机构投资者的涌入突破了这个困境——华尔街的认可带来了天量的资金流入，资金流入推高了价格，价格上涨吸引了更多的关注和参与。BSV还没有找到自己的“突破口“。Teranode的扩容能力、sCrypt的智能合约、微支付的经济模型——这些都是好的积木，但它们还没有组合出一个让普通用户无法拒绝的“杀手级应用“。</p>
+<p>冷启动困境对BSV来说尤其严峻，因为它的核心价值主张——“我们是真正的比特币”——本身就隐含着对BTC的否定。这意味着BSV不太可能从BTC的现有社区中获得支持，反而会招致敌意。而从其他生态中吸引用户和开发者，又需要提供超越现有平台的明确优势。BSV在技术层面确实具有优势——更低的费用、更大的区块、更完整的脚本能力——但这些优势对大多数终端用户来说是不可感知的。用户不关心他们的交易是在1MB的区块里还是在1GB的区块里处理的，他们只关心应用好不好用、资产安不安全、有没有人一起玩。</p>
+<h2 id="一个被忽视的数据点"><a class="header" href="#一个被忽视的数据点">一个被忽视的数据点</a></h2>
+<p>在讨论BSV的市场困境之前，有一个容易被忽视的数据值得记录。</p>
+<p>截至2025年中，BSV区块链的总数据量已经超过了BTC区块链——BSV约367GB，BTC约355GB。这个数字的含义是：一条市值不到BTC千分之一的区块链，在链上数据量上已经超过了BTC。</p>
+<p>这个反差揭示了两种截然不同的区块链使用模式。BTC的区块链主要记录的是简单的价值转移交易——从地址A转账到地址B。由于1MB的区块限制和越来越高的交易费用，BTC区块链上除了转账之外几乎没有其他类型的数据。而BSV由于取消了区块大小限制和交易费用极低，链上不仅有转账交易，还有大量的数据存储——文件哈希、应用状态、日志记录等。</p>
+<p>当然，这个数据点也需要被诚实地解读。BSV链上数据量的很大一部分来自压力测试和自动化工具生成的交易，而非有机的用户需求。数据量大不等于有效使用量大。但它至少证明了一件事：BSV的链上扩容不仅仅是理论上的可能性，它已经在实践中发生了。一条区块链确实可以处理比BTC更多的数据，而且天没有塌下来——网络没有崩溃，节点没有因为存储压力而退出，矿工没有因为大区块而无法同步。</p>
+<p>这是一个重要的工程验证，即使市场对此视而不见。</p>
+<h2 id="一个工程判断"><a class="header" href="#一个工程判断">一个工程判断</a></h2>
+<p>让我们回到本书的核心框架来总结这一章。</p>
+<p>本书的前两部分——歧路和正本——建立了一个评价区块链项目的技术参照系：白皮书定义了什么是比特币，以及比特币为什么被这样设计。在这个参照系下，评价BSV可以从两个独立的维度展开。</p>
+<p>在“协议忠实度“的维度上，BSV的表现是所有现存分叉中最好的。Genesis升级恢复了操作码，移除了区块大小限制，取消了脚本层面的人为限制。Chronicle升级将完成最后的恢复工作并锁定协议。Teranode的微服务架构证明了链上扩容在工程上的可行性。sCrypt展示了UTXO模型智能合约的技术潜力。这些工作在技术层面上是严肃的、有实质的、方向正确的。</p>
+<p>在“生态健康度“的维度上，BSV的表现远不能令人满意。市值排名百名开外，主要交易所缺席，开发者社区规模有限，企业级应用尚未产生标杆案例，公众认知被人物争议严重干扰。这些问题是真实的、严重的，不会因为“技术上是对的“就自动消失。</p>
+<p>一个理性的评价应该同时承认两个事实：BSV在协议恢复方面做了正确的工程工作；BSV在市场采用方面面临巨大的挑战。这两个判断并不矛盾。技术正确性是市场成功的必要条件之一，但远不是充分条件。一个协议设计再完美，如果没有人使用它，它就只是一组运行在少数服务器上的代码。一个生态再繁荣，如果它建立在有缺陷的基础架构上，它的繁荣就是脆弱的。理想的状态是技术正确性与市场采用的统一——但现实世界很少如此理想。</p>
+<p>有人可能会问：如果BSV的技术方向是正确的，但市场不买账，那“正确“还有什么意义？</p>
+<p>这个问题的答案取决于你的时间尺度。</p>
+<p>在短期内——一年、三年、五年——市场认知、叙事力量和生态网络效应是决定性因素。在这个时间尺度上，BTC的“数字黄金“叙事和以太坊的“智能合约平台“叙事远比BSV的“原始协议“叙事更有力量。BSV的市场地位在可预见的未来不太可能发生根本性改变。</p>
+<p>但如果我们把时间尺度拉长——十年、二十年、五十年——那么基础架构的正确性就变得更加重要。互联网协议栈最终胜出的不是最初最流行的方案，而是设计最合理的方案。TCP/IP在1980年代远不如IBM的SNA或DEC的DECnet流行，但它的开放性和可扩展性最终使它成为全球互联网的基础。当然，这种类比有其局限性——加密货币的竞争动态与网络协议的竞争动态并不完全相同。网络协议的竞争最终由技术实用性决定，而加密货币的竞争还涉及金融投机、监管政策、社区文化等更多维度。历史不会简单地重复。</p>
+<p>本书不做预测。预测是分析师的工作，不是技术作者的工作。本书只做事实记录和逻辑分析。事实是：BSV在技术上恢复了比特币的原始协议，在工程上证明了链上扩容的可行性。事实也是：BSV的市场地位、生态规模和公众认知远远落后于主流竞争者。这两组事实并存，不需要用一组去否定另一组。</p>
+<p>读者可以自行判断：在一个“技术正确“和“市场流行“并不一致的世界里，哪个因素最终会占据上风。但无论判断如何，理解BSV在做什么、做到了什么、以及它面临的真实挑战，是形成任何有意义判断的前提。</p>
+<p>这正是本章试图提供的。</p>
+<p>有一件事是确定的：无论BSV的市场命运如何，它的技术路径本身具有独立的价值——它证明了比特币的原始协议不仅仅是一份2008年的历史文档，而是一个至今仍然可以被实施、可以被扩展、可以承载大规模应用的技术架构。即使BSV作为一个市场实体最终未能突破当前的困境，它所做的工程工作——恢复操作码、移除区块限制、实现微服务扩容——也为理解比特币的原始设计提供了不可替代的实践证据。</p>
+<p>下一章将从BSV的具体实践中抽身出来，回到一个更宏观的问题：在中本聪离开之后的十几年里，比特币世界发生的一切——分裂、偏离、尝试回归——给我们留下了什么教训？比特币的未来，到底取决于什么？</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="15-btc-deviation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="17-global-ledger.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="15-btc-deviation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="17-global-ledger.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>
