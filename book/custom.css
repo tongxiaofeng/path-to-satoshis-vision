@@ -65,6 +65,14 @@ blockquote p {
     font-size: inherit;
 }
 
+/* Force right-buttons to horizontal row */
+.right-buttons {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 4px;
+}
+
 /* ===== Font size adjuster — integrated with mdBook toolbar ===== */
 #font-size-adjuster {
     display: flex;
