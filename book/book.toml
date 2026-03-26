@@ -15,3 +15,4 @@ git-repository-url = "https://github.com/tongxiaofeng/path-to-satoshis-vision"
 edit-url-template = "https://github.com/tongxiaofeng/path-to-satoshis-vision/edit/main/chapters/{path}"
 no-section-label = false
 additional-css = ["custom.css"]
+additional-js = ["font-adjuster.js"]
